@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://d1eh41t41e046"]
+
+[ext_resource type="PackedScene" uid="uid://boo6eg5sxipfe" path="res://plane/plane.tscn" id="1_6xmxd"]
+[ext_resource type="Script" uid="uid://dlefwo52g4du" path="res://world/camera.gd" id="2_4717r"]
+[ext_resource type="Texture2D" uid="uid://dikorqbfipcwc" path="res://world/runway.png" id="2_tcf2h"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_tcf2h"]
+sky_material = SubResource("ProceduralSkyMaterial_6xmxd")
+
+[sub_resource type="Environment" id="Environment_4717r"]
+background_mode = 2
+sky = SubResource("Sky_tcf2h")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g312j"]
+size = Vector3(1000, 4, 1000)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6xmxd"]
+frequency = 0.015
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tcf2h"]
+noise = SubResource("FastNoiseLite_6xmxd")
+seamless = true
+as_normal_map = true
+bump_strength = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4717r"]
+albedo_color = Color(0.5137255, 1, 0.42745098, 1)
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_tcf2h")
+
+[sub_resource type="BoxMesh" id="BoxMesh_6xmxd"]
+material = SubResource("StandardMaterial3D_4717r")
+size = Vector3(1000, 1, 1000)
+
+[node name="World" type="Node3D" unique_id=601031772]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=945856053]
+environment = SubResource("Environment_4717r")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1972661740]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=325455908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -184.97052, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1765233848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+shape = SubResource("BoxShape3D_g312j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1106800353]
+mesh = SubResource("BoxMesh_6xmxd")
+
+[node name="Plane" parent="." unique_id=17626063 instance=ExtResource("1_6xmxd")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2.935842, -205.58424)
+
+[node name="Camera3D" type="Camera3D" parent="Plane" unique_id=1203713217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.490741e-07, 1.1592698, 0.010818481)
+current = true
+far = 10000.0
+script = ExtResource("2_4717r")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=165656328]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.51, 0)
+pixel_size = 0.3
+shaded = true
+double_sided = false
+texture = ExtResource("2_tcf2h")

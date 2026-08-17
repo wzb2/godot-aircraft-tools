@@ -1,0 +1,863 @@
+[gd_scene format=3 uid="uid://boo6eg5sxipfe"]
+
+[ext_resource type="Script" uid="uid://3iji867c81k5" path="res://addons/godot_aerodynamic_physics/core/aero_body_3d.gd" id="1_r6b4u"]
+[ext_resource type="Script" uid="uid://cc5dwx5pqkaur" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_component.gd" id="2_h2q6m"]
+[ext_resource type="Script" uid="uid://b4xqlunpiyivk" path="res://addons/godot_aerodynamic_physics/utils/pid.gd" id="3_rfirh"]
+[ext_resource type="Script" uid="uid://cdp8dc63ytxx1" path="res://addons/godot_aerodynamic_physics/core/flight_assist.gd" id="4_j2fql"]
+[ext_resource type="Script" uid="uid://dfbhcpt1rr3ai" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config_axis.gd" id="5_drk06"]
+[ext_resource type="Script" uid="uid://cbgqb7g7mmwtu" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config.gd" id="6_hy5e4"]
+[ext_resource type="Script" uid="uid://d1725od371u4a" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/manual_aero_surface_3d/manual_aero_surface_3d.gd" id="7_drk06"]
+[ext_resource type="Script" uid="uid://ctbwb7xlhft6t" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/manual_aero_surface_3d/manual_aero_surface_config.gd" id="8_hy5e4"]
+[ext_resource type="Script" uid="uid://crkbhmxpjff4o" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/aero_surface_config.gd" id="9_mq3ua"]
+[ext_resource type="Script" uid="uid://c46td0go5kvp6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_axis_config.gd" id="10_mq3ua"]
+[ext_resource type="Script" uid="uid://cblxodmmwvpt6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_config.gd" id="11_gvgkk"]
+[ext_resource type="Script" uid="uid://bsu5rdrtiqph7" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_mover_3d/aero_propeller_3d.gd" id="12_gvgkk"]
+[ext_resource type="Script" uid="uid://b2ddtcfwxfrxe" path="res://plane/input_display/input_display_3d.gd" id="13_xw1vv"]
+[ext_resource type="Script" uid="uid://coiexydt6nf2r" path="res://plane/input_display/input_display_axis.gd" id="14_i48hm"]
+[ext_resource type="PackedScene" uid="uid://dok53wy0bkhyw" path="res://plane/instruments/artificial_horizon/artificial_horizon.tscn" id="15_uciay"]
+[ext_resource type="Script" uid="uid://bp8fw7kd04a4w" path="res://plane/instruments/dial/dial.gd" id="16_caylq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gvgkk"]
+friction = 0.5
+
+[sub_resource type="Resource" id="Resource_gvgkk"]
+script = ExtResource("3_rfirh")
+p = 0.001
+i = 0.0
+d = 0.01
+
+[sub_resource type="Resource" id="Resource_xw1vv"]
+script = ExtResource("3_rfirh")
+i = 0.05
+d = 0.1
+
+[sub_resource type="Resource" id="Resource_i48hm"]
+script = ExtResource("3_rfirh")
+p = 10.0
+i = 0.3
+d = 4.0
+
+[sub_resource type="Resource" id="Resource_uciay"]
+script = ExtResource("3_rfirh")
+p = 0.8
+i = 0.0
+
+[sub_resource type="Resource" id="Resource_caylq"]
+script = ExtResource("3_rfirh")
+p = 25.0
+i = 0.0
+
+[sub_resource type="Resource" id="Resource_1aykh"]
+script = ExtResource("3_rfirh")
+p = 10.0
+i = 0.0
+
+[sub_resource type="Resource" id="Resource_1wqyx"]
+script = ExtResource("3_rfirh")
+p = 10.0
+i = 0.0
+
+[sub_resource type="Resource" id="Resource_lcfy3"]
+script = ExtResource("3_rfirh")
+p = 0.2
+i = 0.0
+clamp_integral = true
+
+[sub_resource type="Resource" id="Resource_lbrwg"]
+script = ExtResource("3_rfirh")
+p = 0.2
+i = 0.15
+clamp_integral = true
+
+[sub_resource type="Resource" id="Resource_lcyg8"]
+script = ExtResource("3_rfirh")
+p = 0.0
+i = 0.4
+
+[sub_resource type="Resource" id="Resource_8vlmv"]
+script = ExtResource("3_rfirh")
+p = 0.2
+i = 0.0
+
+[sub_resource type="Resource" id="Resource_cpk0g"]
+script = ExtResource("4_j2fql")
+enable_flight_assist_x = false
+pitch_assist_pid = SubResource("Resource_lcfy3")
+enable_flight_assist_y = false
+yaw_assist_pid = SubResource("Resource_8vlmv")
+roll_assist_pid = SubResource("Resource_lbrwg")
+enable_g_limiter = false
+enable_aoa_limiter = false
+enable_control_adjustment = false
+bank_angle_pid = SubResource("Resource_xw1vv")
+heading_pid = SubResource("Resource_1aykh")
+inclination_pid = SubResource("Resource_1wqyx")
+speed_pid = SubResource("Resource_lcyg8")
+altitude_pid = SubResource("Resource_gvgkk")
+direction_pitch_pid = SubResource("Resource_i48hm")
+direction_yaw_pid = SubResource("Resource_caylq")
+direction_roll_pid = SubResource("Resource_uciay")
+metadata/_custom_type_script = "uid://cdp8dc63ytxx1"
+
+[sub_resource type="Resource" id="Resource_8kian"]
+resource_name = "pitch"
+script = ExtResource("5_drk06")
+axis_name = "pitch"
+positive_event = &"pitch_down"
+negative_event = &"pitch_up"
+enable_smoothing = true
+smoothing_rate = 6.0
+
+[sub_resource type="Resource" id="Resource_h1rv3"]
+resource_name = "yaw"
+script = ExtResource("5_drk06")
+axis_name = "yaw"
+positive_event = &"yaw_right"
+negative_event = &"yaw_left"
+enable_smoothing = true
+smoothing_rate = 6.0
+
+[sub_resource type="Resource" id="Resource_12kbe"]
+resource_name = "roll"
+script = ExtResource("5_drk06")
+axis_name = "roll"
+positive_event = &"roll_left"
+negative_event = &"roll_right"
+enable_smoothing = true
+smoothing_rate = 6.0
+
+[sub_resource type="Resource" id="Resource_0l1d3"]
+resource_name = "throttle"
+script = ExtResource("5_drk06")
+axis_name = "throttle"
+min_limit = 0.0
+cumulative_positive_event = &"throttle_up"
+cumulative_negative_event = &"throttle_down"
+cumulative_rate = 0.8
+
+[sub_resource type="Resource" id="Resource_5tqsg"]
+resource_name = "brake"
+script = ExtResource("5_drk06")
+axis_name = "brake"
+min_limit = 0.0
+
+[sub_resource type="Resource" id="Resource_drk06"]
+resource_name = "flaps"
+script = ExtResource("5_drk06")
+axis_name = "flaps"
+min_limit = 0.0
+cumulative_positive_event = &"flaps_down"
+cumulative_negative_event = &"flaps_up"
+
+[sub_resource type="Resource" id="Resource_328q4"]
+script = ExtResource("6_hy5e4")
+axis_configs = Array[ExtResource("5_drk06")]([SubResource("Resource_8kian"), SubResource("Resource_h1rv3"), SubResource("Resource_12kbe"), SubResource("Resource_0l1d3"), SubResource("Resource_5tqsg"), SubResource("Resource_drk06")])
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h2q6m"]
+radius = 0.6
+height = 8.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rfirh"]
+size = Vector3(10.5, 0.2, 1.6199951)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gvgkk"]
+size = Vector3(4.5, 0.2, 0.9042969)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xw1vv"]
+size = Vector3(0.2, 1.5, 1.36)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gvgkk"]
+radius = 0.15
+height = 0.75
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xw1vv"]
+radius = 0.15
+height = 0.75
+radial_segments = 8
+rings = 2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_j2fql"]
+radius = 0.6
+height = 8.0
+radial_segments = 8
+rings = 2
+
+[sub_resource type="Curve" id="Curve_328q4"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_0ambj"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_brm6c"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_wsq3n"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_2jdxk"]
+script = ExtResource("8_hy5e4")
+lift_aoa_curve = SubResource("Curve_brm6c")
+drag_aoa_curve = SubResource("Curve_328q4")
+sweep_drag_multiplier_curve = SubResource("Curve_wsq3n")
+drag_at_mach_multiplier_curve = SubResource("Curve_0ambj")
+
+[sub_resource type="Resource" id="Resource_mabnl"]
+script = ExtResource("9_mq3ua")
+chord = 0.5
+area = 1.0
+aspect_ratio = 4.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_j2fql"]
+size = Vector3(2, 0.2, 0.5)
+
+[sub_resource type="Curve" id="Curve_x1nly"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_77ybu"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_p5mw2"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_2lw4s"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_ejdmt"]
+script = ExtResource("8_hy5e4")
+lift_aoa_curve = SubResource("Curve_p5mw2")
+drag_aoa_curve = SubResource("Curve_x1nly")
+sweep_drag_multiplier_curve = SubResource("Curve_2lw4s")
+drag_at_mach_multiplier_curve = SubResource("Curve_77ybu")
+
+[sub_resource type="Resource" id="Resource_1uwxh"]
+script = ExtResource("9_mq3ua")
+chord = 0.5
+area = 1.0
+aspect_ratio = 4.0
+
+[sub_resource type="Resource" id="Resource_x1nly"]
+resource_name = "pitch"
+script = ExtResource("10_mq3ua")
+axis_name = "pitch"
+contribution = Vector3(0.5, 0, 0)
+
+[sub_resource type="Resource" id="Resource_77ybu"]
+script = ExtResource("11_gvgkk")
+axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_x1nly")])
+max_value = Vector3(0.5, 0, 0)
+min_value = Vector3(-0.5, 0, 0)
+metadata/_custom_type_script = "uid://cblxodmmwvpt6"
+
+[sub_resource type="BoxMesh" id="BoxMesh_gvgkk"]
+size = Vector3(2, 0.2, 0.5)
+
+[sub_resource type="Curve" id="Curve_lcyg8"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_8vlmv"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_8kian"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_h1rv3"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_tmwg7"]
+script = ExtResource("8_hy5e4")
+lift_aoa_curve = SubResource("Curve_8kian")
+drag_aoa_curve = SubResource("Curve_lcyg8")
+sweep_drag_multiplier_curve = SubResource("Curve_h1rv3")
+drag_at_mach_multiplier_curve = SubResource("Curve_8vlmv")
+
+[sub_resource type="Resource" id="Resource_3hnc0"]
+script = ExtResource("9_mq3ua")
+span = 1.5
+area = 1.5
+aspect_ratio = 1.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_drk06"]
+size = Vector3(0.2, 1.5, 1)
+
+[sub_resource type="Curve" id="Curve_12kbe"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_0l1d3"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_5tqsg"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_cpk0g"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_ph2pt"]
+script = ExtResource("8_hy5e4")
+lift_aoa_curve = SubResource("Curve_5tqsg")
+drag_aoa_curve = SubResource("Curve_12kbe")
+sweep_drag_multiplier_curve = SubResource("Curve_cpk0g")
+drag_at_mach_multiplier_curve = SubResource("Curve_0l1d3")
+
+[sub_resource type="Resource" id="Resource_uv1s1"]
+script = ExtResource("9_mq3ua")
+chord = 0.5
+span = 1.5
+area = 0.75
+aspect_ratio = 3.0
+
+[sub_resource type="Resource" id="Resource_p5mw2"]
+resource_name = "yaw"
+script = ExtResource("10_mq3ua")
+axis_name = "yaw"
+contribution = Vector3(0.5, 0, 0)
+
+[sub_resource type="Resource" id="Resource_2lw4s"]
+script = ExtResource("11_gvgkk")
+axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_p5mw2")])
+max_value = Vector3(0.5, 0, 0)
+min_value = Vector3(-0.5, 0, 0)
+metadata/_custom_type_script = "uid://cblxodmmwvpt6"
+
+[sub_resource type="BoxMesh" id="BoxMesh_xw1vv"]
+size = Vector3(0.2, 1.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_gvgkk"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_xw1vv"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_i48hm"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_uciay"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_0ambj"]
+script = ExtResource("8_hy5e4")
+lift_aoa_curve = SubResource("Curve_i48hm")
+drag_aoa_curve = SubResource("Curve_gvgkk")
+sweep_drag_multiplier_curve = SubResource("Curve_uciay")
+drag_at_mach_multiplier_curve = SubResource("Curve_xw1vv")
+
+[sub_resource type="Resource" id="Resource_brm6c"]
+script = ExtResource("9_mq3ua")
+chord = 1.5
+span = 5.0
+area = 7.5
+aspect_ratio = 3.3333333333333335
+
+[sub_resource type="BoxMesh" id="BoxMesh_rfirh"]
+size = Vector3(5, 0.2, 1.5)
+
+[sub_resource type="Curve" id="Curve_1aykh"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_1wqyx"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_lcfy3"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_lbrwg"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_8dpv0"]
+script = ExtResource("8_hy5e4")
+lift_aoa_curve = SubResource("Curve_lcfy3")
+drag_aoa_curve = SubResource("Curve_1aykh")
+sweep_drag_multiplier_curve = SubResource("Curve_lbrwg")
+drag_at_mach_multiplier_curve = SubResource("Curve_1wqyx")
+
+[sub_resource type="Resource" id="Resource_ldf84"]
+script = ExtResource("9_mq3ua")
+chord = 0.5
+span = 2.5
+area = 1.25
+aspect_ratio = 5.0
+
+[sub_resource type="Resource" id="Resource_8ksoj"]
+resource_name = "flaps"
+script = ExtResource("10_mq3ua")
+axis_name = "flaps"
+contribution = Vector3(1, 0, 0)
+
+[sub_resource type="Resource" id="Resource_xyjgw"]
+script = ExtResource("11_gvgkk")
+axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_8ksoj")])
+use_separate_minmax = true
+max_value = Vector3(1, 0, 0)
+metadata/_custom_type_script = "uid://cblxodmmwvpt6"
+
+[sub_resource type="BoxMesh" id="BoxMesh_mq3ua"]
+size = Vector3(2.5, 0.2, 0.5)
+
+[sub_resource type="Curve" id="Curve_drk06"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_hy5e4"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_mq3ua"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_caylq"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_wsq3n"]
+script = ExtResource("8_hy5e4")
+lift_aoa_curve = SubResource("Curve_mq3ua")
+drag_aoa_curve = SubResource("Curve_drk06")
+sweep_drag_multiplier_curve = SubResource("Curve_caylq")
+drag_at_mach_multiplier_curve = SubResource("Curve_hy5e4")
+
+[sub_resource type="Resource" id="Resource_646km"]
+script = ExtResource("9_mq3ua")
+chord = 0.5
+span = 2.5
+area = 1.25
+aspect_ratio = 5.0
+
+[sub_resource type="Resource" id="Resource_prqts"]
+resource_name = "roll"
+script = ExtResource("10_mq3ua")
+axis_name = "roll"
+contribution = Vector3(0.5, 0, 0)
+axis_flip_x = 1
+
+[sub_resource type="Resource" id="Resource_jaqg5"]
+script = ExtResource("11_gvgkk")
+axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_prqts")])
+max_value = Vector3(0.5, 0, 0)
+min_value = Vector3(-0.5, 0, 0)
+metadata/_custom_type_script = "uid://cblxodmmwvpt6"
+
+[sub_resource type="Resource" id="Resource_0f7jt"]
+resource_name = "throttle"
+script = ExtResource("10_mq3ua")
+axis_name = "throttle"
+contribution = Vector3(1, 1, 1)
+
+[sub_resource type="Resource" id="Resource_a7hqp"]
+script = ExtResource("11_gvgkk")
+axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_0f7jt")])
+use_separate_minmax = true
+max_value = Vector3(0, 300, 0)
+
+[sub_resource type="Curve" id="Curve_646km"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_8dpv0"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_ldf84"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_tmwg7"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_r55ar"]
+script = ExtResource("8_hy5e4")
+lift_aoa_curve = SubResource("Curve_ldf84")
+drag_aoa_curve = SubResource("Curve_646km")
+sweep_drag_multiplier_curve = SubResource("Curve_tmwg7")
+drag_at_mach_multiplier_curve = SubResource("Curve_8dpv0")
+
+[sub_resource type="Resource" id="Resource_wb481"]
+script = ExtResource("9_mq3ua")
+chord = 0.19999999999999998
+span = 1.0
+area = 0.19999999999999998
+aspect_ratio = 5.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_hy5e4"]
+size = Vector3(0.2, 1, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gvgkk"]
+albedo_color = Color(0.137255, 0.156863, 0.180392, 1)
+roughness = 0.8
+
+[sub_resource type="Resource" id="Resource_a75be"]
+script = ExtResource("14_i48hm")
+positive_event = &"roll_right"
+negative_event = &"roll_left"
+linear_range_of_motion = Vector3(0.02, 0, 0)
+angular_range_of_motion = Vector3(0, 0, -10)
+metadata/_custom_type_script = "uid://coiexydt6nf2r"
+
+[sub_resource type="Resource" id="Resource_pspd0"]
+script = ExtResource("14_i48hm")
+positive_event = &"pitch_up"
+negative_event = &"pitch_down"
+linear_range_of_motion = Vector3(0, 0, 0.02)
+angular_range_of_motion = Vector3(10, 0, 0)
+metadata/_custom_type_script = "uid://coiexydt6nf2r"
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_i48hm"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.3
+
+[sub_resource type="Resource" id="Resource_138ia"]
+script = ExtResource("14_i48hm")
+control_config_axis = &"throttle"
+linear_range_of_motion = Vector3(0, 0, -0.1)
+angular_range_of_motion = Vector3(-10, 0, 0)
+metadata/_custom_type_script = "uid://coiexydt6nf2r"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1aykh"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1wqyx"]
+size = Vector2(3, 30)
+
+[node name="Plane" type="VehicleBody3D" unique_id=17626063]
+collision_layer = 16385
+mass = 1000.0
+physics_material_override = SubResource("PhysicsMaterial_gvgkk")
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0.4, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_r6b4u")
+metadata/_custom_type_script = "uid://3iji867c81k5"
+
+[node name="AeroControlComponent" type="Node" parent="." unique_id=306209779]
+script = ExtResource("2_h2q6m")
+flight_assist = SubResource("Resource_cpk0g")
+control_config = SubResource("Resource_328q4")
+metadata/_custom_type_script = "uid://cc5dwx5pqkaur"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=13855041]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.32603633, 1.0908206)
+shape = SubResource("CapsuleShape3D_h2q6m")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1239799632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.16004562)
+shape = SubResource("BoxShape3D_rfirh")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=1276200498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.619, 4.5032845)
+shape = SubResource("BoxShape3D_gvgkk")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=477979196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4453652, 4.5107193)
+shape = SubResource("BoxShape3D_xw1vv")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="." unique_id=1957048566]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.8745872, -0.7746153, -0.35489148)
+shape = SubResource("CapsuleShape3D_gvgkk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D5" unique_id=2111735784]
+mesh = SubResource("CapsuleMesh_xw1vv")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="." unique_id=1869726125]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.875, -0.775, -0.355)
+shape = SubResource("CapsuleShape3D_gvgkk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D6" unique_id=538138990]
+mesh = SubResource("CapsuleMesh_xw1vv")
+
+[node name="Fuselage" type="CSGMesh3D" parent="." unique_id=1069017080]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.32603633, 1.0908206)
+mesh = SubResource("CapsuleMesh_j2fql")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Fuselage" unique_id=793521916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.3386283, -0.3496098)
+operation = 2
+height = 1.5
+
+[node name="HorizontalStabilizer" type="Node3D" parent="." unique_id=904863724]
+transform = Transform3D(1, 0, 0, 0, 0.9998477, 0.017452406, 0, -0.017452406, 0.9998477, 1.3077629, 0.6185589, 4.262321)
+script = ExtResource("7_drk06")
+manual_config = SubResource("Resource_2jdxk")
+wing_config = SubResource("Resource_mabnl")
+mirror_axis = 1
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="HorizontalStabilizer" type="MeshInstance3D" parent="HorizontalStabilizer" unique_id=773437234]
+mesh = SubResource("BoxMesh_j2fql")
+
+[node name="Elevator" type="Node3D" parent="HorizontalStabilizer" unique_id=998514997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.54134274)
+script = ExtResource("7_drk06")
+manual_config = SubResource("Resource_ejdmt")
+wing_config = SubResource("Resource_1uwxh")
+actuation_config = SubResource("Resource_77ybu")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="Elevator" type="MeshInstance3D" parent="HorizontalStabilizer/Elevator" unique_id=414553857]
+mesh = SubResource("BoxMesh_gvgkk")
+
+[node name="VerticalStabilizer" type="Node3D" parent="." unique_id=1485918814]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 1.4453652, 4.328804)
+script = ExtResource("7_drk06")
+manual_config = SubResource("Resource_tmwg7")
+wing_config = SubResource("Resource_3hnc0")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="VerticalStabilizer" type="MeshInstance3D" parent="VerticalStabilizer" unique_id=1044844831]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_drk06")
+
+[node name="Rudder" type="Node3D" parent="VerticalStabilizer" unique_id=2107148831]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8236704)
+script = ExtResource("7_drk06")
+manual_config = SubResource("Resource_ph2pt")
+wing_config = SubResource("Resource_uv1s1")
+actuation_config = SubResource("Resource_2lw4s")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="Rudder" type="MeshInstance3D" parent="VerticalStabilizer/Rudder" unique_id=1280515355]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_xw1vv")
+
+[node name="Wing" type="Node3D" parent="." unique_id=1521705499]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8905277, 0, -0.46993196)
+script = ExtResource("7_drk06")
+manual_config = SubResource("Resource_0ambj")
+wing_config = SubResource("Resource_brm6c")
+mirror_axis = 1
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="Wing" type="MeshInstance3D" parent="Wing" unique_id=1029554355]
+mesh = SubResource("BoxMesh_rfirh")
+
+[node name="Flap" type="Node3D" parent="Wing" unique_id=1268850936]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3080654, 0, 1.0418414)
+script = ExtResource("7_drk06")
+manual_config = SubResource("Resource_8dpv0")
+wing_config = SubResource("Resource_ldf84")
+actuation_config = SubResource("Resource_xyjgw")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="Flap" type="MeshInstance3D" parent="Wing/Flap" unique_id=169964367]
+mesh = SubResource("BoxMesh_mq3ua")
+
+[node name="Aileron" type="Node3D" parent="Wing" unique_id=1707740230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.242732, 0, 1.0418414)
+script = ExtResource("7_drk06")
+manual_config = SubResource("Resource_wsq3n")
+wing_config = SubResource("Resource_646km")
+actuation_config = SubResource("Resource_jaqg5")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="Aileron" type="MeshInstance3D" parent="Wing/Aileron" unique_id=2037602158]
+mesh = SubResource("BoxMesh_mq3ua")
+
+[node name="AeroPropeller3D" type="Node3D" parent="." unique_id=1834958851 node_paths=PackedStringArray("propeller_blade")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.41058022, -3.0131655)
+script = ExtResource("12_gvgkk")
+propeller_blade = NodePath("ManualAeroSurface3D")
+propeller_speed_control_config = SubResource("Resource_a7hqp")
+show_torque = true
+show_lift = false
+show_thrust = true
+metadata/_custom_type_script = "uid://bsu5rdrtiqph7"
+
+[node name="ManualAeroSurface3D" type="Node3D" parent="AeroPropeller3D" unique_id=2130897060]
+transform = Transform3D(1, 0, 0, 0, 0.7071067, -0.7071067, 0, 0.7071067, 0.7071067, 0.55, 0, 0)
+script = ExtResource("7_drk06")
+manual_config = SubResource("Resource_r55ar")
+wing_config = SubResource("Resource_wb481")
+show_torque = true
+show_lift = false
+show_thrust = true
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="Propeller" type="MeshInstance3D" parent="AeroPropeller3D/ManualAeroSurface3D" unique_id=460347826]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 1.9106855e-15, -1, 1, -4.371139e-08, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_hy5e4")
+
+[node name="VehicleWheel3D" type="VehicleWheel3D" parent="." unique_id=702078141]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.38472402, 5.193246)
+brake = 10.0
+wheel_radius = 0.155
+suspension_travel = 0.15
+suspension_stiffness = 200.0
+suspension_max_force = 1000000.0
+damping_compression = 6.0
+damping_relaxation = 5.0
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VehicleWheel3D" unique_id=2142404581]
+transform = Transform3D(-4.37114e-08, 1, -8.74228e-08, -1, -4.37114e-08, -8.74228e-08, -8.74228e-08, 8.74228e-08, 1, 0, 0, 0)
+radius = 0.147615
+height = 0.107076
+sides = 16
+material = SubResource("StandardMaterial3D_gvgkk")
+
+[node name="VehicleWheel3D2" type="VehicleWheel3D" parent="." unique_id=820997367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8745872, -0.99318975, -0.35489148)
+brake = 10.0
+wheel_radius = 0.155
+suspension_travel = 0.15
+suspension_stiffness = 200.0
+suspension_max_force = 1000000.0
+damping_compression = 6.0
+damping_relaxation = 5.0
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VehicleWheel3D2" unique_id=1911628730]
+transform = Transform3D(-4.37114e-08, 1, -8.74228e-08, -1, -4.37114e-08, -8.74228e-08, -8.74228e-08, 8.74228e-08, 1, 0, 0, 0)
+radius = 0.147615
+height = 0.107076
+sides = 16
+material = SubResource("StandardMaterial3D_gvgkk")
+
+[node name="VehicleWheel3D3" type="VehicleWheel3D" parent="." unique_id=25145151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.875, -0.9930406, -0.3548532)
+brake = 10.0
+wheel_radius = 0.155
+suspension_travel = 0.15
+suspension_stiffness = 200.0
+suspension_max_force = 1000000.0
+damping_compression = 6.0
+damping_relaxation = 5.0
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="VehicleWheel3D3" unique_id=402113702]
+transform = Transform3D(-4.37114e-08, 1, -8.74228e-08, -1, -4.37114e-08, -8.74228e-08, -8.74228e-08, 8.74228e-08, 1, 0, 0, 0)
+radius = 0.147615
+height = 0.107076
+sides = 16
+material = SubResource("StandardMaterial3D_gvgkk")
+
+[node name="StickInputDisplay3D" type="Node3D" parent="." unique_id=1585412894]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20656028, 0.33996224, -0.8316309)
+script = ExtResource("13_xw1vv")
+axis_configs = Array[ExtResource("14_i48hm")]([SubResource("Resource_a75be"), SubResource("Resource_pspd0")])
+metadata/_custom_type_script = "uid://b2ddtcfwxfrxe"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StickInputDisplay3D" unique_id=820444702]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+mesh = SubResource("CylinderMesh_i48hm")
+
+[node name="ThrottleInputDisplay3D2" type="Node3D" parent="." unique_id=437450453 node_paths=PackedStringArray("control_component")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18164456, 0.33996224, -0.8316309)
+script = ExtResource("13_xw1vv")
+control_component = NodePath("../AeroControlComponent")
+axis_configs = Array[ExtResource("14_i48hm")]([SubResource("Resource_138ia")])
+metadata/_custom_type_script = "uid://b2ddtcfwxfrxe"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ThrottleInputDisplay3D2" unique_id=611937706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+mesh = SubResource("CylinderMesh_i48hm")
+
+[node name="ArtificialHorizon" parent="." unique_id=1162501207 instance=ExtResource("15_uciay")]
+transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -0.99999994, 0, 0.80794364, -0.99946994)
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1629865305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5332019, -0.9918924)
+pixel_size = 0.0025
+texture = SubResource("ViewportTexture_1aykh")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=2015088134]
+size = Vector2i(400, 300)
+
+[node name="InstrumentPanel" type="Node2D" parent="Sprite3D/SubViewport" unique_id=1156833798]
+
+[node name="Dial2D" type="Node2D" parent="Sprite3D/SubViewport/InstrumentPanel" unique_id=346341429 node_paths=PackedStringArray("target_node")]
+position = Vector2(100, 100)
+script = ExtResource("16_caylq")
+target_node = NodePath("../../../..")
+get_value_expression = "air_speed"
+amount_per_turn = 100.0
+metadata/_custom_type_script = "uid://bp8fw7kd04a4w"
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel/Dial2D" unique_id=876582190]
+texture = SubResource("PlaceholderTexture2D_1wqyx")
+offset = Vector2(0, -30)
