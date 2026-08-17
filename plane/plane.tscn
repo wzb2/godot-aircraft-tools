@@ -604,8 +604,26 @@ metadata/_custom_type_script = "uid://coiexydt6nf2r"
 [sub_resource type="ViewportTexture" id="ViewportTexture_1aykh"]
 viewport_path = NodePath("Sprite3D/SubViewport")
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1wqyx"]
+[sub_resource type="Gradient" id="Gradient_caylq"]
+offsets = PackedFloat32Array(0.64775413, 0.65011823)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1aykh"]
+gradient = SubResource("Gradient_caylq")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_caylq"]
 size = Vector2(3, 30)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1wqyx"]
+size = Vector2(6, 30)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1aykh"]
+size = Vector2(8, 15)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lcfy3"]
+size = Vector2(3, 15)
 
 [node name="Plane" type="VehicleBody3D" unique_id=17626063]
 collision_layer = 16385
@@ -846,18 +864,59 @@ pixel_size = 0.0025
 texture = SubResource("ViewportTexture_1aykh")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=2015088134]
+transparent_bg = true
 size = Vector2i(400, 300)
 
 [node name="InstrumentPanel" type="Node2D" parent="Sprite3D/SubViewport" unique_id=1156833798]
 
-[node name="Dial2D" type="Node2D" parent="Sprite3D/SubViewport/InstrumentPanel" unique_id=346341429 node_paths=PackedStringArray("target_node")]
+[node name="AirspeedDial" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel" unique_id=1398156361]
 position = Vector2(100, 100)
+texture = SubResource("GradientTexture2D_1aykh")
+
+[node name="Dial2D" type="Node2D" parent="Sprite3D/SubViewport/InstrumentPanel/AirspeedDial" unique_id=346341429 node_paths=PackedStringArray("target_node")]
 script = ExtResource("16_caylq")
-target_node = NodePath("../../../..")
+target_node = NodePath("../../../../..")
 get_value_expression = "air_speed"
 amount_per_turn = 100.0
 metadata/_custom_type_script = "uid://bp8fw7kd04a4w"
 
-[node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel/Dial2D" unique_id=876582190]
+[node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel/AirspeedDial/Dial2D" unique_id=876582190]
+texture = SubResource("PlaceholderTexture2D_caylq")
+offset = Vector2(0, -15)
+
+[node name="Altimeter" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel" unique_id=409961482]
+position = Vector2(170, 100)
+texture = SubResource("GradientTexture2D_1aykh")
+
+[node name="100ftDial" type="Node2D" parent="Sprite3D/SubViewport/InstrumentPanel/Altimeter" unique_id=1536268643 node_paths=PackedStringArray("target_node")]
+script = ExtResource("16_caylq")
+target_node = NodePath("../../../../..")
+get_value_expression = "altitude * 3.28084"
+amount_per_turn = 100.0
+metadata/_custom_type_script = "uid://bp8fw7kd04a4w"
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel/Altimeter/100ftDial" unique_id=1150502374]
 texture = SubResource("PlaceholderTexture2D_1wqyx")
-offset = Vector2(0, -30)
+offset = Vector2(0, -15)
+
+[node name="1000ftDial" type="Node2D" parent="Sprite3D/SubViewport/InstrumentPanel/Altimeter" unique_id=919960593 node_paths=PackedStringArray("target_node")]
+script = ExtResource("16_caylq")
+target_node = NodePath("../../../../..")
+get_value_expression = "altitude * 3.28084"
+amount_per_turn = 1000.0
+metadata/_custom_type_script = "uid://bp8fw7kd04a4w"
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel/Altimeter/1000ftDial" unique_id=433939077]
+texture = SubResource("PlaceholderTexture2D_1aykh")
+offset = Vector2(0, -7.5)
+
+[node name="10000ftDial" type="Node2D" parent="Sprite3D/SubViewport/InstrumentPanel/Altimeter" unique_id=1271550560 node_paths=PackedStringArray("target_node")]
+script = ExtResource("16_caylq")
+target_node = NodePath("../../../../..")
+get_value_expression = "altitude * 3.28084"
+amount_per_turn = 10000.0
+metadata/_custom_type_script = "uid://bp8fw7kd04a4w"
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel/Altimeter/10000ftDial" unique_id=66342984]
+texture = SubResource("PlaceholderTexture2D_lcfy3")
+offset = Vector2(0, -7.5)

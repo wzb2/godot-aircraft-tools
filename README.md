@@ -1,2 +1,4 @@
-# godot-plane
-# godot-plane
+# Godot Plane
+
+Plane stuff based off of Godot Aerodynamic Physics.
+
