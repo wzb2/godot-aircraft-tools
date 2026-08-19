@@ -155,7 +155,7 @@ script = ExtResource("6_hy5e4")
 axis_configs = Array[ExtResource("5_drk06")]([SubResource("Resource_8kian"), SubResource("Resource_h1rv3"), SubResource("Resource_12kbe"), SubResource("Resource_0l1d3"), SubResource("Resource_5tqsg"), SubResource("Resource_drk06")])
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1aykh"]
-height = 0.1
+height = 0.05
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h2q6m"]
 radius = 0.6
@@ -274,6 +274,7 @@ script = ExtResource("11_gvgkk")
 axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_x1nly")])
 max_value = Vector3(0.5, 0, 0)
 min_value = Vector3(-0.5, 0, 0)
+limit_movement_speed = true
 metadata/_custom_type_script = "uid://cblxodmmwvpt6"
 
 [sub_resource type="BoxMesh" id="BoxMesh_gvgkk"]
@@ -368,6 +369,7 @@ script = ExtResource("11_gvgkk")
 axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_p5mw2")])
 max_value = Vector3(0.5, 0, 0)
 min_value = Vector3(-0.5, 0, 0)
+limit_movement_speed = true
 metadata/_custom_type_script = "uid://cblxodmmwvpt6"
 
 [sub_resource type="BoxMesh" id="BoxMesh_xw1vv"]
@@ -463,6 +465,8 @@ script = ExtResource("11_gvgkk")
 axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_8ksoj")])
 use_separate_minmax = true
 max_value = Vector3(1, 0, 0)
+limit_movement_speed = true
+movement_speed = 0.5
 metadata/_custom_type_script = "uid://cblxodmmwvpt6"
 
 [sub_resource type="BoxMesh" id="BoxMesh_mq3ua"]
@@ -517,6 +521,7 @@ script = ExtResource("11_gvgkk")
 axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_u7gto")])
 max_value = Vector3(0.5, 0, 0)
 min_value = Vector3(-0.5, 0, 0)
+limit_movement_speed = true
 metadata/_custom_type_script = "uid://cblxodmmwvpt6"
 
 [sub_resource type="Resource" id="Resource_prqts"]
@@ -530,6 +535,7 @@ script = ExtResource("11_gvgkk")
 axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_prqts")])
 max_value = Vector3(0.5, 0, 0)
 min_value = Vector3(-0.5, 0, 0)
+limit_movement_speed = true
 metadata/_custom_type_script = "uid://cblxodmmwvpt6"
 
 [sub_resource type="Resource" id="Resource_0f7jt"]
@@ -543,6 +549,8 @@ script = ExtResource("11_gvgkk")
 axis_configs = Array[ExtResource("10_mq3ua")]([SubResource("Resource_0f7jt")])
 use_separate_minmax = true
 max_value = Vector3(0, 300, 0)
+limit_movement_speed = true
+movement_speed = 100.0
 
 [sub_resource type="Curve" id="Curve_646km"]
 _limits = [0.0, 1.0, -180.0, 180.0]
@@ -823,6 +831,7 @@ mesh = SubResource("BoxMesh_mq3ua")
 [node name="PartSeparator" type="Node" parent="WingR" unique_id=614742286 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("12_1aykh")
 collision_shape = NodePath("../../WingRCollisionShape3D")
+debris_mass = 50.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
 
 [node name="WingL" type="Node3D" parent="." unique_id=1687267981]
@@ -860,6 +869,7 @@ mesh = SubResource("BoxMesh_mq3ua")
 [node name="PartSeparator" type="Node" parent="WingL" unique_id=302173508 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("12_1aykh")
 collision_shape = NodePath("../../WingLCollisionShape3D")
+debris_mass = 50.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
 
 [node name="AeroPropeller3D" type="Node3D" parent="." unique_id=1834958851 node_paths=PackedStringArray("propeller_blade")]
