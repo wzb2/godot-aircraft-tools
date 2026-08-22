@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://coiexydt6nf2r" path="res://plane/input_display/input_display_axis.gd" id="14_i48hm"]
 [ext_resource type="PackedScene" uid="uid://dok53wy0bkhyw" path="res://plane/instruments/artificial_horizon/artificial_horizon.tscn" id="15_uciay"]
 [ext_resource type="Script" uid="uid://bp8fw7kd04a4w" path="res://plane/instruments/dial/dial.gd" id="16_caylq"]
+[ext_resource type="Script" uid="uid://fjqjdbgdum33" path="res://plane/destruction/machine_gun.gd" id="18_1wqyx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gvgkk"]
 friction = 0.5
@@ -1040,3 +1041,10 @@ metadata/_custom_type_script = "uid://bp8fw7kd04a4w"
 [node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel/Altimeter/10000ftDial" unique_id=66342984]
 texture = SubResource("PlaceholderTexture2D_lcfy3")
 offset = Vector2(0, -15)
+
+[node name="MachineGun" type="Node3D" parent="." unique_id=77106918 node_paths=PackedStringArray("vehicle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.6648602)
+script = ExtResource("18_1wqyx")
+vehicle = NodePath("..")
+firing = true
+metadata/_custom_type_script = "uid://fjqjdbgdum33"

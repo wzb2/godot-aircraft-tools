@@ -31,7 +31,7 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if seperate_on_impact:
-		var accel: float = get_linear(aero_body.linear_acceleration, aero_body.angular_acceleration, aero_body.global_basis, part.position).length()
+		var accel: float = get_linear(aero_body.linear_acceleration, aero_body.angular_acceleration, aero_body.global_basis, aero_body.to_local(part.global_position)).length()
 		if accel > impact_accleration_threshold:
 			separate()
 
@@ -44,7 +44,7 @@ func separate() -> void:
 		debris.global_transform = part.global_transform
 		aero_body.add_sibling(debris)
 		
-		debris.linear_velocity = get_linear(aero_body.linear_velocity, aero_body.angular_velocity, aero_body.global_basis, part.position)
+		debris.linear_velocity = get_linear(aero_body.linear_velocity, aero_body.angular_velocity, aero_body.global_basis, aero_body.to_local(part.global_position))
 		
 		part.reparent(debris)
 		collision_shape.reparent(debris)

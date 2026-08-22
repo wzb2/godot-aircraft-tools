@@ -11,16 +11,16 @@ bank_scale = NodePath("ArtificialHorizon/Bank Scale")
 
 [node name="ArtificialHorizon" parent="." unique_id=1224231819 instance=ExtResource("2_lv2oj")]
 
-[node name="Triangle" parent="ArtificialHorizon" index="0" unique_id=1741515039]
+[node name="Triangle" parent="ArtificialHorizon" index="0" unique_id=1965682232]
 transform = Transform3D(0.99997926, 0, 0, 0, 0.99726546, 0, 0, 0, 1.0766785, 0, 0, 0)
 
-[node name="Ball" parent="ArtificialHorizon" index="3" unique_id=902305116]
-transform = Transform3D(nan, nan, nan, nan, nan, nan, nan, nan, nan, 0, 0, 0)
+[node name="Ball" parent="ArtificialHorizon" index="3" unique_id=1619622648]
+transform = Transform3D(-0.9999999, 8.742277e-08, 0, -8.742277e-08, -0.9999999, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Botom" parent="ArtificialHorizon/Ball" index="0" unique_id=186387327]
+[node name="Botom" parent="ArtificialHorizon/Ball" index="0" unique_id=2086424085]
 transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)
 
-[node name="Top" parent="ArtificialHorizon/Ball" index="1" unique_id=969750652]
+[node name="Top" parent="ArtificialHorizon/Ball" index="1" unique_id=211364037]
 transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0)
 
 [editable path="ArtificialHorizon"]

@@ -6,7 +6,7 @@ extends Node3D
 
 func _physics_process(_delta: float) -> void:
 	if ball:
-		ball.global_transform.basis = Basis.looking_at(Vector3.FORWARD)
+		ball.global_basis = Basis.looking_at(Vector3.FORWARD)
 		ball.rotate_z(PI)
 		
 	if bank_scale:

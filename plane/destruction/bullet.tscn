@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://2fvdaoir5c8y"]
+
+[ext_resource type="Script" uid="uid://kk03hf6iaflm" path="res://plane/destruction/bullet.gd" id="1_pnxs1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6srf"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.5137255, 0, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_nxa2b"]
+material = SubResource("StandardMaterial3D_u6srf")
+size = Vector3(0.1, 0.1, 10)
+
+[sub_resource type="Curve" id="Curve_u6srf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kxxxg"]
+curve = SubResource("Curve_u6srf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u6srf"]
+inherit_velocity_ratio = 1.0
+spread = 180.0
+initial_velocity_max = 5.15
+gravity = Vector3(0, -0.5, 0)
+scale_curve = SubResource("CurveTexture_kxxxg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_kxxxg"]
+
+[node name="Bullet" type="RayCast3D" unique_id=401557157 node_paths=PackedStringArray("particles", "mesh")]
+enabled = false
+script = ExtResource("1_pnxs1")
+particles = NodePath("GPUParticles3D")
+mesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=936888327]
+mesh = SubResource("BoxMesh_nxa2b")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1401109804]
+emitting = false
+amount = 16
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_u6srf")
+draw_pass_1 = SubResource("SphereMesh_kxxxg")
