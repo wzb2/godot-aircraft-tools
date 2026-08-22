@@ -2,6 +2,8 @@ extends Node
 
 class_name PartSeparator
 
+signal sepreate
+
 ## Makes the part detach when you press space
 @export var enable_debug_button: bool = false
 
@@ -38,6 +40,7 @@ func _physics_process(_delta: float) -> void:
 func separate() -> void:
 	if not separated:
 		separated = true
+		sepreate.emit()
 		var debris: AeroBody3D = AeroBody3D.new()
 		#debris.show_debug = true
 		debris.mass = debris_mass

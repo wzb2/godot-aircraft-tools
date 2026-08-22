@@ -13,11 +13,11 @@
 [ext_resource type="Script" uid="uid://cblxodmmwvpt6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_config.gd" id="11_gvgkk"]
 [ext_resource type="Script" uid="uid://b0jtcp3t4ow64" path="res://plane/destruction/part_separator.gd" id="12_1aykh"]
 [ext_resource type="Script" uid="uid://bsu5rdrtiqph7" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_mover_3d/aero_propeller_3d.gd" id="12_gvgkk"]
+[ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://plane/destruction/machine_gun.tscn" id="13_1wqyx"]
 [ext_resource type="Script" uid="uid://b2ddtcfwxfrxe" path="res://plane/input_display/input_display_3d.gd" id="13_xw1vv"]
 [ext_resource type="Script" uid="uid://coiexydt6nf2r" path="res://plane/input_display/input_display_axis.gd" id="14_i48hm"]
 [ext_resource type="PackedScene" uid="uid://dok53wy0bkhyw" path="res://plane/instruments/artificial_horizon/artificial_horizon.tscn" id="15_uciay"]
 [ext_resource type="Script" uid="uid://bp8fw7kd04a4w" path="res://plane/instruments/dial/dial.gd" id="16_caylq"]
-[ext_resource type="Script" uid="uid://fjqjdbgdum33" path="res://plane/destruction/machine_gun.gd" id="18_1wqyx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gvgkk"]
 friction = 0.5
@@ -61,7 +61,7 @@ i = 0.0
 
 [sub_resource type="Resource" id="Resource_lcfy3"]
 script = ExtResource("3_rfirh")
-p = 0.2
+p = 0.4
 i = 0.0
 clamp_integral = true
 
@@ -835,6 +835,13 @@ collision_shape = NodePath("../../WingRCollisionShape3D")
 debris_mass = 50.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
 
+[node name="MachineGun" parent="WingR" unique_id=722960509 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, -0.8)
+vehicle = NodePath("../..")
+separator = NodePath("../PartSeparator")
+objects_to_ignore = [NodePath("../..")]
+shoot_input_event = &"shoot"
+
 [node name="WingL" type="Node3D" parent="." unique_id=1687267981]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.891, 0, -0.47)
 script = ExtResource("7_drk06")
@@ -872,6 +879,13 @@ script = ExtResource("12_1aykh")
 collision_shape = NodePath("../../WingLCollisionShape3D")
 debris_mass = 50.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="MachineGun" parent="WingL" unique_id=1992546212 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, -0.8)
+vehicle = NodePath("../..")
+separator = NodePath("../PartSeparator")
+objects_to_ignore = [NodePath("../..")]
+shoot_input_event = &"shoot"
 
 [node name="AeroPropeller3D" type="Node3D" parent="." unique_id=1834958851 node_paths=PackedStringArray("propeller_blade")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.41058022, -3.0131655)
@@ -1041,10 +1055,3 @@ metadata/_custom_type_script = "uid://bp8fw7kd04a4w"
 [node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel/Altimeter/10000ftDial" unique_id=66342984]
 texture = SubResource("PlaceholderTexture2D_lcfy3")
 offset = Vector2(0, -15)
-
-[node name="MachineGun" type="Node3D" parent="." unique_id=77106918 node_paths=PackedStringArray("vehicle")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.6648602)
-script = ExtResource("18_1wqyx")
-vehicle = NodePath("..")
-firing = true
-metadata/_custom_type_script = "uid://fjqjdbgdum33"
