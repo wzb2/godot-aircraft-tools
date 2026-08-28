@@ -4,7 +4,7 @@ extends StaticBody3D
 
 @export var target: Node3D
 
-@export var range: float = 500
+@export var range: float = 600
 
 func _physics_process(_delta: float) -> void:
 	var dist_to_target: float = global_position.distance_to(target.global_position)

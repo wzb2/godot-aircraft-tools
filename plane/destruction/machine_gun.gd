@@ -9,6 +9,7 @@ const BULLET: PackedScene = preload("uid://2fvdaoir5c8y")
 ## To disable when seperated
 @export var separator: PartSeparator
 @export var objects_to_ignore: Array[CollisionObject3D] = []
+@export var recursive_ignore: bool = true
 @export var muzzle_particles: GPUParticles3D
 ## m/s
 @export var muzzle_speed: float = 870
@@ -24,6 +25,7 @@ var firing: bool = false
 
 @onready var timer: Timer = Timer.new()
 
+
 func _ready() -> void:
 	add_child(timer)
 	timer.wait_time = firing_cooldown
@@ -31,6 +33,11 @@ func _ready() -> void:
 	if separator:
 		separator.sepreate.connect(func() -> void: attached = false)
 	
+	if recursive_ignore:
+		var children_to_ignore: Array
+		for i: CollisionObject3D in objects_to_ignore:
+			children_to_ignore.append_array(i.find_children("*", "AircraftPartHitbox"))
+		objects_to_ignore.append_array(children_to_ignore)
 
 func _physics_process(_delta: float) -> void:
 	if InputMap.has_action(shoot_input_event):
@@ -48,6 +55,7 @@ func _physics_process(_delta: float) -> void:
 	elif firing and vehicle:
 		vehicle.apply_force(global_transform.basis.z * continuous_recoil_force, global_position - vehicle.global_position)
 	
+
 
 func shoot() -> void:
 	var bullet: Bullet = BULLET.instantiate()
