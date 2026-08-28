@@ -31,5 +31,6 @@ muzzle_particles = NodePath("GPUParticles3D")
 metadata/_custom_type_script = "uid://fjqjdbgdum33"
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=394334863]
+emitting = false
 process_material = SubResource("ParticleProcessMaterial_1dksd")
 draw_pass_1 = SubResource("SphereMesh_ofuu1")

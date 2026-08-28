@@ -46,7 +46,7 @@ func _physics_process(_delta: float) -> void:
 	elif not firing and not timer.is_stopped():
 		timer.stop()
 	elif firing and vehicle:
-		vehicle.apply_force(global_transform.basis.z * continuous_recoil_force, position)
+		vehicle.apply_force(global_transform.basis.z * continuous_recoil_force, global_position - vehicle.global_position)
 	
 
 func shoot() -> void:
@@ -55,7 +55,9 @@ func shoot() -> void:
 	if vehicle:
 		bullet.velocity += vehicle.linear_velocity #TODO: factor in angular velocity, move get_linear function from part seperator to utils class? 
 		vehicle.add_sibling(bullet)
-		
+	else:
+		get_parent_node_3d().add_sibling(bullet)
+	
 	for i: CollisionObject3D in objects_to_ignore:
 		bullet.add_exception(i)
 		

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://boo6eg5sxipfe" path="res://plane/plane.tscn" id="1_6xmxd"]
 [ext_resource type="Script" uid="uid://dlefwo52g4du" path="res://world/camera.gd" id="2_4717r"]
 [ext_resource type="Texture2D" uid="uid://dikorqbfipcwc" path="res://world/runway.png" id="2_tcf2h"]
+[ext_resource type="PackedScene" uid="uid://btfw7160pg4yp" path="res://plane/turret.tscn" id="4_h5o24"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -37,6 +38,12 @@ normal_texture = SubResource("NoiseTexture2D_tcf2h")
 [sub_resource type="BoxMesh" id="BoxMesh_6xmxd"]
 material = SubResource("StandardMaterial3D_4717r")
 size = Vector3(1000, 1, 1000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4717r"]
+size = Vector3(5, 2, 8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h5o24"]
+size = Vector3(5, 2, 8)
 
 [node name="World" type="Node3D" unique_id=601031772]
 
@@ -77,3 +84,30 @@ pixel_size = 0.3
 shaded = true
 double_sided = false
 texture = ExtResource("2_tcf2h")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1608959650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=607743205]
+shape = SubResource("BoxShape3D_4717r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1396410176]
+mesh = SubResource("BoxMesh_h5o24")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="." unique_id=1455746288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 2, 0)
+mass = 1000.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2" unique_id=551325745]
+shape = SubResource("BoxShape3D_4717r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2" unique_id=1055102434]
+mesh = SubResource("BoxMesh_h5o24")
+
+[node name="Turret" parent="." unique_id=2023838475 node_paths=PackedStringArray("target") instance=ExtResource("4_h5o24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -613.5, 1, 407.652)
+target = NodePath("../Plane")
+
+[node name="Turret2" parent="." unique_id=1629577894 node_paths=PackedStringArray("target") instance=ExtResource("4_h5o24")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -594.5, 1, 128.65201)
+target = NodePath("../Plane")

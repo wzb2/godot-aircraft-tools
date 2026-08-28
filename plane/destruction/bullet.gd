@@ -6,7 +6,7 @@ const GRAVITY: Vector3 = Vector3(0, -9.8, 0)
 const DRAG_FACTOR: float = 0.00005
 const LIFETIME: float = 5
 
-@export var damage: float = 1.0
+@export var damage: float = 0.1
 
 @export var particles: GPUParticles3D
 @export var mesh: MeshInstance3D
@@ -19,6 +19,7 @@ var hit: bool = false
 
 func _ready() -> void:
 	global_basis = Basis.looking_at(velocity)
+	collide_with_areas = true
 	
 
 func _physics_process(delta: float) -> void:
@@ -36,16 +37,28 @@ func _physics_process(delta: float) -> void:
 			global_position += movement
 		else:
 			hit = true
-			global_position = get_collision_point()
-			if particles:
-				if mesh:
-					mesh.hide()
-				particles.emitting = true
-				particles.finished.connect(queue_free)
-			else:
-				queue_free()
+			manage_hit()
 		
 		velocity += GRAVITY * delta
 		velocity -= velocity.normalized() * DRAG_FACTOR * velocity.length() ** 2.0
 		
 	
+
+
+func manage_hit() -> void:
+	var collider: Object = get_collider()
+	
+	var force: Vector3 = damage * velocity
+	if collider is RigidBody3D:
+		collider.apply_impulse(force, global_position - collider.global_position)
+	if collider is AircraftPartHitbox:
+		collider.hit(force.length())
+	
+	global_position = get_collision_point()
+	if particles:
+		if mesh:
+			mesh.hide()
+		particles.emitting = true
+		particles.finished.connect(queue_free)
+	else:
+		queue_free()

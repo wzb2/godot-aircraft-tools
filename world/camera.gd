@@ -26,6 +26,6 @@ func _input(event: InputEvent) -> void:
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and mouse_eaten:
-		rotation.y += (deg_to_rad(-event.relative.x * MOUSE_SENSITIVITY))
-		rotation.x += (deg_to_rad(-event.relative.y * MOUSE_SENSITIVITY))
+		rotation.y += (deg_to_rad(-event.screen_relative.x * MOUSE_SENSITIVITY))
+		rotation.x += (deg_to_rad(-event.screen_relative.y * MOUSE_SENSITIVITY))
 		rotation.x = clamp(rotation.x, -PI * 0.5, PI * 0.5)
