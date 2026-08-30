@@ -13,12 +13,14 @@
 [ext_resource type="Script" uid="uid://cblxodmmwvpt6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_config.gd" id="11_gvgkk"]
 [ext_resource type="Script" uid="uid://b0jtcp3t4ow64" path="res://plane/destruction/part_separator.gd" id="12_1aykh"]
 [ext_resource type="Script" uid="uid://bsu5rdrtiqph7" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_mover_3d/aero_propeller_3d.gd" id="12_gvgkk"]
-[ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://plane/destruction/machine_gun.tscn" id="13_1wqyx"]
+[ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://plane/destruction/gun/machine_gun.tscn" id="13_1wqyx"]
 [ext_resource type="Script" uid="uid://b2ddtcfwxfrxe" path="res://plane/input_display/input_display_3d.gd" id="13_xw1vv"]
 [ext_resource type="Script" uid="uid://coiexydt6nf2r" path="res://plane/input_display/input_display_axis.gd" id="14_i48hm"]
 [ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://plane/destruction/aircraft_part_hitbox.gd" id="14_lcfy3"]
 [ext_resource type="PackedScene" uid="uid://dok53wy0bkhyw" path="res://plane/instruments/artificial_horizon/artificial_horizon.tscn" id="15_uciay"]
 [ext_resource type="Script" uid="uid://bp8fw7kd04a4w" path="res://plane/instruments/dial/dial.gd" id="16_caylq"]
+[ext_resource type="Script" uid="uid://bnrdl56f2vsqr" path="res://plane/destruction/bomb/bomb_dropper.gd" id="20_lbrwg"]
+[ext_resource type="PackedScene" uid="uid://covrq2cmtslor" path="res://plane/destruction/bomb/bomb.tscn" id="21_lcyg8"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gvgkk"]
 friction = 0.5
@@ -928,6 +930,20 @@ separator = NodePath("../PartSeparator")
 objects_to_ignore = [NodePath("../..")]
 shoot_input_event = &"shoot"
 
+[node name="MachineGun2" parent="WingR" unique_id=1002234257 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8000001)
+vehicle = NodePath("../..")
+separator = NodePath("../PartSeparator")
+objects_to_ignore = [NodePath("../..")]
+shoot_input_event = &"shoot"
+
+[node name="MachineGun3" parent="WingR" unique_id=1482293750 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, -0.8)
+vehicle = NodePath("../..")
+separator = NodePath("../PartSeparator")
+objects_to_ignore = [NodePath("../..")]
+shoot_input_event = &"shoot"
+
 [node name="AircraftPartHitbox" type="Area3D" parent="WingR" unique_id=935422715 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
 script = ExtResource("14_lcfy3")
 aero_influencer = NodePath("..")
@@ -986,6 +1002,20 @@ metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
 
 [node name="MachineGun" parent="WingL" unique_id=1992546212 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, -0.8)
+vehicle = NodePath("../..")
+separator = NodePath("../PartSeparator")
+objects_to_ignore = [NodePath("../..")]
+shoot_input_event = &"shoot"
+
+[node name="MachineGun2" parent="WingL" unique_id=652620153 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+vehicle = NodePath("../..")
+separator = NodePath("../PartSeparator")
+objects_to_ignore = [NodePath("../..")]
+shoot_input_event = &"shoot"
+
+[node name="MachineGun3" parent="WingL" unique_id=471963445 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, -0.8)
 vehicle = NodePath("../..")
 separator = NodePath("../PartSeparator")
 objects_to_ignore = [NodePath("../..")]
@@ -1179,3 +1209,11 @@ metadata/_custom_type_script = "uid://bp8fw7kd04a4w"
 [node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport/InstrumentPanel/Altimeter/10000ftDial" unique_id=66342984]
 texture = SubResource("PlaceholderTexture2D_lcfy3")
 offset = Vector2(0, -15)
+
+[node name="BombDropper" type="Node3D" parent="." unique_id=461756470 node_paths=PackedStringArray("vehicle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+script = ExtResource("20_lbrwg")
+vehicle = NodePath("..")
+bomb_scene = ExtResource("21_lcyg8")
+amount = 5
+metadata/_custom_type_script = "uid://bnrdl56f2vsqr"

@@ -53,6 +53,9 @@ func manage_hit() -> void:
 		collider.apply_impulse(force, global_position - collider.global_position)
 	if collider is AircraftPartHitbox:
 		collider.hit(force.length())
+	if collider is Turret:
+		if randf() > 0.5:
+			collider.gun.attached = false
 	
 	global_position = get_collision_point()
 	if particles:

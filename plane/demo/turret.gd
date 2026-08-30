@@ -1,10 +1,12 @@
 extends StaticBody3D
 
+class_name Turret
+
 @export var gun: MachineGun
 
 @export var target: Node3D
 
-@export var range: float = 600
+@export var max_range: float = 600
 
 func _physics_process(_delta: float) -> void:
 	var dist_to_target: float = global_position.distance_to(target.global_position)
@@ -15,5 +17,5 @@ func _physics_process(_delta: float) -> void:
 	else:
 		gun.look_at(target.global_position - drop)
 	
-	gun.firing = dist_to_target < range
+	gun.firing = dist_to_target < max_range
 	

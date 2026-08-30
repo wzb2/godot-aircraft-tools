@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cgk61owyp5rbw"]
 
-[ext_resource type="Script" uid="uid://fjqjdbgdum33" path="res://plane/destruction/machine_gun.gd" id="1_1dksd"]
+[ext_resource type="Script" uid="uid://fjqjdbgdum33" path="res://plane/destruction/gun/machine_gun.gd" id="1_1dksd"]
 
 [sub_resource type="Curve" id="Curve_1dksd"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -32,5 +32,6 @@ metadata/_custom_type_script = "uid://fjqjdbgdum33"
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=394334863]
 emitting = false
+amount = 4
 process_material = SubResource("ParticleProcessMaterial_1dksd")
 draw_pass_1 = SubResource("SphereMesh_ofuu1")

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://btfw7160pg4yp"]
+
+[ext_resource type="Script" uid="uid://ccolxx2bqcj0q" path="res://plane/demo/turret.gd" id="1_o0cvv"]
+[ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://plane/destruction/gun/machine_gun.tscn" id="2_o0cvv"]
+[ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://plane/destruction/aircraft_part_hitbox.gd" id="3_23qil"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o0cvv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_23qil"]
+radial_segments = 16
+rings = 4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_o0cvv"]
+top_radius = 10.0
+bottom_radius = 15.0
+height = 1.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ax486"]
+size = Vector3(2.1, 0.3, 0.6)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_23qil"]
+height = 1.0
+radius = 7.0
+
+[node name="Turret" type="StaticBody3D" unique_id=2023838475 node_paths=PackedStringArray("gun")]
+script = ExtResource("1_o0cvv")
+gun = NodePath("MachineGun")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=438833775]
+shape = SubResource("CapsuleShape3D_o0cvv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=329487729]
+mesh = SubResource("CapsuleMesh_23qil")
+
+[node name="MachineGun" parent="." unique_id=722960509 instance=ExtResource("2_o0cvv")]
+rpm = 500.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1414630707]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("CylinderMesh_o0cvv")
+
+[node name="AircraftPartHitbox" type="Area3D" parent="MeshInstance3D2" unique_id=1181075073]
+script = ExtResource("3_23qil")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/AircraftPartHitbox" unique_id=1044874068]
+shape = SubResource("BoxShape3D_ax486")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1352188210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("CylinderShape3D_23qil")

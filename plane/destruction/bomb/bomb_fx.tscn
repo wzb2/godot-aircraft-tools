@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://bjk0ue7v34otg"]
+
+[ext_resource type="Script" uid="uid://d26vwnl1dljjg" path="res://plane/destruction/bomb/bomb_fx.gd" id="1_54358"]
+
+[sub_resource type="Curve" id="Curve_cykda"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.24666668, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vpdcx"]
+curve = SubResource("Curve_cykda")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_huu0c"]
+lifetime_randomness = 0.5
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 14.799999
+initial_velocity_max = 50.3
+scale_curve = SubResource("CurveTexture_vpdcx")
+
+[sub_resource type="Curve" id="Curve_vpdcx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j15uc"]
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.51666665, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.5566667, 0.3, 1)
+emission_energy_multiplier = 8.0
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_yqi55"]
+material = SubResource("StandardMaterial3D_j15uc")
+size = 0.1
+curve = SubResource("Curve_vpdcx")
+
+[sub_resource type="Curve" id="Curve_2rdms"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kxxxg"]
+curve = SubResource("Curve_2rdms")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0ctjq"]
+emission_shape_offset = Vector3(0, 1, 0)
+emission_shape = 1
+emission_sphere_radius = 3.0
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, 1, 0)
+spread = 80.0
+initial_velocity_min = 0.5
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_kxxxg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2rdms"]
+albedo_color = Color(0.30588236, 0.21568628, 0.19607843, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_iiaxr"]
+material = SubResource("StandardMaterial3D_2rdms")
+radius = 5.0
+height = 10.0
+radial_segments = 8
+rings = 4
+
+[node name="BombFX" type="Node3D" unique_id=70462201 node_paths=PackedStringArray("particles", "light")]
+script = ExtResource("1_54358")
+particles = [NodePath("Sparks"), NodePath("Smoke")]
+light = NodePath("OmniLight3D")
+
+[node name="Sparks" type="GPUParticles3D" parent="." unique_id=156960919]
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 0.9
+visibility_aabb = AABB(-16, -16, -16, 32, 32, 32)
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_huu0c")
+draw_pass_1 = SubResource("RibbonTrailMesh_yqi55")
+
+[node name="Smoke" type="GPUParticles3D" parent="." unique_id=287406601]
+emitting = false
+amount = 16
+lifetime = 8.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_0ctjq")
+draw_pass_1 = SubResource("SphereMesh_iiaxr")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1025026355]
+light_color = Color(1, 0.3882353, 0.27058825, 1)
+light_energy = 200.0
+light_size = 3.0
+shadow_enabled = true
+shadow_blur = 0.3
+omni_range = 25.0

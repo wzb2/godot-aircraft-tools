@@ -24,6 +24,10 @@ func update() -> void:
 				var control_config: AeroInfluencerControlConfig = aero_influencer.actuation_config
 				if control_config:
 					control_config.enable_control = false
+				if aero_influencer is AeroPropeller3D:
+					var speed_config: AeroInfluencerControlConfig = aero_influencer.propeller_speed_control_config
+					speed_config.enable_control = false
+					speed_config.current_value = Vector3.ZERO
 	if part_spearator:
 		if hp <= separate_threshold:
 			part_spearator.separate()

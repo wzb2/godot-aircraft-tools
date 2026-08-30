@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://boo6eg5sxipfe" path="res://plane/plane.tscn" id="1_6xmxd"]
 [ext_resource type="Script" uid="uid://dlefwo52g4du" path="res://world/camera.gd" id="2_4717r"]
 [ext_resource type="Texture2D" uid="uid://dikorqbfipcwc" path="res://world/runway.png" id="2_tcf2h"]
-[ext_resource type="PackedScene" uid="uid://btfw7160pg4yp" path="res://plane/turret.tscn" id="4_h5o24"]
+[ext_resource type="PackedScene" uid="uid://btfw7160pg4yp" path="res://plane/demo/turret.tscn" id="4_h5o24"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -19,10 +19,10 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g312j"]
-size = Vector3(1000, 4, 1000)
+size = Vector3(5000, 4, 5000)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6xmxd"]
-frequency = 0.015
+frequency = 0.1
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tcf2h"]
 noise = SubResource("FastNoiseLite_6xmxd")
@@ -33,11 +33,12 @@ bump_strength = 16.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4717r"]
 albedo_color = Color(0.5137255, 1, 0.42745098, 1)
 normal_enabled = true
+normal_scale = 0.5
 normal_texture = SubResource("NoiseTexture2D_tcf2h")
 
 [sub_resource type="BoxMesh" id="BoxMesh_6xmxd"]
 material = SubResource("StandardMaterial3D_4717r")
-size = Vector3(1000, 1, 1000)
+size = Vector3(5000, 1, 5000)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4717r"]
 size = Vector3(5, 2, 8)
