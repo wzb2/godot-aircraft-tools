@@ -14,15 +14,17 @@ signal sepreate
 ## Parent by default
 @export var part: AeroInfluencer3D
 @export var debris_mass: float = 40.0
+@export var make_parent_lighter: bool = true
 
-var aero_body: AeroBody3D
+var aero_body: AeroBody3D:
+	get():
+		return part.aero_body
 
 var separated: bool = false
 
 func _ready() -> void:
 	if not part:
 		part = get_parent()
-	aero_body = part.get_parent()
 
 func _input(event: InputEvent) -> void:
 	if enable_debug_button:
@@ -41,6 +43,10 @@ func separate() -> void:
 	if not separated:
 		separated = true
 		sepreate.emit()
+		
+		if make_parent_lighter:
+			aero_body.mass -= debris_mass
+		
 		var debris: AeroBody3D = AeroBody3D.new()
 		#debris.show_debug = true
 		debris.mass = debris_mass
@@ -52,8 +58,6 @@ func separate() -> void:
 		part.reparent(debris)
 		collision_shape.reparent(debris)
 		part.default_transform = Transform3D.IDENTITY
-		
-		aero_body.mass -= debris_mass
 		
 		queue_free()
 		

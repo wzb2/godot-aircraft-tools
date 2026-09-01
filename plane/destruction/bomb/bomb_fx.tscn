@@ -90,8 +90,8 @@ draw_pass_1 = SubResource("SphereMesh_iiaxr")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1025026355]
 light_color = Color(1, 0.3882353, 0.27058825, 1)
-light_energy = 200.0
-light_size = 3.0
+light_energy = 800.0
+light_size = 10.0
 shadow_enabled = true
 shadow_blur = 0.3
-omni_range = 25.0
+omni_range = 500.0

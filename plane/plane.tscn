@@ -38,18 +38,17 @@ d = 0.1
 
 [sub_resource type="Resource" id="Resource_i48hm"]
 script = ExtResource("3_rfirh")
-p = 10.0
-i = 0.3
-d = 4.0
+p = 2.0
+i = 0.0
 
 [sub_resource type="Resource" id="Resource_uciay"]
 script = ExtResource("3_rfirh")
-p = 0.8
+p = 0.4
 i = 0.0
+d = 0.005
 
 [sub_resource type="Resource" id="Resource_caylq"]
 script = ExtResource("3_rfirh")
-p = 25.0
 i = 0.0
 
 [sub_resource type="Resource" id="Resource_1aykh"]
@@ -64,7 +63,7 @@ i = 0.0
 
 [sub_resource type="Resource" id="Resource_lcfy3"]
 script = ExtResource("3_rfirh")
-p = 0.4
+p = 2.0
 i = 0.0
 clamp_integral = true
 
@@ -86,7 +85,6 @@ i = 0.0
 
 [sub_resource type="Resource" id="Resource_cpk0g"]
 script = ExtResource("4_j2fql")
-enable_flight_assist_x = false
 pitch_assist_pid = SubResource("Resource_lcfy3")
 enable_flight_assist_y = false
 yaw_assist_pid = SubResource("Resource_8vlmv")
@@ -99,6 +97,7 @@ heading_pid = SubResource("Resource_1aykh")
 inclination_pid = SubResource("Resource_1wqyx")
 speed_pid = SubResource("Resource_lcyg8")
 altitude_pid = SubResource("Resource_gvgkk")
+direction_target = Vector3(0.5, 0.5, 0.5)
 direction_pitch_pid = SubResource("Resource_i48hm")
 direction_yaw_pid = SubResource("Resource_caylq")
 direction_roll_pid = SubResource("Resource_uciay")
@@ -108,8 +107,8 @@ metadata/_custom_type_script = "uid://cdp8dc63ytxx1"
 resource_name = "pitch"
 script = ExtResource("5_drk06")
 axis_name = "pitch"
-positive_event = &"pitch_down"
-negative_event = &"pitch_up"
+positive_event = &"pitch_up"
+negative_event = &"pitch_down"
 enable_smoothing = true
 smoothing_rate = 10.0
 
@@ -271,7 +270,7 @@ aspect_ratio = 4.0
 resource_name = "pitch"
 script = ExtResource("10_mq3ua")
 axis_name = "pitch"
-contribution = Vector3(0.5, 0, 0)
+contribution = Vector3(-0.5, 0, 0)
 
 [sub_resource type="Resource" id="Resource_77ybu"]
 script = ExtResource("11_gvgkk")

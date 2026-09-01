@@ -1,0 +1,863 @@
+[gd_scene format=3 uid="uid://dm4epjw0fb833"]
+
+[ext_resource type="Script" uid="uid://3iji867c81k5" path="res://addons/godot_aerodynamic_physics/core/aero_body_3d.gd" id="1_fsa6r"]
+[ext_resource type="Script" uid="uid://cc5dwx5pqkaur" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_component.gd" id="2_b1xhl"]
+[ext_resource type="Script" uid="uid://dfbhcpt1rr3ai" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config_axis.gd" id="3_3oslp"]
+[ext_resource type="Script" uid="uid://b4xqlunpiyivk" path="res://addons/godot_aerodynamic_physics/utils/pid.gd" id="3_q3fct"]
+[ext_resource type="Script" uid="uid://cbgqb7g7mmwtu" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config.gd" id="4_q3fct"]
+[ext_resource type="Script" uid="uid://cdp8dc63ytxx1" path="res://addons/godot_aerodynamic_physics/core/flight_assist.gd" id="4_vui7a"]
+[ext_resource type="Script" uid="uid://d1725od371u4a" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/manual_aero_surface_3d/manual_aero_surface_3d.gd" id="7_kryix"]
+[ext_resource type="Script" uid="uid://3kjm0rdymoth" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_thruster_3d/aero_thruster_3d.gd" id="7_sdbjv"]
+[ext_resource type="Script" uid="uid://ctbwb7xlhft6t" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/manual_aero_surface_3d/manual_aero_surface_config.gd" id="8_m5ggn"]
+[ext_resource type="Script" uid="uid://c46td0go5kvp6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_axis_config.gd" id="8_qkuex"]
+[ext_resource type="Script" uid="uid://crkbhmxpjff4o" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/aero_surface_config.gd" id="9_747jw"]
+[ext_resource type="Script" uid="uid://cblxodmmwvpt6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_config.gd" id="9_w1uor"]
+[ext_resource type="Script" uid="uid://b0jtcp3t4ow64" path="res://plane/destruction/part_separator.gd" id="13_kryix"]
+
+[sub_resource type="Resource" id="Resource_2i4h6"]
+script = ExtResource("3_q3fct")
+p = 0.5
+i = 0.0
+d = 0.01
+
+[sub_resource type="Resource" id="Resource_m5ggn"]
+script = ExtResource("3_q3fct")
+i = 0.05
+d = 0.1
+
+[sub_resource type="Resource" id="Resource_747jw"]
+script = ExtResource("3_q3fct")
+p = 2.0
+i = 1.0
+clamp_integral = true
+
+[sub_resource type="Resource" id="Resource_x8br4"]
+script = ExtResource("3_q3fct")
+p = 0.4
+i = 0.0
+d = 0.005
+
+[sub_resource type="Resource" id="Resource_3l2nb"]
+script = ExtResource("3_q3fct")
+i = 0.0
+
+[sub_resource type="Resource" id="Resource_rk5gv"]
+script = ExtResource("3_q3fct")
+p = 10.0
+i = 0.0
+
+[sub_resource type="Resource" id="Resource_pkjee"]
+script = ExtResource("3_q3fct")
+p = 10.0
+i = 0.0
+
+[sub_resource type="Resource" id="Resource_62kos"]
+script = ExtResource("3_q3fct")
+p = 2.0
+i = 0.0
+clamp_integral = true
+min_integral = -0.2
+max_integral = 0.2
+
+[sub_resource type="Resource" id="Resource_bvkvk"]
+script = ExtResource("3_q3fct")
+p = 0.2
+i = 0.15
+clamp_integral = true
+
+[sub_resource type="Resource" id="Resource_ckmoj"]
+script = ExtResource("3_q3fct")
+
+[sub_resource type="Resource" id="Resource_q67jc"]
+script = ExtResource("3_q3fct")
+i = 0.0
+
+[sub_resource type="Resource" id="Resource_on1dq"]
+script = ExtResource("4_vui7a")
+pitch_assist_pid = SubResource("Resource_62kos")
+enable_flight_assist_y = false
+yaw_assist_pid = SubResource("Resource_q67jc")
+roll_assist_pid = SubResource("Resource_bvkvk")
+bank_angle_pid = SubResource("Resource_m5ggn")
+heading_pid = SubResource("Resource_rk5gv")
+inclination_pid = SubResource("Resource_pkjee")
+enable_speed_hold = true
+speed_target = 170.0
+speed_pid = SubResource("Resource_ckmoj")
+altitude_pid = SubResource("Resource_2i4h6")
+enable_target_direction = true
+direction_target = Vector3(0.5, 0.05, -1)
+direction_pitch_pid = SubResource("Resource_747jw")
+direction_yaw_pid = SubResource("Resource_3l2nb")
+direction_roll_pid = SubResource("Resource_x8br4")
+metadata/_custom_type_script = "uid://cdp8dc63ytxx1"
+
+[sub_resource type="Resource" id="Resource_vui7a"]
+resource_name = "pitch"
+script = ExtResource("3_3oslp")
+axis_name = "pitch"
+
+[sub_resource type="Resource" id="Resource_imoi0"]
+resource_name = "yaw"
+script = ExtResource("3_3oslp")
+axis_name = "yaw"
+
+[sub_resource type="Resource" id="Resource_sdbjv"]
+resource_name = "roll"
+script = ExtResource("3_3oslp")
+axis_name = "roll"
+
+[sub_resource type="Resource" id="Resource_qkuex"]
+resource_name = "throttle"
+script = ExtResource("3_3oslp")
+axis_name = "throttle"
+min_limit = 0.0
+
+[sub_resource type="Resource" id="Resource_w1uor"]
+resource_name = "brake"
+script = ExtResource("3_3oslp")
+axis_name = "brake"
+min_limit = 0.0
+
+[sub_resource type="Resource" id="Resource_kryix"]
+script = ExtResource("4_q3fct")
+axis_configs = Array[ExtResource("3_3oslp")]([SubResource("Resource_vui7a"), SubResource("Resource_imoi0"), SubResource("Resource_sdbjv"), SubResource("Resource_qkuex"), SubResource("Resource_w1uor")])
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kryix"]
+albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q3fct"]
+material = SubResource("StandardMaterial3D_kryix")
+radius = 2.5
+height = 30.0
+radial_segments = 16
+rings = 4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q3fct"]
+radius = 2.5
+height = 30.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x8br4"]
+size = Vector3(7, 0.2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kryix"]
+size = Vector3(11, 0.3, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m5ggn"]
+size = Vector3(10, 0.2, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_747jw"]
+size = Vector3(8, 0.2, 2.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3l2nb"]
+height = 3.0
+radius = 1.05
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rk5gv"]
+height = 3.0
+radius = 1.05
+
+[sub_resource type="Curve" id="Curve_3l2nb"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_rk5gv"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_pkjee"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_62kos"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_vsefg"]
+script = ExtResource("8_m5ggn")
+lift_aoa_curve = SubResource("Curve_pkjee")
+drag_aoa_curve = SubResource("Curve_3l2nb")
+sweep_drag_multiplier_curve = SubResource("Curve_62kos")
+drag_at_mach_multiplier_curve = SubResource("Curve_rk5gv")
+
+[sub_resource type="Resource" id="Resource_1dl8n"]
+script = ExtResource("9_747jw")
+chord = 5.0
+span = 11.0
+area = 55.0
+aspect_ratio = 2.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m5ggn"]
+albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o4mmn"]
+material = SubResource("StandardMaterial3D_m5ggn")
+size = Vector3(11, 0.3, 5)
+
+[sub_resource type="Curve" id="Curve_4mmge"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_w3nix"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_xlc3s"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_ije6d"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_t3n0y"]
+script = ExtResource("8_m5ggn")
+lift_aoa_curve = SubResource("Curve_xlc3s")
+drag_aoa_curve = SubResource("Curve_4mmge")
+sweep_drag_multiplier_curve = SubResource("Curve_ije6d")
+drag_at_mach_multiplier_curve = SubResource("Curve_w3nix")
+
+[sub_resource type="Resource" id="Resource_rdobr"]
+script = ExtResource("9_747jw")
+chord = 2.5
+span = 9.0
+area = 22.5
+aspect_ratio = 3.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_747jw"]
+albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q3fct"]
+material = SubResource("StandardMaterial3D_747jw")
+size = Vector3(10, 0.2, 2.5)
+
+[sub_resource type="Curve" id="Curve_6f2uw"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_070pu"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_0ico2"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_k8mbh"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_h6e0x"]
+script = ExtResource("8_m5ggn")
+lift_aoa_curve = SubResource("Curve_0ico2")
+drag_aoa_curve = SubResource("Curve_6f2uw")
+sweep_drag_multiplier_curve = SubResource("Curve_k8mbh")
+drag_at_mach_multiplier_curve = SubResource("Curve_070pu")
+
+[sub_resource type="Resource" id="Resource_ahe3t"]
+script = ExtResource("9_747jw")
+chord = 1.5000000000000002
+span = 9.0
+area = 13.500000000000002
+aspect_ratio = 5.999999999999999
+
+[sub_resource type="Resource" id="Resource_efpww"]
+resource_name = "roll"
+script = ExtResource("8_qkuex")
+axis_name = "roll"
+contribution = Vector3(1, 0, 0)
+
+[sub_resource type="Resource" id="Resource_jepwm"]
+script = ExtResource("9_w1uor")
+axis_configs = Array[ExtResource("8_qkuex")]([SubResource("Resource_efpww")])
+max_value = Vector3(0.5, 0, 0)
+min_value = Vector3(-0.5, 0, 0)
+metadata/_custom_type_script = "uid://cblxodmmwvpt6"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x8br4"]
+albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_000wv"]
+material = SubResource("StandardMaterial3D_x8br4")
+size = Vector3(9, 0.2, 1.5)
+
+[sub_resource type="Resource" id="Resource_7grt2"]
+resource_name = "throttle"
+script = ExtResource("8_qkuex")
+axis_name = "throttle"
+contribution = Vector3(-1, -1, -1)
+
+[sub_resource type="Resource" id="Resource_56olu"]
+script = ExtResource("9_w1uor")
+axis_configs = Array[ExtResource("8_qkuex")]([SubResource("Resource_7grt2")])
+use_separate_minmax = true
+min_value = Vector3(0, 0, -1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3l2nb"]
+albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q3fct"]
+material = SubResource("StandardMaterial3D_3l2nb")
+top_radius = 1.0
+bottom_radius = 1.1
+height = 3.0
+radial_segments = 16
+rings = 0
+
+[sub_resource type="Resource" id="Resource_ag7hq"]
+resource_name = "throttle"
+script = ExtResource("8_qkuex")
+axis_name = "throttle"
+contribution = Vector3(-1, -1, -1)
+
+[sub_resource type="Resource" id="Resource_xupwk"]
+script = ExtResource("9_w1uor")
+axis_configs = Array[ExtResource("8_qkuex")]([SubResource("Resource_ag7hq")])
+use_separate_minmax = true
+min_value = Vector3(0, 0, -1)
+
+[sub_resource type="Resource" id="Resource_k8mbh"]
+resource_name = "roll"
+script = ExtResource("8_qkuex")
+axis_name = "roll"
+contribution = Vector3(-1, 0, 0)
+
+[sub_resource type="Resource" id="Resource_otell"]
+script = ExtResource("9_w1uor")
+axis_configs = Array[ExtResource("8_qkuex")]([SubResource("Resource_k8mbh")])
+max_value = Vector3(0.5, 0, 0)
+min_value = Vector3(-0.5, 0, 0)
+metadata/_custom_type_script = "uid://cblxodmmwvpt6"
+
+[sub_resource type="Curve" id="Curve_2i4h6"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_kryix"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_m5ggn"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_747jw"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_o4mmn"]
+script = ExtResource("8_m5ggn")
+lift_aoa_curve = SubResource("Curve_m5ggn")
+drag_aoa_curve = SubResource("Curve_2i4h6")
+sweep_drag_multiplier_curve = SubResource("Curve_747jw")
+drag_at_mach_multiplier_curve = SubResource("Curve_kryix")
+
+[sub_resource type="Resource" id="Resource_4mmge"]
+script = ExtResource("9_747jw")
+chord = 2.5
+span = 8.0
+area = 20.0
+aspect_ratio = 3.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rk5gv"]
+albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_imoi0"]
+material = SubResource("StandardMaterial3D_rk5gv")
+size = Vector3(8, 0.2, 2.5)
+
+[sub_resource type="Curve" id="Curve_t3n0y"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_rdobr"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_h6e0x"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_ahe3t"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_000wv"]
+script = ExtResource("8_m5ggn")
+lift_aoa_curve = SubResource("Curve_h6e0x")
+drag_aoa_curve = SubResource("Curve_t3n0y")
+sweep_drag_multiplier_curve = SubResource("Curve_ahe3t")
+drag_at_mach_multiplier_curve = SubResource("Curve_rdobr")
+
+[sub_resource type="Resource" id="Resource_f1qfb"]
+script = ExtResource("9_747jw")
+chord = 1.5
+span = 8.0
+area = 12.0
+aspect_ratio = 5.333333333333333
+
+[sub_resource type="Resource" id="Resource_w3nix"]
+resource_name = "pitch"
+script = ExtResource("8_qkuex")
+axis_name = "pitch"
+contribution = Vector3(-1, 0, 0)
+
+[sub_resource type="Resource" id="Resource_xlc3s"]
+script = ExtResource("9_w1uor")
+axis_configs = Array[ExtResource("8_qkuex")]([SubResource("Resource_w3nix")])
+max_value = Vector3(0.5, 0, 0)
+min_value = Vector3(-0.5, 0, 0)
+metadata/_custom_type_script = "uid://cblxodmmwvpt6"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkjee"]
+albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_711ey"]
+material = SubResource("StandardMaterial3D_pkjee")
+size = Vector3(8, 0.15, 1.5)
+
+[sub_resource type="Curve" id="Curve_efpww"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_jepwm"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_000wv"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_7grt2"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_711ey"]
+script = ExtResource("8_m5ggn")
+lift_aoa_curve = SubResource("Curve_000wv")
+drag_aoa_curve = SubResource("Curve_efpww")
+sweep_drag_multiplier_curve = SubResource("Curve_7grt2")
+drag_at_mach_multiplier_curve = SubResource("Curve_jepwm")
+
+[sub_resource type="Resource" id="Resource_xsk5d"]
+script = ExtResource("9_747jw")
+chord = 2.9999999999999996
+span = 7.0
+area = 20.999999999999996
+aspect_ratio = 2.3333333333333335
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62kos"]
+albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2i4h6"]
+material = SubResource("StandardMaterial3D_62kos")
+size = Vector3(7, 0.2, 3)
+
+[sub_resource type="Curve" id="Curve_x8br4"]
+_limits = [0.0, 1.0, -180.0, 180.0]
+bake_resolution = 21
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-90, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(90, 1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_bvkvk"]
+_limits = [1.0, 2.0, 0.0, 2.0]
+bake_resolution = 23
+_data = [Vector2(0.7, 1), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0, Vector2(2, 1.2), 0.181, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_ckmoj"]
+_limits = [-1.0, 1.0, -180.0, 180.0]
+bake_resolution = 36
+_data = [Vector2(-180, 0), 0.0, 0.0, 0, 0, Vector2(-148, 1), 0.0, 0.0, 0, 0, Vector2(-145, 0.7), 0.0, 0.0, 0, 0, Vector2(-35, -0.7), 0.0, 0.0, 0, 0, Vector2(-32, -1), 0.0, 0.0, 0, 0, Vector2(32, 1), 0.0, 0.0, 0, 0, Vector2(35, 0.7), 0.0, 0.0, 0, 0, Vector2(137.426, -0.7), 0.0, 0.0, 0, 0, Vector2(148, -1), 0.0, 0.0, 0, 0, Vector2(180, 0), 0.0, 0.0, 0, 0]
+point_count = 10
+
+[sub_resource type="Curve" id="Curve_q67jc"]
+_limits = [0.0, 1.0, 0.0, 90.0]
+bake_resolution = 4
+_data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00834336, -0.00834336, 0, 0, Vector2(90, 0.291), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_ije6d"]
+script = ExtResource("8_m5ggn")
+lift_aoa_curve = SubResource("Curve_ckmoj")
+drag_aoa_curve = SubResource("Curve_x8br4")
+sweep_drag_multiplier_curve = SubResource("Curve_q67jc")
+drag_at_mach_multiplier_curve = SubResource("Curve_bvkvk")
+
+[sub_resource type="Resource" id="Resource_6f2uw"]
+script = ExtResource("9_747jw")
+chord = 1.4999999999999998
+span = 6.999999999999999
+area = 10.499999999999996
+aspect_ratio = 4.666666666666667
+
+[sub_resource type="Resource" id="Resource_070pu"]
+resource_name = "yaw"
+script = ExtResource("8_qkuex")
+axis_name = "yaw"
+contribution = Vector3(1, 0, 0)
+
+[sub_resource type="Resource" id="Resource_0ico2"]
+script = ExtResource("9_w1uor")
+axis_configs = Array[ExtResource("8_qkuex")]([SubResource("Resource_070pu")])
+max_value = Vector3(0.5, 0, 0)
+min_value = Vector3(-0.5, 0, 0)
+metadata/_custom_type_script = "uid://cblxodmmwvpt6"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bvkvk"]
+albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vui7a"]
+material = SubResource("StandardMaterial3D_bvkvk")
+size = Vector3(7, 0.2, 1.5)
+
+[node name="BigBoy" type="VehicleBody3D" unique_id=1288187708]
+collision_layer = 16385
+mass = 75000.0
+center_of_mass_mode = 1
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_fsa6r")
+metadata/_custom_type_script = "uid://3iji867c81k5"
+
+[node name="AeroControlComponent" type="Node" parent="." unique_id=1140669599]
+script = ExtResource("2_b1xhl")
+flight_assist = SubResource("Resource_on1dq")
+control_config = SubResource("Resource_kryix")
+metadata/_custom_type_script = "uid://cc5dwx5pqkaur"
+
+[node name="FuselageMesh" type="MeshInstance3D" parent="." unique_id=1561940760]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_q3fct")
+
+[node name="FuselageCollisionShape3D" type="CollisionShape3D" parent="." unique_id=1310482739]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_q3fct")
+
+[node name="VStabCollisionShape3D" type="CollisionShape3D" parent="." unique_id=757812040]
+transform = Transform3D(-4.3711385e-08, -1, -8.881784e-16, 0.96592575, -3.4508552e-08, -0.258819, 0.258819, -4.010017e-08, 0.96592575, -4.7683713e-07, 5.493584, 12.681638)
+shape = SubResource("BoxShape3D_x8br4")
+
+[node name="WingR1CollisionShape3D" type="CollisionShape3D" parent="." unique_id=682329014]
+transform = Transform3D(0.99939096, 0, -0.0348995, 0, 1, 0, 0.0348995, 0, 0.99939096, 6.850978, 2, -1.9901419)
+shape = SubResource("BoxShape3D_kryix")
+
+[node name="WingR2CollisionShape3D" type="CollisionShape3D" parent="." unique_id=325940016]
+transform = Transform3D(0.9887069, 0, -0.14986326, 0, 1, 0, 0.14986326, 0, 0.9887069, 17.022018, 2.05, -2.135246)
+shape = SubResource("BoxShape3D_m5ggn")
+
+[node name="HStabRCollisionShape3D" type="CollisionShape3D" parent="." unique_id=800541044]
+transform = Transform3D(0.99618864, 0, -0.0872253, 0, 1, 0, 0.0872253, 0, 0.99618864, 5, 1, 12.041275)
+shape = SubResource("BoxShape3D_747jw")
+
+[node name="EngineR1CollisionShape3D" type="CollisionShape3D" parent="." unique_id=107619291]
+transform = Transform3D(1, 0, 8.485147e-31, 0, -4.371139e-08, -1, 0, 1, -4.3711395e-08, 5.57131, 0.33555365, -5.196797)
+shape = SubResource("CylinderShape3D_3l2nb")
+
+[node name="EngineR2CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1121292359]
+transform = Transform3D(1, 0, 8.485147e-31, 0, -4.371139e-08, -1, 0, 1, -4.3711395e-08, 10.287804, 0.33555365, -4.821035)
+shape = SubResource("CylinderShape3D_rk5gv")
+
+[node name="WingL1CollisionShape3D" type="CollisionShape3D" parent="." unique_id=229012485]
+transform = Transform3D(0.99939096, 0, 0.0348995, 0, 1, 0, -0.0348995, 0, 0.99939096, -6.851, 2, -1.99)
+shape = SubResource("BoxShape3D_kryix")
+
+[node name="WingL2CollisionShape3D" type="CollisionShape3D" parent="." unique_id=316647606]
+transform = Transform3D(0.9887565, 0, 0.14953536, 0, 1, 0, -0.14953536, 0, 0.9887565, -17.022, 2.05, -2.135)
+shape = SubResource("BoxShape3D_m5ggn")
+
+[node name="HStabLCollisionShape3D" type="CollisionShape3D" parent="." unique_id=1697051528]
+transform = Transform3D(0.9961947, 0, 0.08715574, 0, 1, 0, -0.08715574, 0, 0.9961947, -5, 1, 12.041)
+shape = SubResource("BoxShape3D_747jw")
+
+[node name="EngineL1CollisionShape3D" type="CollisionShape3D" parent="." unique_id=451433209]
+transform = Transform3D(1, 0, 8.485147e-31, 0, -4.371139e-08, -1, 0, 1, -4.3711395e-08, -5.571, 0.336, -5.197)
+shape = SubResource("CylinderShape3D_3l2nb")
+
+[node name="EngineL2CollisionShape3D" type="CollisionShape3D" parent="." unique_id=910328210]
+transform = Transform3D(1, 0, 8.485147e-31, 0, -4.371139e-08, -1, 0, 1, -4.3711395e-08, -10.288, 0.336, -4.821)
+shape = SubResource("CylinderShape3D_rk5gv")
+
+[node name="WingR1" type="Node3D" parent="." unique_id=1526471289]
+transform = Transform3D(0.99939084, 0, -0.034899496, 0, 1, 0, 0.034899496, 0, 0.99939084, 6.850978, 2, -1.9901419)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_vsefg")
+wing_config = SubResource("Resource_1dl8n")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="WingR1Mesh" type="MeshInstance3D" parent="WingR1" unique_id=1887824954]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
+mesh = SubResource("BoxMesh_o4mmn")
+
+[node name="WingR2" type="Node3D" parent="WingR1" unique_id=2100865360]
+transform = Transform3D(0.9873474, 0, -0.15857169, 0, 1, 0, 0.15857169, 0, 0.9873474, 10.159779, 0.049999952, -0.49998093)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_t3n0y")
+wing_config = SubResource("Resource_rdobr")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="WingR2Mesh" type="MeshInstance3D" parent="WingR1/WingR2" unique_id=1348269846]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 1.9073486e-06, 0, 4.7683716e-07)
+mesh = SubResource("BoxMesh_q3fct")
+
+[node name="Aileron" type="Node3D" parent="WingR1/WingR2" unique_id=24539421]
+transform = Transform3D(0.9781482, 0, 0.20791182, 0, 1, 0, -0.20791182, 0, 0.9781482, -0.07433128, 0, 1.8302336)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_h6e0x")
+wing_config = SubResource("Resource_ahe3t")
+actuation_config = SubResource("Resource_jepwm")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="AileronMesh" type="MeshInstance3D" parent="WingR1/WingR2/Aileron" unique_id=377380846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.7683716e-07)
+mesh = SubResource("BoxMesh_000wv")
+
+[node name="PartSeparator" type="Node" parent="WingR1/WingR2" unique_id=1428923132 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("13_kryix")
+collision_shape = NodePath("../../../WingR2CollisionShape3D")
+debris_mass = 1000.0
+metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="Engine1" type="Node3D" parent="WingR1" unique_id=384197222]
+transform = Transform3D(0.99939084, 0, 0.034899496, 0, 1, 0, -0.034899496, 0, 0.99939084, -1.390799, -1.6644464, -3.1600423)
+script = ExtResource("7_sdbjv")
+throttle_control_config = SubResource("Resource_56olu")
+max_thrust_force = 250000.0
+metadata/_custom_type_script = "uid://3kjm0rdymoth"
+
+[node name="EngineR1Mesh" type="MeshInstance3D" parent="WingR1/Engine1" unique_id=52343825]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_q3fct")
+
+[node name="PartSeparator" type="Node" parent="WingR1/Engine1" unique_id=200961646 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("13_kryix")
+collision_shape = NodePath("../../../EngineR1CollisionShape3D")
+debris_mass = 6000.0
+metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="Engine2" type="Node3D" parent="WingR1" unique_id=638865547]
+transform = Transform3D(0.99939084, 0, 0.034899496, 0, 1, 0, -0.034899496, 0, 0.99939084, 3.335935, -1.6644464, -2.949112)
+script = ExtResource("7_sdbjv")
+throttle_control_config = SubResource("Resource_xupwk")
+max_thrust_force = 250000.0
+metadata/_custom_type_script = "uid://3kjm0rdymoth"
+
+[node name="EngineR2Mesh" type="MeshInstance3D" parent="WingR1/Engine2" unique_id=1253459842]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_q3fct")
+
+[node name="PartSeparator" type="Node" parent="WingR1/Engine2" unique_id=1837036207 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("13_kryix")
+collision_shape = NodePath("../../../EngineR2CollisionShape3D")
+debris_mass = 6000.0
+metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="WingL1" type="Node3D" parent="." unique_id=1542302378]
+transform = Transform3D(0.99939084, 0, 0.034899496, 0, 1, 0, -0.034899496, 0, 0.99939084, -6.851, 2, -1.99)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_vsefg")
+wing_config = SubResource("Resource_1dl8n")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="WingL1Mesh" type="MeshInstance3D" parent="WingL1" unique_id=780285355]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
+mesh = SubResource("BoxMesh_o4mmn")
+
+[node name="WingL2" type="Node3D" parent="WingL1" unique_id=157371955]
+transform = Transform3D(0.98741376, 0, 0.15815805, 0, 1, 0, -0.15815805, 0, 0.98741376, -10.16, 0.05, -0.5)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_t3n0y")
+wing_config = SubResource("Resource_rdobr")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="WingL2Mesh" type="MeshInstance3D" parent="WingL1/WingL2" unique_id=992399336]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 1.9073486e-06, 0, 4.7683716e-07)
+mesh = SubResource("BoxMesh_q3fct")
+
+[node name="Aileron" type="Node3D" parent="WingL1/WingL2" unique_id=756428796]
+transform = Transform3D(0.9781482, 0, -0.20791182, 0, 1, 0, 0.20791182, 0, 0.9781482, 0.074, 0, 1.83)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_h6e0x")
+wing_config = SubResource("Resource_ahe3t")
+actuation_config = SubResource("Resource_otell")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="AileronMesh" type="MeshInstance3D" parent="WingL1/WingL2/Aileron" unique_id=1776227720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.7683716e-07)
+mesh = SubResource("BoxMesh_000wv")
+
+[node name="PartSeparator" type="Node" parent="WingL1/WingL2" unique_id=1567232669 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("13_kryix")
+collision_shape = NodePath("../../../WingL2CollisionShape3D")
+debris_mass = 1000.0
+metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="Engine1" type="Node3D" parent="WingL1" unique_id=1720389785]
+transform = Transform3D(0.99939084, 0, -0.034899496, 0, 1, 0, 0.034899496, 0, 0.99939084, 1.391, -1.664, -3.16)
+script = ExtResource("7_sdbjv")
+throttle_control_config = SubResource("Resource_56olu")
+max_thrust_force = 250000.0
+metadata/_custom_type_script = "uid://3kjm0rdymoth"
+
+[node name="EngineL1Mesh" type="MeshInstance3D" parent="WingL1/Engine1" unique_id=1444740223]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 4.7683716e-07, 0)
+mesh = SubResource("CylinderMesh_q3fct")
+
+[node name="PartSeparator" type="Node" parent="WingL1/Engine1" unique_id=59554685 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("13_kryix")
+collision_shape = NodePath("../../../EngineL1CollisionShape3D")
+debris_mass = 6000.0
+metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="Engine2" type="Node3D" parent="WingL1" unique_id=132234282]
+transform = Transform3D(0.99939084, 0, -0.034899496, 0, 1, 0, 0.034899496, 0, 0.99939084, -3.336, -1.664, -2.949)
+script = ExtResource("7_sdbjv")
+throttle_control_config = SubResource("Resource_xupwk")
+max_thrust_force = 250000.0
+metadata/_custom_type_script = "uid://3kjm0rdymoth"
+
+[node name="EngineL2Mesh" type="MeshInstance3D" parent="WingL1/Engine2" unique_id=1220824950]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_q3fct")
+
+[node name="PartSeparator" type="Node" parent="WingL1/Engine2" unique_id=898006530 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("13_kryix")
+collision_shape = NodePath("../../../EngineL2CollisionShape3D")
+debris_mass = 6000.0
+metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="HStabR" type="Node3D" parent="." unique_id=1394809352]
+transform = Transform3D(0.9961887, 0, -0.0872253, 0, 1, 0, 0.0872253, 0, 0.9961887, 5, 2.0724907, 12.041275)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_o4mmn")
+wing_config = SubResource("Resource_4mmge")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="HStabRMesh" type="MeshInstance3D" parent="HStabR" unique_id=1028705699]
+transform = Transform3D(0.99999994, 0, -7.450581e-09, 0, 1, 0, 7.450581e-09, 0, 0.99999994, 0, 0, 0)
+mesh = SubResource("BoxMesh_imoi0")
+
+[node name="Elevator" type="Node3D" parent="HStabR" unique_id=99829054]
+transform = Transform3D(0.9999999, 0, -7.450581e-09, 0, 1, 0, 7.450581e-09, 0, 0.9999999, 0.030446053, 0, 2.0467167)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_000wv")
+wing_config = SubResource("Resource_f1qfb")
+actuation_config = SubResource("Resource_xlc3s")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="ElevatorMesh" type="MeshInstance3D" parent="HStabR/Elevator" unique_id=546334396]
+mesh = SubResource("BoxMesh_711ey")
+
+[node name="PartSeparator" type="Node" parent="HStabR" unique_id=227547738 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("13_kryix")
+impact_accleration_threshold = 1500.0
+collision_shape = NodePath("../../HStabRCollisionShape3D")
+debris_mass = 1000.0
+metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="HStabL" type="Node3D" parent="." unique_id=18644812]
+transform = Transform3D(0.99619484, 0, 0.087155744, 0, 1, 0, -0.087155744, 0, 0.99619484, -5, 2.0724907, 12.041)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_o4mmn")
+wing_config = SubResource("Resource_4mmge")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="HStabLMesh" type="MeshInstance3D" parent="HStabL" unique_id=815354569]
+transform = Transform3D(0.99999994, 0, -7.450581e-09, 0, 1, 0, 7.450581e-09, 0, 0.99999994, 0, 0, 0)
+mesh = SubResource("BoxMesh_imoi0")
+
+[node name="Elevator" type="Node3D" parent="HStabL" unique_id=86682911]
+transform = Transform3D(0.9999999, 0, -7.450581e-09, 0, 1, 0, 7.450581e-09, 0, 0.9999999, 0.030446053, 0, 2.0467167)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_000wv")
+wing_config = SubResource("Resource_f1qfb")
+actuation_config = SubResource("Resource_xlc3s")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="ElevatorMesh" type="MeshInstance3D" parent="HStabL/Elevator" unique_id=1122070758]
+mesh = SubResource("BoxMesh_711ey")
+
+[node name="PartSeparator" type="Node" parent="HStabL" unique_id=1880905579 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("13_kryix")
+impact_accleration_threshold = 1500.0
+collision_shape = NodePath("../../HStabLCollisionShape3D")
+debris_mass = 1000.0
+metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="VStab" type="Node3D" parent="." unique_id=1768887462]
+transform = Transform3D(-4.3711392e-08, -1, 0, 0.96592593, -4.222196e-08, -0.25881904, 0.25881907, -1.131334e-08, 0.9659258, -4.7683716e-07, 5.4935837, 12.681639)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_711ey")
+wing_config = SubResource("Resource_xsk5d")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="VStabMesh" type="MeshInstance3D" parent="VStab" unique_id=980960409]
+transform = Transform3D(0.9999998, 8.881784e-16, 0, 0, 1, 8.881784e-16, 0, -2.980232e-08, 0.99999994, 0, -2.842171e-14, -9.536743e-07)
+mesh = SubResource("BoxMesh_2i4h6")
+
+[node name="Rudder" type="Node3D" parent="VStab" unique_id=493126403]
+transform = Transform3D(0.9999995, 1.5099033e-14, 1.4901161e-08, -2.4424907e-15, 1, 7.993606e-15, 0, -2.9802308e-08, 0.99999964, 0, 0, 2.306)
+script = ExtResource("7_kryix")
+manual_config = SubResource("Resource_ije6d")
+wing_config = SubResource("Resource_6f2uw")
+actuation_config = SubResource("Resource_0ico2")
+metadata/_custom_type_script = "uid://d1725od371u4a"
+
+[node name="RudderMesh" type="MeshInstance3D" parent="VStab/Rudder" unique_id=1525898938]
+transform = Transform3D(0.9999998, 8.881784e-16, 0, 0, 1, 8.881784e-16, 0, -2.980232e-08, 0.99999994, 0, -2.842171e-14, -9.536743e-07)
+mesh = SubResource("BoxMesh_vui7a")
+
+[node name="PartSeparator" type="Node" parent="VStab" unique_id=1867181438 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("13_kryix")
+impact_accleration_threshold = 1500.0
+collision_shape = NodePath("../../VStabCollisionShape3D")
+debris_mass = 1000.0
+metadata/_custom_type_script = "uid://b0jtcp3t4ow64"

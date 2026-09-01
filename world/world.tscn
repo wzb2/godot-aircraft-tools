@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dlefwo52g4du" path="res://world/camera.gd" id="2_4717r"]
 [ext_resource type="Texture2D" uid="uid://dikorqbfipcwc" path="res://world/runway.png" id="2_tcf2h"]
 [ext_resource type="PackedScene" uid="uid://btfw7160pg4yp" path="res://plane/demo/turret.tscn" id="4_h5o24"]
+[ext_resource type="PackedScene" uid="uid://dm4epjw0fb833" path="res://plane/big_boy.tscn" id="5_mmdvd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,14 +28,13 @@ frequency = 0.1
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tcf2h"]
 noise = SubResource("FastNoiseLite_6xmxd")
 seamless = true
-as_normal_map = true
 bump_strength = 16.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4717r"]
 albedo_color = Color(0.5137255, 1, 0.42745098, 1)
+albedo_texture = SubResource("NoiseTexture2D_tcf2h")
 normal_enabled = true
 normal_scale = 0.5
-normal_texture = SubResource("NoiseTexture2D_tcf2h")
 
 [sub_resource type="BoxMesh" id="BoxMesh_6xmxd"]
 material = SubResource("StandardMaterial3D_4717r")
@@ -45,6 +45,15 @@ size = Vector3(5, 2, 8)
 
 [sub_resource type="BoxMesh" id="BoxMesh_h5o24"]
 size = Vector3(5, 2, 8)
+
+[sub_resource type="Curve3D" id="Curve3D_mmdvd"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 894.719, 0, 98.50662, 0, 0, 0, 0, 0, 0, 738.3325, 0, 540.4683, 0, 0, 0, 0, 0, 0, 136.58461, 0, 741.0511, 0, 0, 0, 0, 0, 0, -592.6522, 0, 637.3599, 0, 0, 0, 0, 0, 0, -1019.3152, 0, 229.39526, 0, 0, 0, 0, 0, 0, -840.8307, 0, -324.7567, 0, 0, 0, 0, 0, 0, -651.66504, 0, -532.8346, 0, 0, 0, 0, 0, 0, 155.7649, 0, -1136.2822, 0, 0, 0, 0, 0, 0, 1147.8123, 0, -1887.2656, 0, 0, 0, 0, 0, 0, 1615.4591, 0, -2492.8816, 0, 0, 0, 0, 0, 0, 1141.9324, -0.00012207031, -3244.2942, 0, 0, 0, 0, 0, 0, 229.11133, -0.00024414063, -3398.9807, 0, 0, 0, 0, 0, 0, -546.0215, -0.00012207031, -2975.7173, 0, 0, 0, 0, 0, 0, -630.63806, 0, -2257.1458, 0, 0, 0, 0, 0, 0, -87.260864, 0.00012207031, -1744.4419, 0, 0, 0, 0, 0, 0, 529.25433, 0.00024414063, -1027.3228, 0, 0, 0, 0, 0, 0, 791.2132, 0.00024414063, -516.8158),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 17
+up_vector_enabled = false
 
 [node name="World" type="Node3D" unique_id=601031772]
 
@@ -70,7 +79,6 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2
 
 [node name="Camera3D" type="Camera3D" parent="Plane" unique_id=1203713217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.490741e-07, 1.1592698, 0.010818481)
-current = true
 far = 10000.0
 script = ExtResource("2_4717r")
 
@@ -112,3 +120,16 @@ target = NodePath("../Plane")
 [node name="Turret2" parent="." unique_id=1629577894 node_paths=PackedStringArray("target") instance=ExtResource("4_h5o24")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -594.5, 1, 128.65201)
 target = NodePath("../Plane")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=2046739126]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 300, 400)
+curve = SubResource("Curve3D_mmdvd")
+
+[node name="BigBoy" parent="." unique_id=1288187708 instance=ExtResource("5_mmdvd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 924, 200, 1316.901)
+linear_velocity = Vector3(0, 0, -80)
+
+[node name="Camera3D" type="Camera3D" parent="BigBoy" unique_id=1943732213]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
+current = true
+script = ExtResource("2_4717r")
