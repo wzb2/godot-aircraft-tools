@@ -1,5 +1,6 @@
 extends Node
 
+## Nested PartSeparators don't really work. 
 class_name PartSeparator
 
 signal sepreate

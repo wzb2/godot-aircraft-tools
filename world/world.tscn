@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dikorqbfipcwc" path="res://world/runway.png" id="2_tcf2h"]
 [ext_resource type="PackedScene" uid="uid://btfw7160pg4yp" path="res://plane/demo/turret.tscn" id="4_h5o24"]
 [ext_resource type="PackedScene" uid="uid://dm4epjw0fb833" path="res://plane/big_boy.tscn" id="5_mmdvd"]
+[ext_resource type="Script" uid="uid://bg7g5q4ow15hc" path="res://plane/autopilot/autopilot_path_follower.gd" id="6_fn3g3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -122,14 +123,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -594.5, 1, 128.65201)
 target = NodePath("../Plane")
 
 [node name="Path3D" type="Path3D" parent="." unique_id=2046739126]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 300, 400)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -3000, 300, 400)
 curve = SubResource("Curve3D_mmdvd")
 
 [node name="BigBoy" parent="." unique_id=1288187708 instance=ExtResource("5_mmdvd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 924, 200, 1316.901)
-linear_velocity = Vector3(0, 0, -80)
+transform = Transform3D(-0.9848077, 0, -0.17364822, 0, 1, 0, 0.17364822, 0, -0.9848077, 1081, 300, -2760)
+linear_velocity = Vector3(0, 0, 100)
 
 [node name="Camera3D" type="Camera3D" parent="BigBoy" unique_id=1943732213]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
 current = true
 script = ExtResource("2_4717r")
+
+[node name="AutopilotPathFollower" type="Node" parent="BigBoy" unique_id=1541432046 node_paths=PackedStringArray("aerobody", "path")]
+script = ExtResource("6_fn3g3")
+aerobody = NodePath("..")
+path = NodePath("../../Path3D")
+metadata/_custom_type_script = "uid://bg7g5q4ow15hc"
