@@ -49,10 +49,12 @@ func manage_hit() -> void:
 	var collider: Object = get_collider()
 	
 	var force: Vector3 = damage * velocity
-	if collider is RigidBody3D:
-		collider.apply_impulse(force, global_position - collider.global_position)
 	if collider is AircraftPartHitbox:
 		collider.hit(force.length())
+	elif collider is Area3D:
+		return
+	if collider is RigidBody3D:
+		collider.apply_impulse(force, global_position - collider.global_position)
 	if collider is Turret:
 		if randf() > 0.5:
 			collider.gun.attached = false

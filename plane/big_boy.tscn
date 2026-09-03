@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://crkbhmxpjff4o" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/aero_surface_config.gd" id="9_747jw"]
 [ext_resource type="Script" uid="uid://cblxodmmwvpt6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_config.gd" id="9_w1uor"]
 [ext_resource type="Script" uid="uid://b0jtcp3t4ow64" path="res://plane/destruction/part_separator.gd" id="13_kryix"]
+[ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://plane/destruction/aircraft_part_hitbox.gd" id="14_m5ggn"]
 
 [sub_resource type="Resource" id="Resource_2i4h6"]
 script = ExtResource("3_q3fct")
@@ -28,21 +29,22 @@ d = 0.1
 
 [sub_resource type="Resource" id="Resource_747jw"]
 script = ExtResource("3_q3fct")
-p = 6.0
-i = 1.0
+p = 7.0
+i = 0.5
+d = 1.0
 clamp_integral = true
-min_integral = -2.0
-max_integral = 2.0
 
 [sub_resource type="Resource" id="Resource_x8br4"]
 script = ExtResource("3_q3fct")
-p = 0.05
+p = 3.0
 i = 0.0
+d = 1.0
+clamp_integral = true
 
 [sub_resource type="Resource" id="Resource_3l2nb"]
 script = ExtResource("3_q3fct")
-p = 2.0
-i = 0.01
+p = 5.0
+i = 1.0
 clamp_integral = true
 
 [sub_resource type="Resource" id="Resource_rk5gv"]
@@ -310,6 +312,12 @@ albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
 material = SubResource("StandardMaterial3D_x8br4")
 size = Vector3(9, 0.2, 1.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_bvkvk"]
+size = Vector3(9.1, 0.3, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ckmoj"]
+size = Vector3(10.1, 0.3, 2.6)
+
 [sub_resource type="Resource" id="Resource_7grt2"]
 resource_name = "throttle"
 script = ExtResource("8_qkuex")
@@ -332,6 +340,10 @@ bottom_radius = 1.1
 height = 3.0
 radial_segments = 16
 rings = 0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_m5ggn"]
+height = 3.1
+radius = 1.12
 
 [sub_resource type="Resource" id="Resource_ag7hq"]
 resource_name = "throttle"
@@ -465,6 +477,12 @@ albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
 material = SubResource("StandardMaterial3D_pkjee")
 size = Vector3(8, 0.15, 1.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_pkjee"]
+size = Vector3(8.1, 0.25, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_62kos"]
+size = Vector3(8.1, 0.3, 2.6)
+
 [sub_resource type="Curve" id="Curve_efpww"]
 _limits = [0.0, 1.0, -180.0, 180.0]
 bake_resolution = 21
@@ -570,6 +588,12 @@ albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
 material = SubResource("StandardMaterial3D_bvkvk")
 size = Vector3(7, 0.2, 1.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3l2nb"]
+size = Vector3(7.1, 0.3, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rk5gv"]
+size = Vector3(7.1, 0.3, 3.1)
+
 [node name="BigBoy" type="VehicleBody3D" unique_id=1288187708]
 collision_layer = 16385
 mass = 75000.0
@@ -602,11 +626,11 @@ transform = Transform3D(0.99939096, 0, -0.0348995, 0, 1, 0, 0.0348995, 0, 0.9993
 shape = SubResource("BoxShape3D_kryix")
 
 [node name="WingR2CollisionShape3D" type="CollisionShape3D" parent="." unique_id=325940016]
-transform = Transform3D(0.9887069, 0, -0.14986326, 0, 1, 0, 0.14986326, 0, 0.9887069, 17.022018, 2.05, -2.135246)
+transform = Transform3D(0.9812928, 0, -0.19252199, 0, 1, 0, 0.19252199, 0, 0.9812928, 17.022018, 2.05, -2.135246)
 shape = SubResource("BoxShape3D_m5ggn")
 
 [node name="HStabRCollisionShape3D" type="CollisionShape3D" parent="." unique_id=800541044]
-transform = Transform3D(0.99618864, 0, -0.0872253, 0, 1, 0, 0.0872253, 0, 0.99618864, 5, 1, 12.041275)
+transform = Transform3D(0.99618864, 0, -0.0872253, 0, 1, 0, 0.0872253, 0, 0.99618864, 5, 2.072, 12.041275)
 shape = SubResource("BoxShape3D_747jw")
 
 [node name="EngineR1CollisionShape3D" type="CollisionShape3D" parent="." unique_id=107619291]
@@ -622,11 +646,11 @@ transform = Transform3D(0.99939096, 0, 0.0348995, 0, 1, 0, -0.0348995, 0, 0.9993
 shape = SubResource("BoxShape3D_kryix")
 
 [node name="WingL2CollisionShape3D" type="CollisionShape3D" parent="." unique_id=316647606]
-transform = Transform3D(0.9887565, 0, 0.14953536, 0, 1, 0, -0.14953536, 0, 0.9887565, -17.022, 2.05, -2.135)
+transform = Transform3D(0.9812928, 0, 0.19252199, 0, 1, 0, -0.19252199, 0, 0.9812928, -17.022, 2.05, -2.135)
 shape = SubResource("BoxShape3D_m5ggn")
 
 [node name="HStabLCollisionShape3D" type="CollisionShape3D" parent="." unique_id=1697051528]
-transform = Transform3D(0.9961947, 0, 0.08715574, 0, 1, 0, -0.08715574, 0, 0.9961947, -5, 1, 12.041)
+transform = Transform3D(0.9961947, 0, 0.08715574, 0, 1, 0, -0.08715574, 0, 0.9961947, -5, 2.072, 12.041)
 shape = SubResource("BoxShape3D_747jw")
 
 [node name="EngineL1CollisionShape3D" type="CollisionShape3D" parent="." unique_id=451433209]
@@ -671,11 +695,29 @@ metadata/_custom_type_script = "uid://d1725od371u4a"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.7683716e-07)
 mesh = SubResource("BoxMesh_000wv")
 
+[node name="AircraftPartHitbox" type="Area3D" parent="WingR1/WingR2/Aileron" unique_id=392597092 node_paths=PackedStringArray("aero_influencer")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WingR1/WingR2/Aileron/AircraftPartHitbox" unique_id=530507901]
+shape = SubResource("BoxShape3D_bvkvk")
+
 [node name="PartSeparator" type="Node" parent="WingR1/WingR2" unique_id=1428923132 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("13_kryix")
 collision_shape = NodePath("../../../WingR2CollisionShape3D")
 debris_mass = 1000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="AircraftPartHitbox" type="Area3D" parent="WingR1/WingR2" unique_id=348062444 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+can_disable_control = false
+part_spearator = NodePath("../PartSeparator")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WingR1/WingR2/AircraftPartHitbox" unique_id=1541514310]
+shape = SubResource("BoxShape3D_ckmoj")
 
 [node name="Engine1" type="Node3D" parent="WingR1" unique_id=384197222]
 transform = Transform3D(0.99939084, 0, 0.034899496, 0, 1, 0, -0.034899496, 0, 0.99939084, -1.390799, -1.6644464, -3.1600423)
@@ -694,6 +736,16 @@ collision_shape = NodePath("../../../EngineR1CollisionShape3D")
 debris_mass = 6000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
 
+[node name="AircraftPartHitbox" type="Area3D" parent="WingR1/Engine1" unique_id=1744652376 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+part_spearator = NodePath("../PartSeparator")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WingR1/Engine1/AircraftPartHitbox" unique_id=817898657]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_m5ggn")
+
 [node name="Engine2" type="Node3D" parent="WingR1" unique_id=638865547]
 transform = Transform3D(0.99939084, 0, 0.034899496, 0, 1, 0, -0.034899496, 0, 0.99939084, 3.335935, -1.6644464, -2.949112)
 script = ExtResource("7_sdbjv")
@@ -710,6 +762,16 @@ script = ExtResource("13_kryix")
 collision_shape = NodePath("../../../EngineR2CollisionShape3D")
 debris_mass = 6000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="AircraftPartHitbox" type="Area3D" parent="WingR1/Engine2" unique_id=281889707 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+part_spearator = NodePath("../PartSeparator")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WingR1/Engine2/AircraftPartHitbox" unique_id=1357664718]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_m5ggn")
 
 [node name="WingL1" type="Node3D" parent="." unique_id=1542302378]
 transform = Transform3D(0.99939084, 0, 0.034899496, 0, 1, 0, -0.034899496, 0, 0.99939084, -6.851, 2, -1.99)
@@ -745,11 +807,29 @@ metadata/_custom_type_script = "uid://d1725od371u4a"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.7683716e-07)
 mesh = SubResource("BoxMesh_000wv")
 
+[node name="AircraftPartHitbox" type="Area3D" parent="WingL1/WingL2/Aileron" unique_id=378946450 node_paths=PackedStringArray("aero_influencer")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WingL1/WingL2/Aileron/AircraftPartHitbox" unique_id=1817854954]
+shape = SubResource("BoxShape3D_bvkvk")
+
 [node name="PartSeparator" type="Node" parent="WingL1/WingL2" unique_id=1567232669 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("13_kryix")
 collision_shape = NodePath("../../../WingL2CollisionShape3D")
 debris_mass = 1000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="AircraftPartHitbox" type="Area3D" parent="WingL1/WingL2" unique_id=107172496 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+can_disable_control = false
+part_spearator = NodePath("../PartSeparator")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WingL1/WingL2/AircraftPartHitbox" unique_id=1504755340]
+shape = SubResource("BoxShape3D_ckmoj")
 
 [node name="Engine1" type="Node3D" parent="WingL1" unique_id=1720389785]
 transform = Transform3D(0.99939084, 0, -0.034899496, 0, 1, 0, 0.034899496, 0, 0.99939084, 1.391, -1.664, -3.16)
@@ -768,6 +848,16 @@ collision_shape = NodePath("../../../EngineL1CollisionShape3D")
 debris_mass = 6000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
 
+[node name="AircraftPartHitbox" type="Area3D" parent="WingL1/Engine1" unique_id=684704221 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+part_spearator = NodePath("../PartSeparator")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WingL1/Engine1/AircraftPartHitbox" unique_id=191167295]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_m5ggn")
+
 [node name="Engine2" type="Node3D" parent="WingL1" unique_id=132234282]
 transform = Transform3D(0.99939084, 0, -0.034899496, 0, 1, 0, 0.034899496, 0, 0.99939084, -3.336, -1.664, -2.949)
 script = ExtResource("7_sdbjv")
@@ -784,6 +874,16 @@ script = ExtResource("13_kryix")
 collision_shape = NodePath("../../../EngineL2CollisionShape3D")
 debris_mass = 6000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="AircraftPartHitbox" type="Area3D" parent="WingL1/Engine2" unique_id=2023150352 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+part_spearator = NodePath("../PartSeparator")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WingL1/Engine2/AircraftPartHitbox" unique_id=1537094741]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_m5ggn")
 
 [node name="HStabR" type="Node3D" parent="." unique_id=1394809352]
 transform = Transform3D(0.9961887, 0, -0.0872253, 0, 1, 0, 0.0872253, 0, 0.9961887, 5, 2.0724907, 12.041275)
@@ -807,12 +907,30 @@ metadata/_custom_type_script = "uid://d1725od371u4a"
 [node name="ElevatorMesh" type="MeshInstance3D" parent="HStabR/Elevator" unique_id=546334396]
 mesh = SubResource("BoxMesh_711ey")
 
+[node name="AircraftPartHitbox" type="Area3D" parent="HStabR/Elevator" unique_id=1120967992 node_paths=PackedStringArray("aero_influencer")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HStabR/Elevator/AircraftPartHitbox" unique_id=38573820]
+shape = SubResource("BoxShape3D_pkjee")
+
 [node name="PartSeparator" type="Node" parent="HStabR" unique_id=227547738 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("13_kryix")
 impact_accleration_threshold = 1500.0
 collision_shape = NodePath("../../HStabRCollisionShape3D")
 debris_mass = 1000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="AircraftPartHitbox" type="Area3D" parent="HStabR" unique_id=1796737467 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+can_disable_control = false
+part_spearator = NodePath("../PartSeparator")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HStabR/AircraftPartHitbox" unique_id=57968476]
+shape = SubResource("BoxShape3D_62kos")
 
 [node name="HStabL" type="Node3D" parent="." unique_id=18644812]
 transform = Transform3D(0.99619484, 0, 0.087155744, 0, 1, 0, -0.087155744, 0, 0.99619484, -5, 2.0724907, 12.041)
@@ -836,12 +954,30 @@ metadata/_custom_type_script = "uid://d1725od371u4a"
 [node name="ElevatorMesh" type="MeshInstance3D" parent="HStabL/Elevator" unique_id=1122070758]
 mesh = SubResource("BoxMesh_711ey")
 
+[node name="AircraftPartHitbox" type="Area3D" parent="HStabL/Elevator" unique_id=619985876 node_paths=PackedStringArray("aero_influencer")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HStabL/Elevator/AircraftPartHitbox" unique_id=949927047]
+shape = SubResource("BoxShape3D_pkjee")
+
 [node name="PartSeparator" type="Node" parent="HStabL" unique_id=1880905579 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("13_kryix")
 impact_accleration_threshold = 1500.0
 collision_shape = NodePath("../../HStabLCollisionShape3D")
 debris_mass = 1000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="AircraftPartHitbox" type="Area3D" parent="HStabL" unique_id=468431757 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+can_disable_control = false
+part_spearator = NodePath("../PartSeparator")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HStabL/AircraftPartHitbox" unique_id=50390942]
+shape = SubResource("BoxShape3D_62kos")
 
 [node name="VStab" type="Node3D" parent="." unique_id=1768887462]
 transform = Transform3D(-4.3711392e-08, -1, 0, 0.96592593, -4.222196e-08, -0.25881904, 0.25881907, -1.131334e-08, 0.9659258, -4.7683716e-07, 5.4935837, 12.681639)
@@ -866,9 +1002,28 @@ metadata/_custom_type_script = "uid://d1725od371u4a"
 transform = Transform3D(0.9999998, 8.881784e-16, 0, 0, 1, 8.881784e-16, 0, -2.980232e-08, 0.99999994, 0, -2.842171e-14, -9.536743e-07)
 mesh = SubResource("BoxMesh_vui7a")
 
+[node name="AircraftPartHitbox" type="Area3D" parent="VStab/Rudder" unique_id=847942497 node_paths=PackedStringArray("aero_influencer")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VStab/Rudder/AircraftPartHitbox" unique_id=585594357]
+transform = Transform3D(0.9999994, 8.881784e-16, -1.4901161e-08, 7.771561e-15, 1, 4.8849813e-14, 1.4901161e-08, 0, 0.9999994, 0, 0, 0)
+shape = SubResource("BoxShape3D_3l2nb")
+
 [node name="PartSeparator" type="Node" parent="VStab" unique_id=1867181438 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("13_kryix")
 impact_accleration_threshold = 1500.0
 collision_shape = NodePath("../../VStabCollisionShape3D")
 debris_mass = 1000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
+
+[node name="AircraftPartHitbox" type="Area3D" parent="VStab" unique_id=543599290 node_paths=PackedStringArray("aero_influencer", "part_spearator")]
+script = ExtResource("14_m5ggn")
+aero_influencer = NodePath("..")
+can_disable_control = false
+part_spearator = NodePath("../PartSeparator")
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VStab/AircraftPartHitbox" unique_id=737838923]
+shape = SubResource("BoxShape3D_rk5gv")

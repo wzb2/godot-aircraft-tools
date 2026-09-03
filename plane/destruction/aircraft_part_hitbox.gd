@@ -13,6 +13,12 @@ class_name AircraftPartHitbox
 @export var separate_threshold: float = 0
 
 
+func _ready() -> void:
+	if not aero_influencer:
+		if get_parent() is AeroInfluencer3D:
+			aero_influencer = get_parent()
+
+
 func hit(damage: float) -> void:
 	hp -= damage
 	#update()
