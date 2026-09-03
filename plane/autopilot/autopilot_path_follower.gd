@@ -45,4 +45,6 @@ func update() -> void:
 					
 		
 		flight_assist.direction_target = aerobody.global_position.direction_to(target_point)
+		if flight_assist.enable_altitude_hold:
+			flight_assist.altitude_target = target_point.y
 		

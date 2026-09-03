@@ -17,7 +17,7 @@
 
 [sub_resource type="Resource" id="Resource_2i4h6"]
 script = ExtResource("3_q3fct")
-p = 2.0
+p = 0.1
 i = 1.0
 d = 0.2
 clamp_integral = true
@@ -43,8 +43,8 @@ clamp_integral = true
 
 [sub_resource type="Resource" id="Resource_3l2nb"]
 script = ExtResource("3_q3fct")
-p = 5.0
-i = 1.0
+p = 4.0
+i = 0.0
 clamp_integral = true
 
 [sub_resource type="Resource" id="Resource_rk5gv"]
@@ -90,6 +90,8 @@ inclination_pid = SubResource("Resource_pkjee")
 enable_speed_hold = true
 speed_target = 100.0
 speed_pid = SubResource("Resource_ckmoj")
+enable_altitude_hold = true
+altitude_target = 300.0
 altitude_pid = SubResource("Resource_2i4h6")
 direction_target = Vector3(0.5, 0.05, -1)
 direction_pitch_pid = SubResource("Resource_747jw")
