@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://btfw7160pg4yp" path="res://plane/demo/turret.tscn" id="4_h5o24"]
 [ext_resource type="PackedScene" uid="uid://dm4epjw0fb833" path="res://plane/big_boy.tscn" id="5_mmdvd"]
 [ext_resource type="Script" uid="uid://bg7g5q4ow15hc" path="res://plane/autopilot/autopilot_path_follower.gd" id="6_fn3g3"]
+[ext_resource type="Script" uid="uid://ccolxx2bqcj0q" path="res://plane/demo/turret.gd" id="7_ai45w"]
+[ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://plane/destruction/gun/machine_gun.tscn" id="8_4papg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -81,6 +83,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2
 
 [node name="Camera3D" type="Camera3D" parent="Plane" unique_id=1203713217]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.490741e-07, 1.1592698, 0.010818481)
+current = true
 far = 10000.0
 script = ExtResource("2_4717r")
 
@@ -133,7 +136,6 @@ linear_velocity = Vector3(-70.7, 0, -70.7)
 
 [node name="Camera3D" type="Camera3D" parent="BigBoy" unique_id=1943732213]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
-current = true
 script = ExtResource("2_4717r")
 
 [node name="AutopilotPathFollower" type="Node" parent="BigBoy" unique_id=1541432046 node_paths=PackedStringArray("aerobody", "path")]
@@ -141,3 +143,17 @@ script = ExtResource("6_fn3g3")
 aerobody = NodePath("..")
 path = NodePath("../../Path3D")
 metadata/_custom_type_script = "uid://bg7g5q4ow15hc"
+
+[node name="Turret" type="Node3D" parent="BigBoy" unique_id=988005503 node_paths=PackedStringArray("gun", "vehicle", "target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+script = ExtResource("7_ai45w")
+gun = NodePath("MachineGun")
+vehicle = NodePath("..")
+target = NodePath("../../Plane")
+metadata/_custom_type_script = "uid://ccolxx2bqcj0q"
+
+[node name="MachineGun" parent="BigBoy/Turret" unique_id=722960509 node_paths=PackedStringArray("vehicle", "objects_to_ignore") instance=ExtResource("8_4papg")]
+vehicle = NodePath("../..")
+objects_to_ignore = [NodePath("../..")]
+muzzle_speed = 700.0
+rpm = 60.0
