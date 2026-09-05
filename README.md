@@ -1,6 +1,6 @@
 # Godot Aircraft Tools
 
-Useful things for building aircraft, based off of Godot Aerodynamic Physics.
+Useful things for building aircraft, based off of the Godot Aerodynamic Physics plugin by [Addmix](https://github.com/addmix/).
 
 ## Features
  - Autopilot path following
