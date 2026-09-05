@@ -6,9 +6,12 @@ const GRAVITY: Vector3 = Vector3(0, -9.8, 0)
 const DRAG_FACTOR: float = 0.00005
 const LIFETIME: float = 5
 
+## Should be about equivalent to the bullet's mass. 
 @export var damage: float = 0.1
 
+## Particles to emit on impact. 
 @export var particles: GPUParticles3D
+## Mesh of the bullet to hide on impact. 
 @export var mesh: MeshInstance3D
 
 

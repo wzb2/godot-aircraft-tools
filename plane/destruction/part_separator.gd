@@ -1,21 +1,25 @@
 extends Node
 
-## Nested PartSeparators don't really work. 
+## Nested PartSeparators don't really work yet. 
 class_name PartSeparator
 
 signal sepreate
 
-## Makes the part detach when you press space
+## Makes the part detach when you press space. 
 @export var enable_debug_button: bool = false
 
+## Makes the part seperate when the aero body experiences more than more accelleration than the impact_accleration_threshold. 
 @export var seperate_on_impact: bool = true
+## in m/s^2
 @export var impact_accleration_threshold: float = 1000
 
 @export var collision_shape: CollisionShape3D
-## Parent by default
+## The AeroInfluencer to be separated. Is set to this node's parent if left empty. 
 @export var part: AeroInfluencer3D
+## Mass of the part when it falls off. 
 @export var debris_mass: float = 40.0
-@export var make_parent_lighter: bool = true
+## If true, subtracts debris_mass from the part's original aero body when it falls off, so no new mass is generated. 
+@export var make_aero_body_lighter: bool = true
 
 var aero_body: AeroBody3D:
 	get():
@@ -45,7 +49,7 @@ func separate() -> void:
 		separated = true
 		sepreate.emit()
 		
-		if make_parent_lighter:
+		if make_aero_body_lighter:
 			aero_body.mass -= debris_mass
 		
 		var debris: AeroBody3D = AeroBody3D.new()

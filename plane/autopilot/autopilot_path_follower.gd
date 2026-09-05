@@ -2,14 +2,19 @@ extends Node
 
 class_name AutopilotPathFollower
 
+## The vehicle using autopilot to follow the path. Needs well tuned target direction and altitude hold PIDs. 
 @export var aerobody: AeroBody3D
 
+## Path for the vehicle to follow. 
 @export var path: Path3D
 
+## Continue back to the start of the path when the end is reached. 
 @export var loop: bool = true
 @export var enabled: bool = true
 
+## Vehicle will begin aiming at the next point when it will be at the point in look_ahead_time seconds at its current velocity. 
 @export var look_ahead_time: float = 1.0
+## Maximum distance from point to be considered at point. 
 @export var at_point_distance: float = 300
 
 @onready var control_component: AeroControlComponent = aerobody.find_children("*", "AeroControlComponent")[0]
@@ -33,8 +38,8 @@ func update() -> void:
 		if (aerobody.global_position.distance_to(target_point) < at_point_distance
 		or look_ahead_point.distance_to(target_point) < at_point_distance
 		or aerobody.global_position.distance_to(target_point) > aerobody.global_position.distance_to(next_point)):
-			print("Reached Point ", target_point_index, " at ", target_point)
-			print("Y error: ", aerobody.global_position.y - target_point.y)
+			#print("Reached Point ", target_point_index, " at ", target_point)
+			#print("Y error: ", aerobody.global_position.y - target_point.y)
 			target_point_index += 1
 			#if target_point_index >= path.curve.point_count:
 			if target_point_index >= points.size():

@@ -4,21 +4,28 @@ class_name MachineGun
 
 const BULLET: PackedScene = preload("uid://2fvdaoir5c8y")
 
-## To calculate initial velocity
+## Vehicle that the gun is mounted on, used to calculate initial velocity. 
 @export var vehicle: RigidBody3D
-## To disable when seperated
+## Set to disable when separator seperates. Useful for wing mounted guns that can fall off with the wing, etc. 
 @export var separator: PartSeparator
+## Objects for bullets fired by this gun to ignore. 
 @export var objects_to_ignore: Array[CollisionObject3D] = []
+## If true, all AircraftPartHitboxes that are children of an object in objects_to_ignore will also be ignored. 
 @export var recursive_ignore: bool = true
+## Particles to emit when firing. 
 @export var muzzle_particles: GPUParticles3D
-## m/s
+## Bullet exit speed in m/s. 
 @export var muzzle_speed: float = 870
+## Recoil force applied to the vehicle at the gun's location while the gun is firing. 
 @export var continuous_recoil_force: float = 750
+## Bullets fired per minute. 
 @export var rpm: float = 800
 @onready var firing_cooldown: float = 60.0 / rpm
 
+## Shoot when this input is pressed. Leave blank if gun is not controlled directly by player input. 
 @export var shoot_input_event: StringName
 
+## Whether this gun is enabled. Set to false when the separator separates. 
 @export var attached = true
 
 var firing: bool = false
@@ -61,7 +68,7 @@ func shoot() -> void:
 	var bullet: Bullet = BULLET.instantiate()
 	bullet.velocity = -global_transform.basis.z * muzzle_speed
 	if vehicle:
-		bullet.velocity += vehicle.linear_velocity #TODO: factor in angular velocity, move get_linear function from part seperator to utils class? 
+		bullet.velocity += vehicle.linear_velocity #TODO: factor in angular velocity, move get_linear function from part separator to utils class? 
 		vehicle.add_sibling(bullet)
 	else:
 		get_parent_node_3d().add_sibling(bullet)

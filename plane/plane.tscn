@@ -15,10 +15,10 @@
 [ext_resource type="Script" uid="uid://bsu5rdrtiqph7" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_mover_3d/aero_propeller_3d.gd" id="12_gvgkk"]
 [ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://plane/destruction/gun/machine_gun.tscn" id="13_1wqyx"]
 [ext_resource type="Script" uid="uid://b2ddtcfwxfrxe" path="res://plane/input_display/input_display_3d.gd" id="13_xw1vv"]
-[ext_resource type="Script" uid="uid://coiexydt6nf2r" path="res://plane/input_display/input_display_axis.gd" id="14_i48hm"]
+[ext_resource type="Script" uid="uid://coiexydt6nf2r" path="res://plane/input_display/input_display_axis_config.gd" id="14_i48hm"]
 [ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://plane/destruction/aircraft_part_hitbox.gd" id="14_lcfy3"]
 [ext_resource type="PackedScene" uid="uid://dok53wy0bkhyw" path="res://plane/instruments/artificial_horizon/artificial_horizon.tscn" id="15_uciay"]
-[ext_resource type="Script" uid="uid://bp8fw7kd04a4w" path="res://plane/instruments/dial/dial.gd" id="16_caylq"]
+[ext_resource type="Script" uid="uid://bp8fw7kd04a4w" path="res://plane/instruments/dial/dial_2d.gd" id="16_caylq"]
 [ext_resource type="Script" uid="uid://bnrdl56f2vsqr" path="res://plane/destruction/bomb/bomb_dropper.gd" id="20_lbrwg"]
 [ext_resource type="PackedScene" uid="uid://covrq2cmtslor" path="res://plane/destruction/bomb/bomb.tscn" id="21_lcyg8"]
 

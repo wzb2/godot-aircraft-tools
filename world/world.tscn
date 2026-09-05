@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dlefwo52g4du" path="res://world/camera.gd" id="2_4717r"]
 [ext_resource type="Texture2D" uid="uid://dikorqbfipcwc" path="res://world/runway.png" id="2_tcf2h"]
 [ext_resource type="PackedScene" uid="uid://btfw7160pg4yp" path="res://plane/demo/turret.tscn" id="4_h5o24"]
-[ext_resource type="PackedScene" uid="uid://dm4epjw0fb833" path="res://plane/big_boy.tscn" id="5_mmdvd"]
+[ext_resource type="PackedScene" uid="uid://dm4epjw0fb833" path="res://plane/big_plane.tscn" id="5_mmdvd"]
 [ext_resource type="Script" uid="uid://bg7g5q4ow15hc" path="res://plane/autopilot/autopilot_path_follower.gd" id="6_fn3g3"]
 [ext_resource type="Script" uid="uid://ccolxx2bqcj0q" path="res://plane/demo/turret.gd" id="7_ai45w"]
 [ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://plane/destruction/gun/machine_gun.tscn" id="8_4papg"]
@@ -26,9 +26,13 @@ glow_enabled = true
 size = Vector3(5000, 4, 5000)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6xmxd"]
-frequency = 0.1
+noise_type = 5
+frequency = 1.0
+fractal_octaves = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tcf2h"]
+width = 1024
+height = 1024
 noise = SubResource("FastNoiseLite_6xmxd")
 seamless = true
 bump_strength = 16.0
@@ -130,21 +134,21 @@ target = NodePath("../Plane")
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -3004, 300, 358)
 curve = SubResource("Curve3D_mmdvd")
 
-[node name="BigBoy" parent="." unique_id=1288187708 instance=ExtResource("5_mmdvd")]
+[node name="BigPlane" parent="." unique_id=1288187708 instance=ExtResource("5_mmdvd")]
 transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 355.45135, 320, -69.41138)
 linear_velocity = Vector3(-70.7, 0, -70.7)
 
-[node name="Camera3D" type="Camera3D" parent="BigBoy" unique_id=1943732213]
+[node name="Camera3D" type="Camera3D" parent="BigPlane" unique_id=1943732213]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
 script = ExtResource("2_4717r")
 
-[node name="AutopilotPathFollower" type="Node" parent="BigBoy" unique_id=1541432046 node_paths=PackedStringArray("aerobody", "path")]
+[node name="AutopilotPathFollower" type="Node" parent="BigPlane" unique_id=1541432046 node_paths=PackedStringArray("aerobody", "path")]
 script = ExtResource("6_fn3g3")
 aerobody = NodePath("..")
 path = NodePath("../../Path3D")
 metadata/_custom_type_script = "uid://bg7g5q4ow15hc"
 
-[node name="Turret" type="Node3D" parent="BigBoy" unique_id=988005503 node_paths=PackedStringArray("gun", "vehicle", "target")]
+[node name="Turret" type="Node3D" parent="BigPlane" unique_id=988005503 node_paths=PackedStringArray("gun", "vehicle", "target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 script = ExtResource("7_ai45w")
 gun = NodePath("MachineGun")
@@ -152,7 +156,147 @@ vehicle = NodePath("..")
 target = NodePath("../../Plane")
 metadata/_custom_type_script = "uid://ccolxx2bqcj0q"
 
-[node name="MachineGun" parent="BigBoy/Turret" unique_id=722960509 node_paths=PackedStringArray("vehicle", "objects_to_ignore") instance=ExtResource("8_4papg")]
+[node name="MachineGun" parent="BigPlane/Turret" unique_id=722960509 node_paths=PackedStringArray("vehicle", "objects_to_ignore") instance=ExtResource("8_4papg")]
+vehicle = NodePath("../..")
+objects_to_ignore = [NodePath("../..")]
+muzzle_speed = 700.0
+rpm = 60.0
+
+[node name="BigPlane2" parent="." unique_id=1424300134 instance=ExtResource("5_mmdvd")]
+transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 709.004, 320, 284.142)
+linear_velocity = Vector3(-70.7, 0, -70.7)
+
+[node name="Camera3D" type="Camera3D" parent="BigPlane2" unique_id=1455795879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
+script = ExtResource("2_4717r")
+
+[node name="AutopilotPathFollower" type="Node" parent="BigPlane2" unique_id=2117089561 node_paths=PackedStringArray("aerobody", "path")]
+script = ExtResource("6_fn3g3")
+aerobody = NodePath("..")
+path = NodePath("../../Path3D")
+metadata/_custom_type_script = "uid://bg7g5q4ow15hc"
+
+[node name="Turret" type="Node3D" parent="BigPlane2" unique_id=1013584535 node_paths=PackedStringArray("gun", "vehicle", "target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+script = ExtResource("7_ai45w")
+gun = NodePath("MachineGun")
+vehicle = NodePath("..")
+target = NodePath("../../Plane")
+metadata/_custom_type_script = "uid://ccolxx2bqcj0q"
+
+[node name="MachineGun" parent="BigPlane2/Turret" unique_id=1395361177 node_paths=PackedStringArray("vehicle", "objects_to_ignore") instance=ExtResource("8_4papg")]
+vehicle = NodePath("../..")
+objects_to_ignore = [NodePath("../..")]
+muzzle_speed = 700.0
+rpm = 60.0
+
+[node name="BigPlane3" parent="." unique_id=2027791046 instance=ExtResource("5_mmdvd")]
+transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 1062.558, 320, 637.696)
+linear_velocity = Vector3(-70.7, 0, -70.7)
+
+[node name="Camera3D" type="Camera3D" parent="BigPlane3" unique_id=747228715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
+script = ExtResource("2_4717r")
+
+[node name="AutopilotPathFollower" type="Node" parent="BigPlane3" unique_id=946771370 node_paths=PackedStringArray("aerobody", "path")]
+script = ExtResource("6_fn3g3")
+aerobody = NodePath("..")
+path = NodePath("../../Path3D")
+metadata/_custom_type_script = "uid://bg7g5q4ow15hc"
+
+[node name="Turret" type="Node3D" parent="BigPlane3" unique_id=749868610 node_paths=PackedStringArray("gun", "vehicle", "target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+script = ExtResource("7_ai45w")
+gun = NodePath("MachineGun")
+vehicle = NodePath("..")
+target = NodePath("../../Plane")
+metadata/_custom_type_script = "uid://ccolxx2bqcj0q"
+
+[node name="MachineGun" parent="BigPlane3/Turret" unique_id=1690202641 node_paths=PackedStringArray("vehicle", "objects_to_ignore") instance=ExtResource("8_4papg")]
+vehicle = NodePath("../..")
+objects_to_ignore = [NodePath("../..")]
+muzzle_speed = 700.0
+rpm = 60.0
+
+[node name="BigPlane4" parent="." unique_id=1401891329 instance=ExtResource("5_mmdvd")]
+transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 1416.111, 320, 991.249)
+linear_velocity = Vector3(-70.7, 0, -70.7)
+
+[node name="Camera3D" type="Camera3D" parent="BigPlane4" unique_id=412306521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
+script = ExtResource("2_4717r")
+
+[node name="AutopilotPathFollower" type="Node" parent="BigPlane4" unique_id=1494549633 node_paths=PackedStringArray("aerobody", "path")]
+script = ExtResource("6_fn3g3")
+aerobody = NodePath("..")
+path = NodePath("../../Path3D")
+metadata/_custom_type_script = "uid://bg7g5q4ow15hc"
+
+[node name="Turret" type="Node3D" parent="BigPlane4" unique_id=1787459148 node_paths=PackedStringArray("gun", "vehicle", "target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+script = ExtResource("7_ai45w")
+gun = NodePath("MachineGun")
+vehicle = NodePath("..")
+target = NodePath("../../Plane")
+metadata/_custom_type_script = "uid://ccolxx2bqcj0q"
+
+[node name="MachineGun" parent="BigPlane4/Turret" unique_id=1248340602 node_paths=PackedStringArray("vehicle", "objects_to_ignore") instance=ExtResource("8_4papg")]
+vehicle = NodePath("../..")
+objects_to_ignore = [NodePath("../..")]
+muzzle_speed = 700.0
+rpm = 60.0
+
+[node name="BigPlane5" parent="." unique_id=1176157528 instance=ExtResource("5_mmdvd")]
+transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 1557.532, 320, 1132.67)
+linear_velocity = Vector3(-70.7, 0, -70.7)
+
+[node name="Camera3D" type="Camera3D" parent="BigPlane5" unique_id=1014361283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
+script = ExtResource("2_4717r")
+
+[node name="AutopilotPathFollower" type="Node" parent="BigPlane5" unique_id=1840569956 node_paths=PackedStringArray("aerobody", "path")]
+script = ExtResource("6_fn3g3")
+aerobody = NodePath("..")
+path = NodePath("../../Path3D")
+metadata/_custom_type_script = "uid://bg7g5q4ow15hc"
+
+[node name="Turret" type="Node3D" parent="BigPlane5" unique_id=2038842897 node_paths=PackedStringArray("gun", "vehicle", "target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+script = ExtResource("7_ai45w")
+gun = NodePath("MachineGun")
+vehicle = NodePath("..")
+target = NodePath("../../Plane")
+metadata/_custom_type_script = "uid://ccolxx2bqcj0q"
+
+[node name="MachineGun" parent="BigPlane5/Turret" unique_id=106512642 node_paths=PackedStringArray("vehicle", "objects_to_ignore") instance=ExtResource("8_4papg")]
+vehicle = NodePath("../..")
+objects_to_ignore = [NodePath("../..")]
+muzzle_speed = 700.0
+rpm = 60.0
+
+[node name="BigPlane6" parent="." unique_id=801609945 instance=ExtResource("5_mmdvd")]
+transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 1564.603, 320, 1139.741)
+linear_velocity = Vector3(-70.7, 0, -70.7)
+
+[node name="Camera3D" type="Camera3D" parent="BigPlane6" unique_id=211293744]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
+script = ExtResource("2_4717r")
+
+[node name="AutopilotPathFollower" type="Node" parent="BigPlane6" unique_id=2141484260 node_paths=PackedStringArray("aerobody", "path")]
+script = ExtResource("6_fn3g3")
+aerobody = NodePath("..")
+path = NodePath("../../Path3D")
+metadata/_custom_type_script = "uid://bg7g5q4ow15hc"
+
+[node name="Turret" type="Node3D" parent="BigPlane6" unique_id=1796073560 node_paths=PackedStringArray("gun", "vehicle", "target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+script = ExtResource("7_ai45w")
+gun = NodePath("MachineGun")
+vehicle = NodePath("..")
+target = NodePath("../../Plane")
+metadata/_custom_type_script = "uid://ccolxx2bqcj0q"
+
+[node name="MachineGun" parent="BigPlane6/Turret" unique_id=58739720 node_paths=PackedStringArray("vehicle", "objects_to_ignore") instance=ExtResource("8_4papg")]
 vehicle = NodePath("../..")
 objects_to_ignore = [NodePath("../..")]
 muzzle_speed = 700.0

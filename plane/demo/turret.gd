@@ -10,7 +10,9 @@ class_name Turret
 
 @export var max_range: float = 600
 
+## Gravity multiplier
 @export var drop_fudge: float = 3
+## Time of flight fidge for velocity offset calculation
 @export var tof_fudge: float = 1
 
 

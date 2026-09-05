@@ -518,10 +518,10 @@ drag_at_mach_multiplier_curve = SubResource("Curve_jepwm")
 
 [sub_resource type="Resource" id="Resource_xsk5d"]
 script = ExtResource("9_747jw")
-chord = 2.9999999999999996
+chord = 2.999999999999999
 span = 6.999999999999999
 area = 20.999999999999993
-aspect_ratio = 2.3333333333333335
+aspect_ratio = 2.333333333333334
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62kos"]
 albedo_color = Color(0.37665847, 0.37665847, 0.37665847, 1)
@@ -596,7 +596,7 @@ size = Vector3(7.1, 0.3, 1.6)
 [sub_resource type="BoxShape3D" id="BoxShape3D_rk5gv"]
 size = Vector3(7.1, 0.3, 3.1)
 
-[node name="BigBoy" type="VehicleBody3D" unique_id=1288187708]
+[node name="BigPlane" type="VehicleBody3D" unique_id=1288187708]
 collision_layer = 16385
 mass = 75000.0
 center_of_mass_mode = 1
@@ -919,7 +919,6 @@ shape = SubResource("BoxShape3D_pkjee")
 
 [node name="PartSeparator" type="Node" parent="HStabR" unique_id=227547738 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("13_kryix")
-impact_accleration_threshold = 1500.0
 collision_shape = NodePath("../../HStabRCollisionShape3D")
 debris_mass = 1000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
@@ -966,7 +965,6 @@ shape = SubResource("BoxShape3D_pkjee")
 
 [node name="PartSeparator" type="Node" parent="HStabL" unique_id=1880905579 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("13_kryix")
-impact_accleration_threshold = 1500.0
 collision_shape = NodePath("../../HStabLCollisionShape3D")
 debris_mass = 1000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
@@ -1015,7 +1013,6 @@ shape = SubResource("BoxShape3D_3l2nb")
 
 [node name="PartSeparator" type="Node" parent="VStab" unique_id=1867181438 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("13_kryix")
-impact_accleration_threshold = 1500.0
 collision_shape = NodePath("../../VStabCollisionShape3D")
 debris_mass = 1000.0
 metadata/_custom_type_script = "uid://b0jtcp3t4ow64"

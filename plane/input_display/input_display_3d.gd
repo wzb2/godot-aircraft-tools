@@ -2,13 +2,15 @@ extends Node3D
 
 class_name InputDisplay3D
 
-const RAD_TO_DEG: float = 360.0 / TAU
+#const RAD_TO_DEG: float = 360.0 / TAU
 
+## Control component to use if taking input from Aerodynamic Physics control config instead of direct keyboard input. 
 @export var control_component: AeroControlComponent
 
-@export var axis_configs: Array[InputDisplayConfig] = []
+## Array of InputDisplayAxisConfigs used to link inputs to movement along an axis. 
+@export var axis_configs: Array[InputDisplayAxisConfig] = []
 
-@export var move_speed: float = 1000
+#@export var move_speed: float = 1000
 
 @onready var rest_transform: Transform3D = transform
 
@@ -16,7 +18,7 @@ func _physics_process(_delta: float) -> void:
 	transform = rest_transform
 	#var total_pos_offset: Vector3 = Vector3.ZERO
 	#var total_rot_offset: Vector3 = Vector3.ZERO
-	for c: InputDisplayConfig in axis_configs:
+	for c: InputDisplayAxisConfig in axis_configs:
 		var input: float = 0
 		if InputMap.has_action(c.positive_event):
 			input += Input.get_action_strength(c.positive_event)
