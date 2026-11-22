@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bg7g5q4ow15hc" path="res://plane/autopilot/autopilot_path_follower.gd" id="6_fn3g3"]
 [ext_resource type="Script" uid="uid://ccolxx2bqcj0q" path="res://plane/demo/turret.gd" id="7_ai45w"]
 [ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://plane/destruction/gun/machine_gun.tscn" id="8_4papg"]
+[ext_resource type="Shader" uid="uid://djlnqfadrfwry" path="res://world/terrain.gdshader" id="9_4papg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6xmxd"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -23,7 +24,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g312j"]
-size = Vector3(5000, 4, 5000)
+size = Vector3(1000, 4, 1000)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_6xmxd"]
 noise_type = 5
@@ -45,7 +46,7 @@ normal_scale = 0.5
 
 [sub_resource type="BoxMesh" id="BoxMesh_6xmxd"]
 material = SubResource("StandardMaterial3D_4717r")
-size = Vector3(5000, 1, 5000)
+size = Vector3(1000, 1, 1000)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4717r"]
 size = Vector3(5, 2, 8)
@@ -62,6 +63,37 @@ _data = {
 }
 point_count = 36
 up_vector_enabled = false
+
+[sub_resource type="Gradient" id="Gradient_4papg"]
+offsets = PackedFloat32Array(0, 0.35078534, 0.5314136, 0.71727747, 0.76963353)
+colors = PackedColorArray(0, 0.1555785, 0, 1, 0, 1, 0, 1, 0.28, 0.21266001, 0.1708, 1, 0.38928655, 0.38928664, 0.3892865, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fyhu2"]
+gradient = SubResource("Gradient_4papg")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fyhu2"]
+noise_type = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ov2xu"]
+noise = SubResource("FastNoiseLite_fyhu2")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mad0u"]
+render_priority = 0
+shader = ExtResource("9_4papg")
+shader_parameter/noise = SubResource("NoiseTexture2D_ov2xu")
+shader_parameter/noise_scale = 0.4
+shader_parameter/height_scale = 300.0
+shader_parameter/color_gradient = SubResource("GradientTexture1D_fyhu2")
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.2
+shader_parameter/specular = 0.3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ocfjn"]
+material = SubResource("ShaderMaterial_mad0u")
+size = Vector2(15000, 15000)
+subdivide_width = 1000
+subdivide_depth = 1000
 
 [node name="World" type="Node3D" unique_id=601031772]
 
@@ -83,10 +115,10 @@ shape = SubResource("BoxShape3D_g312j")
 mesh = SubResource("BoxMesh_6xmxd")
 
 [node name="Plane" parent="." unique_id=17626063 instance=ExtResource("1_6xmxd")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2.935842, -205.58424)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1002.936, -205.584)
 
 [node name="Camera3D" type="Camera3D" parent="Plane" unique_id=1203713217]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.490741e-07, 1.1592698, 0.010818481)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0.011)
 current = true
 far = 10000.0
 script = ExtResource("2_4717r")
@@ -138,10 +170,6 @@ curve = SubResource("Curve3D_mmdvd")
 transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 355.45135, 320, -69.41138)
 linear_velocity = Vector3(-70.7, 0, -70.7)
 
-[node name="Camera3D" type="Camera3D" parent="BigPlane" unique_id=1943732213]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
-script = ExtResource("2_4717r")
-
 [node name="AutopilotPathFollower" type="Node" parent="BigPlane" unique_id=1541432046 node_paths=PackedStringArray("aerobody", "path")]
 script = ExtResource("6_fn3g3")
 aerobody = NodePath("..")
@@ -165,10 +193,6 @@ rpm = 60.0
 [node name="BigPlane2" parent="." unique_id=1424300134 instance=ExtResource("5_mmdvd")]
 transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 709.004, 320, 284.142)
 linear_velocity = Vector3(-70.7, 0, -70.7)
-
-[node name="Camera3D" type="Camera3D" parent="BigPlane2" unique_id=1455795879]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
-script = ExtResource("2_4717r")
 
 [node name="AutopilotPathFollower" type="Node" parent="BigPlane2" unique_id=2117089561 node_paths=PackedStringArray("aerobody", "path")]
 script = ExtResource("6_fn3g3")
@@ -194,10 +218,6 @@ rpm = 60.0
 transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 1062.558, 320, 637.696)
 linear_velocity = Vector3(-70.7, 0, -70.7)
 
-[node name="Camera3D" type="Camera3D" parent="BigPlane3" unique_id=747228715]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
-script = ExtResource("2_4717r")
-
 [node name="AutopilotPathFollower" type="Node" parent="BigPlane3" unique_id=946771370 node_paths=PackedStringArray("aerobody", "path")]
 script = ExtResource("6_fn3g3")
 aerobody = NodePath("..")
@@ -221,10 +241,6 @@ rpm = 60.0
 [node name="BigPlane4" parent="." unique_id=1401891329 instance=ExtResource("5_mmdvd")]
 transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 1416.111, 320, 991.249)
 linear_velocity = Vector3(-70.7, 0, -70.7)
-
-[node name="Camera3D" type="Camera3D" parent="BigPlane4" unique_id=412306521]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
-script = ExtResource("2_4717r")
 
 [node name="AutopilotPathFollower" type="Node" parent="BigPlane4" unique_id=1494549633 node_paths=PackedStringArray("aerobody", "path")]
 script = ExtResource("6_fn3g3")
@@ -250,10 +266,6 @@ rpm = 60.0
 transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 1557.532, 320, 1132.67)
 linear_velocity = Vector3(-70.7, 0, -70.7)
 
-[node name="Camera3D" type="Camera3D" parent="BigPlane5" unique_id=1014361283]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
-script = ExtResource("2_4717r")
-
 [node name="AutopilotPathFollower" type="Node" parent="BigPlane5" unique_id=1840569956 node_paths=PackedStringArray("aerobody", "path")]
 script = ExtResource("6_fn3g3")
 aerobody = NodePath("..")
@@ -278,10 +290,6 @@ rpm = 60.0
 transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, 1564.603, 320, 1139.741)
 linear_velocity = Vector3(-70.7, 0, -70.7)
 
-[node name="Camera3D" type="Camera3D" parent="BigPlane6" unique_id=211293744]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23, 51)
-script = ExtResource("2_4717r")
-
 [node name="AutopilotPathFollower" type="Node" parent="BigPlane6" unique_id=2141484260 node_paths=PackedStringArray("aerobody", "path")]
 script = ExtResource("6_fn3g3")
 aerobody = NodePath("..")
@@ -301,3 +309,7 @@ vehicle = NodePath("../..")
 objects_to_ignore = [NodePath("../..")]
 muzzle_speed = 700.0
 rpm = 60.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2050360913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -273.88464, 0)
+mesh = SubResource("PlaneMesh_ocfjn")

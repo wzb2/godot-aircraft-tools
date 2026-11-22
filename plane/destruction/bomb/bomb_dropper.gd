@@ -7,10 +7,12 @@ class_name BombDropper
 @export var amount: int = 1
 @export var drop_speed: float = 0.0
 @export var input_event: StringName = "bomb"
+@export var do_weight: bool = true
 
 func _ready() -> void:
 	var bomb: RigidBody3D = bomb_scene.instantiate()
-	vehicle.mass += amount * bomb.mass
+	if do_weight:
+		vehicle.mass += amount * bomb.mass
 	bomb.free()
 
 
@@ -30,6 +32,7 @@ func drop() -> void:
 		
 		bomb.linear_velocity += bomb.global_basis.y * -drop_speed
 		
-		vehicle.mass -= bomb.mass
+		if do_weight:
+			vehicle.mass -= bomb.mass
 		
 	

@@ -991,7 +991,7 @@ transform = Transform3D(0.9999998, 8.881784e-16, 0, 0, 1, 8.881784e-16, 0, -2.98
 mesh = SubResource("BoxMesh_2i4h6")
 
 [node name="Rudder" type="Node3D" parent="VStab" unique_id=493126403]
-transform = Transform3D(0.9999995, 1.5099033e-14, 1.4901161e-08, -2.4424907e-15, 1, 7.993606e-15, 0, -2.9802308e-08, 0.99999964, 0, 0, 2.306)
+transform = Transform3D(0.9999995, 2.442492e-15, 7.279187e-23, -2.4424907e-15, 1, 2.9802298e-08, 0, -2.9802308e-08, 0.99999964, 0, 0, 2.306)
 script = ExtResource("7_kryix")
 manual_config = SubResource("Resource_ije6d")
 wing_config = SubResource("Resource_6f2uw")

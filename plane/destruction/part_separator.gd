@@ -44,7 +44,7 @@ func _physics_process(_delta: float) -> void:
 		if accel > impact_accleration_threshold:
 			separate()
 
-func separate() -> void:
+func separate(override_body: AeroBody3D = null) -> void:
 	if not separated:
 		separated = true
 		sepreate.emit()
@@ -52,7 +52,7 @@ func separate() -> void:
 		if make_aero_body_lighter:
 			aero_body.mass -= debris_mass
 		
-		var debris: AeroBody3D = AeroBody3D.new()
+		var debris: AeroBody3D = override_body if override_body else AeroBody3D.new()
 		#debris.show_debug = true
 		debris.mass = debris_mass
 		debris.global_transform = part.global_transform
