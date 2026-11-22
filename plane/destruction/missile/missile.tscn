@@ -81,15 +81,6 @@ drag_aoa_curve = SubResource("Curve_olhwp")
 sweep_drag_multiplier_curve = SubResource("Curve_1mcvi")
 drag_at_mach_multiplier_curve = SubResource("Curve_a0liv")
 
-[sub_resource type="Resource" id="Resource_k4sbi"]
-script = ExtResource("9_8jlw5")
-chord = 0.1
-span = 0.2
-area = 0.020000000000000004
-
-[sub_resource type="BoxMesh" id="BoxMesh_5dc02"]
-size = Vector3(0.2, 0.01, 0.1)
-
 [sub_resource type="Resource" id="Resource_kvqp0"]
 script = ExtResource("9_8jlw5")
 chord = 0.2
@@ -183,13 +174,15 @@ height = 0.2
 radial_segments = 8
 rings = 4
 
-[node name="Missile" type="VehicleBody3D" unique_id=19079350]
+[node name="Missile" type="VehicleBody3D" unique_id=19079350 node_paths=PackedStringArray("control_component", "particles")]
 collision_layer = 16385
 mass = 100.0
 center_of_mass_mode = 1
 linear_damp_mode = 1
 angular_damp_mode = 1
 script = ExtResource("1_7k4tl")
+control_component = NodePath("AeroControlComponent")
+particles = NodePath("GPUParticles3D")
 metadata/_custom_type_script = "uid://3iji867c81k5"
 
 [node name="AeroControlComponent" type="Node" parent="." unique_id=139838286]
@@ -204,28 +197,6 @@ shape = SubResource("CapsuleShape3D_7k4tl")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=369846035]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_08ex8")
-
-[node name="HStab" type="Node3D" parent="." unique_id=1451668273]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
-script = ExtResource("7_1vwgq")
-manual_config = SubResource("Resource_a75wk")
-wing_config = SubResource("Resource_k4sbi")
-metadata/_custom_type_script = "uid://d1725od371u4a"
-
-[node name="MeshInstance3D16" type="MeshInstance3D" parent="HStab" unique_id=1333124721]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04469633)
-mesh = SubResource("BoxMesh_5dc02")
-
-[node name="VStab" type="Node3D" parent="." unique_id=927671285]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, -0.2)
-script = ExtResource("7_1vwgq")
-manual_config = SubResource("Resource_a75wk")
-wing_config = SubResource("Resource_k4sbi")
-metadata/_custom_type_script = "uid://d1725od371u4a"
-
-[node name="MeshInstance3D16" type="MeshInstance3D" parent="VStab" unique_id=863740946]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.04469633)
-mesh = SubResource("BoxMesh_5dc02")
 
 [node name="Elevator" type="Node3D" parent="." unique_id=1075235229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.45)

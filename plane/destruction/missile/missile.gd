@@ -3,10 +3,13 @@ extends AeroBody3D
 
 class_name Missile
 
+## If true, automatically launches when _ready is called, starting thrusters, particles, and guidance if it is a guided missile. 
 @export var launch_on_ready: bool = true
 
-@onready var control_component: AeroControlComponent = $AeroControlComponent
-@onready var particles: GPUParticles3D = $GPUParticles3D
+## The AeroControlComponent for throttle and guidance if it is a guided missile. 
+@export var control_component: AeroControlComponent
+## Particles to emit when the missile is flying. 
+@export var particles: GPUParticles3D
 
 
 func _ready() -> void:

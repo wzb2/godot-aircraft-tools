@@ -307,7 +307,7 @@ height = 0.2
 radial_segments = 8
 rings = 4
 
-[node name="GuidedMissile" type="VehicleBody3D" unique_id=19079350]
+[node name="GuidedMissile" type="VehicleBody3D" unique_id=19079350 node_paths=PackedStringArray("control_component", "particles")]
 collision_layer = 16385
 mass = 100.0
 center_of_mass_mode = 1
@@ -315,6 +315,8 @@ continuous_cd = true
 linear_damp_mode = 1
 angular_damp_mode = 1
 script = ExtResource("1_24klf")
+control_component = NodePath("AeroControlComponent")
+particles = NodePath("GPUParticles3D")
 metadata/_custom_type_script = "uid://3iji867c81k5"
 
 [node name="AeroControlComponent" type="Node" parent="." unique_id=624745980]
