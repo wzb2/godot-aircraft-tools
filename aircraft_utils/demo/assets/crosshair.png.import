@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://br0h30l01nxub"
-path.s3tc="res://.godot/imported/crosshair.png-242cd0195940ce5586bffcba68a5b90f.s3tc.ctex"
+path.s3tc="res://.godot/imported/crosshair.png-42df7185d4807078499067351a0ee12e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://plane/instruments/misc/crosshair.png"
-dest_files=["res://.godot/imported/crosshair.png-242cd0195940ce5586bffcba68a5b90f.s3tc.ctex"]
+source_file="res://aircraft_utils/demo/assets/crosshair.png"
+dest_files=["res://.godot/imported/crosshair.png-42df7185d4807078499067351a0ee12e.s3tc.ctex"]
 
 [params]
 

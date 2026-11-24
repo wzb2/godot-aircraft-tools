@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b4kt6hh2u8euy"]
 
-[ext_resource type="Script" uid="uid://si2kaylgytgh" path="res://plane/destruction/missile/missile.gd" id="1_7k4tl"]
+[ext_resource type="Script" uid="uid://si2kaylgytgh" path="res://aircraft_utils/destruction/missile/missile.gd" id="1_7k4tl"]
 [ext_resource type="Script" uid="uid://cc5dwx5pqkaur" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_component.gd" id="2_7k4tl"]
 [ext_resource type="Script" uid="uid://dfbhcpt1rr3ai" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config_axis.gd" id="5_1vwgq"]
 [ext_resource type="Script" uid="uid://cbgqb7g7mmwtu" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config.gd" id="6_bw5fk"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://crkbhmxpjff4o" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/aero_surface_config.gd" id="9_8jlw5"]
 [ext_resource type="Script" uid="uid://c46td0go5kvp6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_axis_config.gd" id="10_8jlw5"]
 [ext_resource type="Script" uid="uid://cblxodmmwvpt6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_config.gd" id="11_08ex8"]
+[ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://aircraft_utils/destruction/aircraft_part_hitbox.gd" id="11_8jlw5"]
 [ext_resource type="Script" uid="uid://3kjm0rdymoth" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_thruster_3d/aero_thruster_3d.gd" id="12_08ex8"]
 
 [sub_resource type="Resource" id="Resource_3ems6"]
@@ -174,7 +175,11 @@ height = 0.2
 radial_segments = 8
 rings = 4
 
-[node name="Missile" type="VehicleBody3D" unique_id=19079350 node_paths=PackedStringArray("control_component", "particles")]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8jlw5"]
+radius = 0.09
+height = 1.1
+
+[node name="Missile" type="VehicleBody3D" unique_id=19079350 node_paths=PackedStringArray("control_component", "particles", "hitbox")]
 collision_layer = 16385
 mass = 100.0
 center_of_mass_mode = 1
@@ -183,6 +188,7 @@ angular_damp_mode = 1
 script = ExtResource("1_7k4tl")
 control_component = NodePath("AeroControlComponent")
 particles = NodePath("GPUParticles3D")
+hitbox = NodePath("AircraftPartHitbox")
 metadata/_custom_type_script = "uid://3iji867c81k5"
 
 [node name="AeroControlComponent" type="Node" parent="." unique_id=139838286]
@@ -229,10 +235,20 @@ throttle_control_config = SubResource("Resource_ji764")
 metadata/_custom_type_script = "uid://3kjm0rdymoth"
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=2097345857]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5277481)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 emitting = false
 amount = 256
 lifetime = 5.0
 visibility_aabb = AABB(-5000, -5000, -5000, 10000, 10000, 10000)
 process_material = SubResource("ParticleProcessMaterial_olhwp")
 draw_pass_1 = SubResource("SphereMesh_a0liv")
+
+[node name="AircraftPartHitbox" type="Area3D" parent="." unique_id=1464716827]
+script = ExtResource("11_8jlw5")
+hp = 10.0
+can_disable_control = false
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AircraftPartHitbox" unique_id=1463796388]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_8jlw5")

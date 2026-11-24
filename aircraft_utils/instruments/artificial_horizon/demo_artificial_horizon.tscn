@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dok53wy0bkhyw"]
+
+[ext_resource type="Script" uid="uid://b8c1evefs5ke4" path="res://aircraft_utils/instruments/artificial_horizon/artificial_horizon.gd" id="1_cq1b3"]
+[ext_resource type="PackedScene" uid="uid://bb5q1gm6ldqyh" path="res://aircraft_utils/demo/assets/artificial_horizon.blend" id="2_81yfb"]
+
+[node name="ArtificialHorizon" type="Node3D" unique_id=75123892 node_paths=PackedStringArray("ball", "bank_scale")]
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_cq1b3")
+ball = NodePath("ArtificialHorizon/Ball")
+bank_scale = NodePath("ArtificialHorizon/Bank Scale")
+metadata/_custom_type_script = "uid://b8c1evefs5ke4"
+
+[node name="ArtificialHorizon" parent="." unique_id=962210300 instance=ExtResource("2_81yfb")]
+
+[node name="Triangle" parent="ArtificialHorizon" index="0" unique_id=406145953]
+transform = Transform3D(0.99997926, 0, 0, 0, 0.99726546, 0, 0, 0, 1.0766785, 0, 0, 0)
+
+[node name="Ball" parent="ArtificialHorizon" index="3" unique_id=1271972706]
+transform = Transform3D(-0.9999999, 8.742277e-08, 0, -8.742277e-08, -0.9999999, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Botom" parent="ArtificialHorizon/Ball" index="0" unique_id=1361911093]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0)
+
+[node name="Top" parent="ArtificialHorizon/Ball" index="1" unique_id=725815783]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0)
+
+[editable path="ArtificialHorizon"]

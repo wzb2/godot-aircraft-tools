@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://2fvdaoir5c8y"]
 
-[ext_resource type="Script" uid="uid://kk03hf6iaflm" path="res://plane/destruction/gun/bullet.gd" id="1_pnxs1"]
+[ext_resource type="Script" uid="uid://kk03hf6iaflm" path="res://aircraft_utils/destruction/gun/bullet.gd" id="1_pnxs1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6srf"]
 albedo_color = Color(1, 0, 0, 1)
@@ -30,11 +30,12 @@ scale_curve = SubResource("CurveTexture_kxxxg")
 radial_segments = 8
 rings = 4
 
-[node name="Bullet" type="RayCast3D" unique_id=401557157 node_paths=PackedStringArray("particles", "mesh")]
+[node name="Bullet" type="RayCast3D" unique_id=1968623967 node_paths=PackedStringArray("particles", "mesh")]
 enabled = false
 script = ExtResource("1_pnxs1")
 particles = NodePath("GPUParticles3D")
 mesh = NodePath("MeshInstance3D")
+metadata/_custom_type_script = "uid://kk03hf6iaflm"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=936888327]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)

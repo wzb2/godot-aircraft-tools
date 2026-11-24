@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjk0ue7v34otg"]
 
-[ext_resource type="Script" uid="uid://d26vwnl1dljjg" path="res://plane/destruction/bomb/bomb_fx.gd" id="1_54358"]
+[ext_resource type="Script" uid="uid://d26vwnl1dljjg" path="res://aircraft_utils/destruction/bomb/bomb_fx.gd" id="1_54358"]
 
 [sub_resource type="Curve" id="Curve_cykda"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.24666668, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -64,10 +64,11 @@ height = 10.0
 radial_segments = 8
 rings = 4
 
-[node name="BombFX" type="Node3D" unique_id=70462201 node_paths=PackedStringArray("particles", "light")]
+[node name="BombFX" type="Node3D" unique_id=1325814983 node_paths=PackedStringArray("particles", "light")]
 script = ExtResource("1_54358")
 particles = [NodePath("Sparks"), NodePath("Smoke")]
 light = NodePath("OmniLight3D")
+metadata/_custom_type_script = "uid://d26vwnl1dljjg"
 
 [node name="Sparks" type="GPUParticles3D" parent="." unique_id=156960919]
 emitting = false

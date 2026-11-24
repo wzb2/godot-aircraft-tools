@@ -1,82 +1,82 @@
 [gd_scene format=3 uid="uid://cm7nakd1nuhf6"]
 
-[ext_resource type="Script" uid="uid://bykue5ufv15i8" path="res://plane/destruction/missile/guided_missile.gd" id="1_24klf"]
-[ext_resource type="Script" uid="uid://cc5dwx5pqkaur" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_component.gd" id="2_lwvyu"]
-[ext_resource type="Script" uid="uid://b4xqlunpiyivk" path="res://addons/godot_aerodynamic_physics/utils/pid.gd" id="3_erurk"]
-[ext_resource type="Script" uid="uid://cdp8dc63ytxx1" path="res://addons/godot_aerodynamic_physics/core/flight_assist.gd" id="4_mpjbl"]
-[ext_resource type="Script" uid="uid://dfbhcpt1rr3ai" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config_axis.gd" id="5_cyp1d"]
-[ext_resource type="Script" uid="uid://cbgqb7g7mmwtu" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config.gd" id="6_wqr0p"]
-[ext_resource type="Script" uid="uid://d1725od371u4a" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/manual_aero_surface_3d/manual_aero_surface_3d.gd" id="7_vufq2"]
-[ext_resource type="Script" uid="uid://ctbwb7xlhft6t" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/manual_aero_surface_3d/manual_aero_surface_config.gd" id="8_n0wv6"]
-[ext_resource type="Script" uid="uid://crkbhmxpjff4o" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/aero_surface_config.gd" id="9_eq8sx"]
-[ext_resource type="Script" uid="uid://c46td0go5kvp6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_axis_config.gd" id="10_qcvid"]
-[ext_resource type="Script" uid="uid://cblxodmmwvpt6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_config.gd" id="11_uruk6"]
-[ext_resource type="Script" uid="uid://3kjm0rdymoth" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_thruster_3d/aero_thruster_3d.gd" id="12_wrhyr"]
-[ext_resource type="Script" uid="uid://dlefwo52g4du" path="res://world/camera.gd" id="13_lwvyu"]
-[ext_resource type="PackedScene" uid="uid://dok53wy0bkhyw" path="res://plane/instruments/artificial_horizon/artificial_horizon.tscn" id="14_erurk"]
+[ext_resource type="Script" uid="uid://bykue5ufv15i8" path="res://aircraft_utils/destruction/missile/guided_missile.gd" id="1_fgmoo"]
+[ext_resource type="Script" uid="uid://cc5dwx5pqkaur" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_component.gd" id="2_takag"]
+[ext_resource type="Script" uid="uid://b4xqlunpiyivk" path="res://addons/godot_aerodynamic_physics/utils/pid.gd" id="3_1dvw1"]
+[ext_resource type="Script" uid="uid://cdp8dc63ytxx1" path="res://addons/godot_aerodynamic_physics/core/flight_assist.gd" id="4_ukwpf"]
+[ext_resource type="Script" uid="uid://dfbhcpt1rr3ai" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config_axis.gd" id="5_fbjpf"]
+[ext_resource type="Script" uid="uid://cbgqb7g7mmwtu" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config.gd" id="6_80ydy"]
+[ext_resource type="Script" uid="uid://d1725od371u4a" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/manual_aero_surface_3d/manual_aero_surface_3d.gd" id="7_qvoby"]
+[ext_resource type="Script" uid="uid://ctbwb7xlhft6t" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/manual_aero_surface_3d/manual_aero_surface_config.gd" id="8_b7rv7"]
+[ext_resource type="Script" uid="uid://crkbhmxpjff4o" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/aero_surface_config.gd" id="9_nkoxf"]
+[ext_resource type="Script" uid="uid://c46td0go5kvp6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_axis_config.gd" id="10_rgcvh"]
+[ext_resource type="Script" uid="uid://cblxodmmwvpt6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_config.gd" id="11_qxudc"]
+[ext_resource type="Script" uid="uid://3kjm0rdymoth" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_thruster_3d/aero_thruster_3d.gd" id="12_2tqqv"]
+[ext_resource type="PackedScene" uid="uid://dok53wy0bkhyw" path="res://aircraft_utils/instruments/artificial_horizon/demo_artificial_horizon.tscn" id="13_eteqd"]
+[ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://aircraft_utils/destruction/aircraft_part_hitbox.gd" id="14_dmujj"]
 
 [sub_resource type="Resource" id="Resource_00mgn"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 0.001
 i = 0.0
 d = 0.01
 
 [sub_resource type="Resource" id="Resource_b4ni8"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 i = 0.05
 d = 0.1
 
 [sub_resource type="Resource" id="Resource_wqr0p"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 0.7
 i = 0.02
 metadata/_custom_type_script = "uid://b4xqlunpiyivk"
 
 [sub_resource type="Resource" id="Resource_6g6ll"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 0.0
 i = 0.0
 
 [sub_resource type="Resource" id="Resource_vufq2"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 0.7
 i = 0.02
 metadata/_custom_type_script = "uid://b4xqlunpiyivk"
 
 [sub_resource type="Resource" id="Resource_7qi55"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 10.0
 i = 0.0
 
 [sub_resource type="Resource" id="Resource_fr6c6"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 10.0
 i = 0.0
 
 [sub_resource type="Resource" id="Resource_n0wv6"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 0.02
 i = 0.0
 metadata/_custom_type_script = "uid://b4xqlunpiyivk"
 
 [sub_resource type="Resource" id="Resource_cvfk0"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 0.01
 i = 0.0
 
 [sub_resource type="Resource" id="Resource_bjwcm"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 0.0
 i = 0.4
 
 [sub_resource type="Resource" id="Resource_eq8sx"]
-script = ExtResource("3_erurk")
+script = ExtResource("3_1dvw1")
 p = 0.02
 i = 0.0
 metadata/_custom_type_script = "uid://b4xqlunpiyivk"
 
 [sub_resource type="Resource" id="Resource_24klf"]
-script = ExtResource("4_mpjbl")
+script = ExtResource("4_ukwpf")
 max_angular_rates = Vector3(50, 50, 50)
 enable_flight_assist_x = false
 pitch_assist_pid = SubResource("Resource_n0wv6")
@@ -100,7 +100,7 @@ metadata/_custom_type_script = "uid://cdp8dc63ytxx1"
 
 [sub_resource type="Resource" id="Resource_lwvyu"]
 resource_name = "pitch"
-script = ExtResource("5_cyp1d")
+script = ExtResource("5_fbjpf")
 axis_name = "pitch"
 use_bindings = false
 positive_event = &"pitch_up"
@@ -108,7 +108,7 @@ negative_event = &"pitch_down"
 
 [sub_resource type="Resource" id="Resource_erurk"]
 resource_name = "yaw"
-script = ExtResource("5_cyp1d")
+script = ExtResource("5_fbjpf")
 axis_name = "yaw"
 use_bindings = false
 positive_event = &"yaw_left"
@@ -116,7 +116,7 @@ negative_event = &"yaw_right"
 
 [sub_resource type="Resource" id="Resource_mpjbl"]
 resource_name = "throttle"
-script = ExtResource("5_cyp1d")
+script = ExtResource("5_fbjpf")
 axis_name = "throttle"
 use_bindings = false
 min_limit = 0.0
@@ -125,13 +125,13 @@ cumulative_negative_event = &"throttle_down"
 
 [sub_resource type="Resource" id="Resource_eyi4w"]
 resource_name = "roll"
-script = ExtResource("5_cyp1d")
+script = ExtResource("5_fbjpf")
 axis_name = "roll"
 use_bindings = false
 
 [sub_resource type="Resource" id="Resource_cyp1d"]
-script = ExtResource("6_wqr0p")
-axis_configs = Array[ExtResource("5_cyp1d")]([SubResource("Resource_lwvyu"), SubResource("Resource_erurk"), SubResource("Resource_mpjbl"), SubResource("Resource_eyi4w")])
+script = ExtResource("6_80ydy")
+axis_configs = Array[ExtResource("5_fbjpf")]([SubResource("Resource_lwvyu"), SubResource("Resource_erurk"), SubResource("Resource_mpjbl"), SubResource("Resource_eyi4w")])
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7k4tl"]
 radius = 0.05
@@ -168,14 +168,14 @@ _data = [Vector2(0, 1), 0.0, -0.0244575, 0, 0, Vector2(35.2174, 0.443437), -0.00
 point_count = 3
 
 [sub_resource type="Resource" id="Resource_a75wk"]
-script = ExtResource("8_n0wv6")
+script = ExtResource("8_b7rv7")
 lift_aoa_curve = SubResource("Curve_1ornv")
 drag_aoa_curve = SubResource("Curve_olhwp")
 sweep_drag_multiplier_curve = SubResource("Curve_1mcvi")
 drag_at_mach_multiplier_curve = SubResource("Curve_a0liv")
 
 [sub_resource type="Resource" id="Resource_k4sbi"]
-script = ExtResource("9_eq8sx")
+script = ExtResource("9_nkoxf")
 chord = 0.1
 span = 0.15
 area = 0.015
@@ -183,13 +183,13 @@ aspect_ratio = 1.4999999999999998
 
 [sub_resource type="Resource" id="Resource_qcvid"]
 resource_name = "roll"
-script = ExtResource("10_qcvid")
+script = ExtResource("10_rgcvh")
 axis_name = "roll"
 contribution = Vector3(-1, 0, 0)
 
 [sub_resource type="Resource" id="Resource_uruk6"]
-script = ExtResource("11_uruk6")
-axis_configs = Array[ExtResource("10_qcvid")]([SubResource("Resource_qcvid")])
+script = ExtResource("11_qxudc")
+axis_configs = Array[ExtResource("10_rgcvh")]([SubResource("Resource_qcvid")])
 max_value = Vector3(0.05, 0, 0)
 min_value = Vector3(-0.05, 0, 0)
 metadata/_custom_type_script = "uid://cblxodmmwvpt6"
@@ -199,19 +199,19 @@ size = Vector3(0.15, 0.01, 0.1)
 
 [sub_resource type="Resource" id="Resource_wrhyr"]
 resource_name = "roll"
-script = ExtResource("10_qcvid")
+script = ExtResource("10_rgcvh")
 axis_name = "roll"
 contribution = Vector3(1, 0, 0)
 
 [sub_resource type="Resource" id="Resource_2s0p3"]
-script = ExtResource("11_uruk6")
-axis_configs = Array[ExtResource("10_qcvid")]([SubResource("Resource_wrhyr")])
+script = ExtResource("11_qxudc")
+axis_configs = Array[ExtResource("10_rgcvh")]([SubResource("Resource_wrhyr")])
 max_value = Vector3(0.05, 0, 0)
 min_value = Vector3(-0.05, 0, 0)
 metadata/_custom_type_script = "uid://cblxodmmwvpt6"
 
 [sub_resource type="Resource" id="Resource_kvqp0"]
-script = ExtResource("9_eq8sx")
+script = ExtResource("9_nkoxf")
 chord = 0.2
 span = 0.3
 area = 0.06
@@ -219,13 +219,13 @@ aspect_ratio = 1.4999999999999998
 
 [sub_resource type="Resource" id="Resource_a0liv"]
 resource_name = "pitch"
-script = ExtResource("10_qcvid")
+script = ExtResource("10_rgcvh")
 axis_name = "pitch"
 contribution = Vector3(-1, 0, 0)
 
 [sub_resource type="Resource" id="Resource_1ornv"]
-script = ExtResource("11_uruk6")
-axis_configs = Array[ExtResource("10_qcvid")]([SubResource("Resource_a0liv")])
+script = ExtResource("11_qxudc")
+axis_configs = Array[ExtResource("10_rgcvh")]([SubResource("Resource_a0liv")])
 max_value = Vector3(0.7, 0, 0)
 min_value = Vector3(-0.7, 0, 0)
 limit_movement_speed = true
@@ -237,13 +237,13 @@ size = Vector3(0.3, 0.01, 0.2)
 
 [sub_resource type="Resource" id="Resource_0pl5y"]
 resource_name = "yaw"
-script = ExtResource("10_qcvid")
+script = ExtResource("10_rgcvh")
 axis_name = "yaw"
 contribution = Vector3(-1, 0, 0)
 
 [sub_resource type="Resource" id="Resource_0sks1"]
-script = ExtResource("11_uruk6")
-axis_configs = Array[ExtResource("10_qcvid")]([SubResource("Resource_0pl5y")])
+script = ExtResource("11_qxudc")
+axis_configs = Array[ExtResource("10_rgcvh")]([SubResource("Resource_0pl5y")])
 max_value = Vector3(0.7, 0, 0)
 min_value = Vector3(-0.7, 0, 0)
 limit_movement_speed = true
@@ -252,13 +252,13 @@ metadata/_custom_type_script = "uid://cblxodmmwvpt6"
 
 [sub_resource type="Resource" id="Resource_v0r4w"]
 resource_name = "throttle"
-script = ExtResource("10_qcvid")
+script = ExtResource("10_rgcvh")
 axis_name = "throttle"
 contribution = Vector3(-1, -1, -1)
 
 [sub_resource type="Resource" id="Resource_ji764"]
-script = ExtResource("11_uruk6")
-axis_configs = Array[ExtResource("10_qcvid")]([SubResource("Resource_v0r4w")])
+script = ExtResource("11_qxudc")
+axis_configs = Array[ExtResource("10_rgcvh")]([SubResource("Resource_v0r4w")])
 use_separate_minmax = true
 min_value = Vector3(0, 0, -1)
 
@@ -307,6 +307,10 @@ height = 0.2
 radial_segments = 8
 rings = 4
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cyp1d"]
+radius = 0.09
+height = 1.1
+
 [node name="GuidedMissile" type="VehicleBody3D" unique_id=19079350 node_paths=PackedStringArray("control_component", "particles")]
 collision_layer = 16385
 mass = 100.0
@@ -314,13 +318,13 @@ center_of_mass_mode = 1
 continuous_cd = true
 linear_damp_mode = 1
 angular_damp_mode = 1
-script = ExtResource("1_24klf")
+script = ExtResource("1_fgmoo")
 control_component = NodePath("AeroControlComponent")
 particles = NodePath("GPUParticles3D")
 metadata/_custom_type_script = "uid://3iji867c81k5"
 
 [node name="AeroControlComponent" type="Node" parent="." unique_id=624745980]
-script = ExtResource("2_lwvyu")
+script = ExtResource("2_takag")
 flight_assist = SubResource("Resource_24klf")
 control_config = SubResource("Resource_cyp1d")
 metadata/_custom_type_script = "uid://cc5dwx5pqkaur"
@@ -335,7 +339,7 @@ mesh = SubResource("CapsuleMesh_08ex8")
 
 [node name="HStabL" type="Node3D" parent="." unique_id=1451668273]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.075, 0, -0.2)
-script = ExtResource("7_vufq2")
+script = ExtResource("7_qvoby")
 manual_config = SubResource("Resource_a75wk")
 wing_config = SubResource("Resource_k4sbi")
 actuation_config = SubResource("Resource_uruk6")
@@ -347,7 +351,7 @@ mesh = SubResource("BoxMesh_5dc02")
 
 [node name="HStabR" type="Node3D" parent="." unique_id=378634400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075, 0, -0.2)
-script = ExtResource("7_vufq2")
+script = ExtResource("7_qvoby")
 manual_config = SubResource("Resource_a75wk")
 wing_config = SubResource("Resource_k4sbi")
 actuation_config = SubResource("Resource_2s0p3")
@@ -359,7 +363,7 @@ mesh = SubResource("BoxMesh_5dc02")
 
 [node name="VStab" type="Node3D" parent="." unique_id=927671285]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, -0.2)
-script = ExtResource("7_vufq2")
+script = ExtResource("7_qvoby")
 manual_config = SubResource("Resource_a75wk")
 wing_config = SubResource("Resource_k4sbi")
 metadata/_custom_type_script = "uid://d1725od371u4a"
@@ -370,7 +374,7 @@ mesh = SubResource("BoxMesh_5dc02")
 
 [node name="Elevator" type="Node3D" parent="." unique_id=1075235229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.45)
-script = ExtResource("7_vufq2")
+script = ExtResource("7_qvoby")
 manual_config = SubResource("Resource_a75wk")
 wing_config = SubResource("Resource_kvqp0")
 actuation_config = SubResource("Resource_1ornv")
@@ -382,7 +386,7 @@ mesh = SubResource("BoxMesh_1vwgq")
 
 [node name="Rudder" type="Node3D" parent="." unique_id=1061800647]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0.45)
-script = ExtResource("7_vufq2")
+script = ExtResource("7_qvoby")
 manual_config = SubResource("Resource_a75wk")
 wing_config = SubResource("Resource_kvqp0")
 actuation_config = SubResource("Resource_0sks1")
@@ -394,12 +398,11 @@ mesh = SubResource("BoxMesh_1vwgq")
 
 [node name="AeroThruster3D" type="Node3D" parent="." unique_id=2048385721]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4009061)
-script = ExtResource("12_wrhyr")
+script = ExtResource("12_2tqqv")
 throttle_control_config = SubResource("Resource_ji764")
 metadata/_custom_type_script = "uid://3kjm0rdymoth"
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=879279594]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5277481)
 emitting = false
 amount = 256
 lifetime = 5.0
@@ -408,9 +411,15 @@ visibility_aabb = AABB(-5000, -5000, -5000, 10000, 10000, 10000)
 process_material = SubResource("ParticleProcessMaterial_mpjbl")
 draw_pass_1 = SubResource("SphereMesh_cyp1d")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=611648182]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125969, 0.96444345)
-script = ExtResource("13_lwvyu")
-
-[node name="ArtificialHorizon" parent="." unique_id=1162501207 instance=ExtResource("14_erurk")]
+[node name="ArtificialHorizon" parent="." unique_id=1162501207 instance=ExtResource("13_eteqd")]
 transform = Transform3D(-1.0000001, 0, -8.742278e-08, 0, 1.0000001, 0, 8.7422784e-08, 0, -1, 0, 0.20960346, 0)
+
+[node name="AircraftPartHitbox" type="Area3D" parent="." unique_id=633335766]
+script = ExtResource("14_dmujj")
+hp = 10.0
+can_disable_control = false
+metadata/_custom_type_script = "uid://bcv1p0pxw0pnk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AircraftPartHitbox" unique_id=266676415]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_cyp1d")

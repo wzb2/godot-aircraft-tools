@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bb5q1gm6ldqyh"
-path="res://.godot/imported/artificial_horizon.blend-783cab398306d125a31f4b80da01cd7e.scn"
+path="res://.godot/imported/artificial_horizon.blend-ab3b7cb4f04ed5c5e92d40a25aff3a7f.scn"
 
 [deps]
 
-source_file="res://plane/instruments/artificial_horizon/artificial_horizon.blend"
-dest_files=["res://.godot/imported/artificial_horizon.blend-783cab398306d125a31f4b80da01cd7e.scn"]
+source_file="res://aircraft_utils/demo/assets/artificial_horizon.blend"
+dest_files=["res://.godot/imported/artificial_horizon.blend-ab3b7cb4f04ed5c5e92d40a25aff3a7f.scn"]
 
 [params]
 

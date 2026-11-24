@@ -1,6 +1,8 @@
 @tool
 extends Node3D
 
+class_name ArtificialHorizon
+
 @export var ball: Node3D
 @export var bank_scale: Node3D
 

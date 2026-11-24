@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://btfw7160pg4yp"]
 
-[ext_resource type="Script" uid="uid://ccolxx2bqcj0q" path="res://plane/demo/turret.gd" id="1_o0cvv"]
-[ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://plane/destruction/gun/machine_gun.tscn" id="2_o0cvv"]
-[ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://plane/destruction/aircraft_part_hitbox.gd" id="3_23qil"]
+[ext_resource type="Script" uid="uid://ccolxx2bqcj0q" path="res://aircraft_utils/demo/turret.gd" id="1_o0cvv"]
+[ext_resource type="PackedScene" uid="uid://cgk61owyp5rbw" path="res://aircraft_utils/destruction/gun/demo_machine_gun.tscn" id="2_o0cvv"]
+[ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://aircraft_utils/destruction/aircraft_part_hitbox.gd" id="3_23qil"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o0cvv"]
 

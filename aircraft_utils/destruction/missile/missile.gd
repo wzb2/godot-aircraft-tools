@@ -3,6 +3,8 @@ extends AeroBody3D
 
 class_name Missile
 
+const PARTICLE_Z_OFFSET: float = 0.5
+
 ## If true, automatically launches when _ready is called, starting thrusters, particles, and guidance if it is a guided missile. 
 @export var launch_on_ready: bool = true
 
@@ -10,6 +12,8 @@ class_name Missile
 @export var control_component: AeroControlComponent
 ## Particles to emit when the missile is flying. 
 @export var particles: GPUParticles3D
+## Hitbox for getting shot down. 
+@export var hitbox: AircraftPartHitbox
 
 
 func _ready() -> void:
@@ -39,7 +43,13 @@ func launch() -> void:
 func _physics_process(delta : float) -> void:
 	super._physics_process(delta)
 	
-	particles.global_position = global_position
+	if not Engine.is_editor_hint():
+		particles.global_position = global_position + global_basis.z * PARTICLE_Z_OFFSET
+		
+		if hitbox:
+			if hitbox.hp <= 0:
+				explode()
+	
 
 
 func explode() -> void:

@@ -12,8 +12,8 @@
 [ext_resource type="Script" uid="uid://c46td0go5kvp6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_axis_config.gd" id="8_qkuex"]
 [ext_resource type="Script" uid="uid://crkbhmxpjff4o" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/aero_surface_config.gd" id="9_747jw"]
 [ext_resource type="Script" uid="uid://cblxodmmwvpt6" path="res://addons/godot_aerodynamic_physics/core/controls/aero_influencer_control_config.gd" id="9_w1uor"]
-[ext_resource type="Script" uid="uid://b0jtcp3t4ow64" path="res://plane/destruction/part_separator.gd" id="13_kryix"]
-[ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://plane/destruction/aircraft_part_hitbox.gd" id="14_m5ggn"]
+[ext_resource type="Script" uid="uid://b0jtcp3t4ow64" path="res://aircraft_utils/destruction/part_separator.gd" id="13_kryix"]
+[ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://aircraft_utils/destruction/aircraft_part_hitbox.gd" id="14_m5ggn"]
 
 [sub_resource type="Resource" id="Resource_2i4h6"]
 script = ExtResource("3_q3fct")

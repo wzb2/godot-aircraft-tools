@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dikorqbfipcwc"
-path.s3tc="res://.godot/imported/runway.png-fed7a4e3b7b3b42a2e20192b7799cc7e.s3tc.ctex"
+path.s3tc="res://.godot/imported/runway.png-56c45ac300474a0b0d167724b8973616.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://world/runway.png"
-dest_files=["res://.godot/imported/runway.png-fed7a4e3b7b3b42a2e20192b7799cc7e.s3tc.ctex"]
+source_file="res://aircraft_utils/demo/assets/runway.png"
+dest_files=["res://.godot/imported/runway.png-56c45ac300474a0b0d167724b8973616.s3tc.ctex"]
 
 [params]
 
