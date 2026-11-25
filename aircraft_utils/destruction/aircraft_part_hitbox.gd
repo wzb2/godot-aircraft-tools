@@ -1,7 +1,13 @@
 extends Area3D
 
-## Hitbox for aircraft parts. Makes parts fall off or be disabled when damaged a certain amount. Used to make bullets affect aircraft. 
+## Hitbox for aircraft parts, although it can be used for other things that need to take damage. Can make parts fall off or be disabled when damaged a certain amount. Used to make bullets and explosions affect aircraft. 
 class_name AircraftPartHitbox
+
+signal hit
+## Will not be emitted if can_disable_control is false or aero_influencer is null. 
+signal control_disabled
+## Will not be emitted if part_spearator is null. 
+signal separate
 
 ## Amount of damage this part can sustain. 
 @export var hp: float = 200
@@ -24,7 +30,8 @@ func _ready() -> void:
 			aero_influencer = get_parent()
 
 
-func hit(damage: float) -> void:
+func inflict_hit(damage: float) -> void:
+	hit.emit()
 	hp -= damage
 	#update()
 
@@ -32,6 +39,7 @@ func update() -> void:
 	if can_disable_control:
 		if hp <= disable_control_threshold:
 			if aero_influencer:
+				control_disabled.emit()
 				var control_config: AeroInfluencerControlConfig = aero_influencer.actuation_config
 				if control_config:
 					control_config.enable_control = false
@@ -45,6 +53,7 @@ func update() -> void:
 					throttle_config.current_value = Vector3.ZERO
 	if part_spearator:
 		if hp <= separate_threshold:
+			separate.emit()
 			part_spearator.separate()
 
 

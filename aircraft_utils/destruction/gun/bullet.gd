@@ -53,7 +53,7 @@ func manage_hit() -> void:
 	
 	var force: Vector3 = damage * velocity
 	if collider is AircraftPartHitbox:
-		collider.hit(force.length())
+		collider.inflict_hit(force.length())
 	elif collider is Area3D:
 		return
 	if collider is RigidBody3D:

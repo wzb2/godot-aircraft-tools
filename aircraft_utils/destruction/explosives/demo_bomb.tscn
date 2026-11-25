@@ -1,8 +1,5 @@
 [gd_scene format=3 uid="uid://covrq2cmtslor"]
 
-[ext_resource type="Script" uid="uid://bjt3g25jqdu1e" path="res://aircraft_utils/destruction/bomb/bomb.gd" id="1_irxii"]
-[ext_resource type="PackedScene" uid="uid://bjk0ue7v34otg" path="res://aircraft_utils/destruction/bomb/demo_bomb_fx.tscn" id="2_yb5a1"]
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uve6s"]
 radius = 0.25
 
@@ -11,8 +8,6 @@ radius = 0.25
 
 [node name="Bomb" type="RigidBody3D" unique_id=1198645603]
 mass = 60.0
-script = ExtResource("1_irxii")
-fx_scene = ExtResource("2_yb5a1")
 metadata/_custom_type_script = "uid://bjt3g25jqdu1e"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=861600376]

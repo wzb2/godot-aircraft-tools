@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b4kt6hh2u8euy"]
 
-[ext_resource type="Script" uid="uid://si2kaylgytgh" path="res://aircraft_utils/destruction/missile/missile.gd" id="1_7k4tl"]
+[ext_resource type="Script" uid="uid://si2kaylgytgh" path="res://aircraft_utils/destruction/explosives/missile/missile.gd" id="1_7k4tl"]
 [ext_resource type="Script" uid="uid://cc5dwx5pqkaur" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_component.gd" id="2_7k4tl"]
+[ext_resource type="PackedScene" uid="uid://c8054rtuknbjl" path="res://aircraft_utils/destruction/explosives/demo_explosion.tscn" id="2_u8fvl"]
 [ext_resource type="Script" uid="uid://dfbhcpt1rr3ai" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config_axis.gd" id="5_1vwgq"]
 [ext_resource type="Script" uid="uid://cbgqb7g7mmwtu" path="res://addons/godot_aerodynamic_physics/core/controls/aero_control_config.gd" id="6_bw5fk"]
 [ext_resource type="Script" uid="uid://d1725od371u4a" path="res://addons/godot_aerodynamic_physics/core/aero_influencer_3d/aero_surface_3d/manual_aero_surface_3d/manual_aero_surface_3d.gd" id="7_1vwgq"]
@@ -183,12 +184,14 @@ height = 1.1
 collision_layer = 16385
 mass = 100.0
 center_of_mass_mode = 1
+continuous_cd = true
 linear_damp_mode = 1
 angular_damp_mode = 1
 script = ExtResource("1_7k4tl")
 control_component = NodePath("AeroControlComponent")
 particles = NodePath("GPUParticles3D")
 hitbox = NodePath("AircraftPartHitbox")
+explosion_scene = ExtResource("2_u8fvl")
 metadata/_custom_type_script = "uid://3iji867c81k5"
 
 [node name="AeroControlComponent" type="Node" parent="." unique_id=139838286]

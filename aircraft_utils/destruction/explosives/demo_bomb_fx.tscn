@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjk0ue7v34otg"]
 
-[ext_resource type="Script" uid="uid://d26vwnl1dljjg" path="res://aircraft_utils/destruction/bomb/bomb_fx.gd" id="1_54358"]
+[ext_resource type="Script" uid="uid://d26vwnl1dljjg" path="res://aircraft_utils/destruction/explosives/explosion_fx.gd" id="1_54358"]
 
 [sub_resource type="Curve" id="Curve_cykda"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.24666668, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -12,7 +12,7 @@ curve = SubResource("Curve_cykda")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_huu0c"]
 lifetime_randomness = 0.5
 direction = Vector3(0, 1, 0)
-spread = 90.0
+spread = 180.0
 initial_velocity_min = 14.799999
 initial_velocity_max = 50.3
 scale_curve = SubResource("CurveTexture_vpdcx")
@@ -55,6 +55,7 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_kxxxg")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2rdms"]
+vertex_color_use_as_albedo = true
 albedo_color = Color(0.30588236, 0.21568628, 0.19607843, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_iiaxr"]

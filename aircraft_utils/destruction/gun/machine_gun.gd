@@ -2,6 +2,8 @@ extends Node3D
 
 class_name MachineGun
 
+signal fire
+
 const BULLET: PackedScene = preload("uid://2fvdaoir5c8y")
 
 ## Vehicle that the gun is mounted on, used to calculate initial velocity. 
@@ -25,7 +27,7 @@ const BULLET: PackedScene = preload("uid://2fvdaoir5c8y")
 ## Shoot when this input is pressed. Leave blank if gun is not controlled directly by player input. 
 @export var shoot_input_event: StringName
 
-## Whether this gun is enabled. Set to false when the separator separates. 
+## Whether this gun is enabled. Is set to false when the separator separates. 
 @export var attached = true
 
 var firing: bool = false
@@ -38,7 +40,7 @@ func _ready() -> void:
 	timer.wait_time = firing_cooldown
 	timer.timeout.connect(shoot)
 	if separator:
-		separator.sepreate.connect(func() -> void: attached = false)
+		separator.separated.connect(func() -> void: attached = false)
 	
 	if recursive_ignore:
 		var children_to_ignore: Array
@@ -65,6 +67,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func shoot() -> void:
+	fire.emit()
 	var bullet: Bullet = BULLET.instantiate()
 	bullet.velocity = -global_transform.basis.z * muzzle_speed
 	if vehicle:

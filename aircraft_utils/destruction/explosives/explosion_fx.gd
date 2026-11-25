@@ -1,12 +1,15 @@
 extends Node3D
 
-class_name BombFX
+class_name ExplosionFX
 
 @export var particles: Array[GPUParticles3D]
 @export var light: OmniLight3D
 @export var light_fade_time: float = 0.8
+@export var audio_players: Array[AudioStreamPlayer3D]
 
-var particles_finished: int = 0
+var finished_count: int = 0
+
+func increase_finished_count() -> void: finished_count += 1
 
 func _ready() -> void:
 	if light:
@@ -15,11 +18,15 @@ func _ready() -> void:
 	
 	for i: GPUParticles3D in particles:
 		i.emitting = true
-		i.finished.connect(func() -> void: particles_finished += 1)
+		i.finished.connect(increase_finished_count)
+	
+	for i: AudioStreamPlayer3D in audio_players:
+		i.play()
+		i.finished.connect(increase_finished_count)
 	
 
 func _process(_delta: float) -> void:
-	if particles_finished == particles.size():
+	if finished_count == particles.size() + audio_players.size():
 		if light and light.light_energy == 0:
 			queue_free()
 		

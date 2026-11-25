@@ -3,7 +3,7 @@ extends Node
 ## Nested PartSeparators don't really work yet. 
 class_name PartSeparator
 
-signal sepreate
+signal separated
 
 ## Makes the part detach when you press space. 
 @export var enable_debug_button: bool = false
@@ -25,7 +25,7 @@ var aero_body: AeroBody3D:
 	get():
 		return part.aero_body
 
-var separated: bool = false
+var has_separated: bool = false
 
 func _ready() -> void:
 	if not part:
@@ -45,9 +45,9 @@ func _physics_process(_delta: float) -> void:
 			separate()
 
 func separate(override_body: AeroBody3D = null) -> void:
-	if not separated:
-		separated = true
-		sepreate.emit()
+	if not has_separated:
+		has_separated = true
+		separated.emit()
 		
 		if make_aero_body_lighter:
 			aero_body.mass -= debris_mass
