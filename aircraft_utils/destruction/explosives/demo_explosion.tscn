@@ -4,11 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://bjk0ue7v34otg" path="res://aircraft_utils/destruction/explosives/demo_bomb_fx.tscn" id="2_2yt4d"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2yt4d"]
-radius = 50.0
+radius = 30.0
 
 [node name="Explosion" type="Area3D" unique_id=208891745]
 script = ExtResource("1_3a1ie")
-force = 10000000.0
 fx_scene = ExtResource("2_2yt4d")
 metadata/_custom_type_script = "uid://ppk4wn1isfoy"
 

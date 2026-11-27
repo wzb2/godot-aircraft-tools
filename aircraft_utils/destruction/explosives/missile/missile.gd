@@ -12,7 +12,8 @@ class_name Missile
 @export var particles: GPUParticles3D
 ## Hitbox for getting shot down. 
 @export var hitbox: AircraftPartHitbox
-
+## Time before the missile self destructs. 
+@export var lifetime: float = 10.0
 
 func _ready() -> void:
 	super._ready()
@@ -28,6 +29,8 @@ func _ready() -> void:
 func launch() -> void:
 	control_component.set_control_input("throttle", 1.0)
 	particles.emitting = true
+	var tween: Tween = create_tween()
+	tween.tween_callback(explode).set_delay(lifetime)
 
 
 func _physics_process(delta : float) -> void:

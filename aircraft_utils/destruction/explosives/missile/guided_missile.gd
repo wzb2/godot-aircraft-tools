@@ -5,9 +5,9 @@ extends Missile
 class_name GuidedMissile
 
 ## If the missile gets this close to the target, if it starts getting further away, it will immidiately explode. 
-@export var commit_dist: float = 50
-## If the missile gets this close to the target,, it will immidiately explode. 
-@export var explode_dist: float = 5
+@export var commit_dist: float = 30
+## If the missile gets this close to the target, it will immidiately explode. 
+@export var explode_dist: float = 3
 ## If the missile is this much farther from the target than the closest it's been and it's getting farther away, it will explode. 
 @export var give_up_dist: float = 300
 
@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 			min_dist = distance_to_target
 		
 		if distance_to_target < commit_dist:
-			if distance_to_target > min_dist or distance_to_target < explode_dist:
+			if distance_to_target > prev_dist or distance_to_target < explode_dist:
 				explode()
 		elif prev_dist < distance_to_target and distance_to_target - min_dist > give_up_dist:
 			explode()

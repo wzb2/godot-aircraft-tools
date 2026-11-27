@@ -17,10 +17,11 @@
 [ext_resource type="Script" uid="uid://b2ddtcfwxfrxe" path="res://aircraft_utils/input_display/input_display_3d.gd" id="13_xw1vv"]
 [ext_resource type="Script" uid="uid://coiexydt6nf2r" path="res://aircraft_utils/input_display/input_display_axis_config.gd" id="14_i48hm"]
 [ext_resource type="Script" uid="uid://bcv1p0pxw0pnk" path="res://aircraft_utils/destruction/aircraft_part_hitbox.gd" id="14_lcfy3"]
+[ext_resource type="PackedScene" uid="uid://2fvdaoir5c8y" path="res://aircraft_utils/destruction/gun/demo_bullet.tscn" id="15_cck3b"]
 [ext_resource type="PackedScene" uid="uid://dok53wy0bkhyw" path="res://aircraft_utils/instruments/artificial_horizon/demo_artificial_horizon.tscn" id="15_uciay"]
 [ext_resource type="Script" uid="uid://bp8fw7kd04a4w" path="res://aircraft_utils/instruments/dial/dial_2d.gd" id="16_caylq"]
 [ext_resource type="Script" uid="uid://bnrdl56f2vsqr" path="res://aircraft_utils/destruction/explosives/bomb_dropper.gd" id="20_lbrwg"]
-[ext_resource type="PackedScene" uid="uid://b4kt6hh2u8euy" path="res://aircraft_utils/destruction/explosives/missile/demo_missile.tscn" id="21_20ht6"]
+[ext_resource type="PackedScene" uid="uid://cm7nakd1nuhf6" path="res://aircraft_utils/destruction/explosives/missile/demo_guided_missile.tscn" id="21_8vlmv"]
 [ext_resource type="Texture2D" uid="uid://br0h30l01nxub" path="res://aircraft_utils/demo/assets/crosshair.png" id="22_8vlmv"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gvgkk"]
@@ -925,6 +926,7 @@ metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
 
 [node name="MachineGun" parent="WingR" unique_id=722960509 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, -0.8)
+bullet_scene = ExtResource("15_cck3b")
 vehicle = NodePath("../..")
 separator = NodePath("../PartSeparator")
 objects_to_ignore = [NodePath("../..")]
@@ -932,6 +934,7 @@ shoot_input_event = &"shoot"
 
 [node name="MachineGun2" parent="WingR" unique_id=1002234257 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8000001)
+bullet_scene = ExtResource("15_cck3b")
 vehicle = NodePath("../..")
 separator = NodePath("../PartSeparator")
 objects_to_ignore = [NodePath("../..")]
@@ -939,6 +942,7 @@ shoot_input_event = &"shoot"
 
 [node name="MachineGun3" parent="WingR" unique_id=1482293750 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, -0.8)
+bullet_scene = ExtResource("15_cck3b")
 vehicle = NodePath("../..")
 separator = NodePath("../PartSeparator")
 objects_to_ignore = [NodePath("../..")]
@@ -1002,6 +1006,7 @@ metadata/_custom_type_script = "uid://b0jtcp3t4ow64"
 
 [node name="MachineGun" parent="WingL" unique_id=1992546212 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, -0.8)
+bullet_scene = ExtResource("15_cck3b")
 vehicle = NodePath("../..")
 separator = NodePath("../PartSeparator")
 objects_to_ignore = [NodePath("../..")]
@@ -1009,6 +1014,7 @@ shoot_input_event = &"shoot"
 
 [node name="MachineGun2" parent="WingL" unique_id=652620153 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+bullet_scene = ExtResource("15_cck3b")
 vehicle = NodePath("../..")
 separator = NodePath("../PartSeparator")
 objects_to_ignore = [NodePath("../..")]
@@ -1016,6 +1022,7 @@ shoot_input_event = &"shoot"
 
 [node name="MachineGun3" parent="WingL" unique_id=471963445 node_paths=PackedStringArray("vehicle", "separator", "objects_to_ignore") instance=ExtResource("13_1wqyx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, -0.8)
+bullet_scene = ExtResource("15_cck3b")
 vehicle = NodePath("../..")
 separator = NodePath("../PartSeparator")
 objects_to_ignore = [NodePath("../..")]
@@ -1214,8 +1221,9 @@ offset = Vector2(0, -15)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 script = ExtResource("20_lbrwg")
 vehicle = NodePath("..")
-bomb_scene = ExtResource("21_20ht6")
+bomb_scene = ExtResource("21_8vlmv")
 amount = 100
+drop_speed = 5.0
 do_weight = false
 metadata/_custom_type_script = "uid://bnrdl56f2vsqr"
 

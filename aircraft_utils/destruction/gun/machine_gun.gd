@@ -4,8 +4,8 @@ class_name MachineGun
 
 signal fire
 
-const BULLET: PackedScene = preload("uid://2fvdaoir5c8y")
-
+## Bullet scene. 
+@export var bullet_scene: PackedScene# = preload("uid://2fvdaoir5c8y")
 ## Vehicle that the gun is mounted on, used to calculate initial velocity. 
 @export var vehicle: RigidBody3D
 ## Set to disable when separator seperates. Useful for wing mounted guns that can fall off with the wing, etc. 
@@ -68,7 +68,7 @@ func _physics_process(_delta: float) -> void:
 
 func shoot() -> void:
 	fire.emit()
-	var bullet: Bullet = BULLET.instantiate()
+	var bullet: Bullet = bullet_scene.instantiate()
 	bullet.velocity = -global_transform.basis.z * muzzle_speed
 	if vehicle:
 		bullet.velocity += vehicle.linear_velocity #TODO: factor in angular velocity, move get_linear function from part separator to utils class? 

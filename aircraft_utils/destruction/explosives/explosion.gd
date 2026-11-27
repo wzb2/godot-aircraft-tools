@@ -4,15 +4,17 @@ class_name Explosion
 
 const RAY_MULTIPLIER: float = 1.1
 
+const BASE_DAMAGE_MULTIPLIER: float = 0.1
+
 @export var one_shot: bool = true
 @export var explode_immidiately: bool = true
 
 ## Explosion force. 
-@export var force: float = 1000
+@export var force: float = 500
 ## Override blast radius. Set to a positive number to use it instead of automatically trying to find the radius of the collision shape. 
 @export var override_radius: float = -1
-## Scale factor from force to damage. 
-@export var damage_multiplier: float = 2.0
+## Scale factor from force to damage, on top of base 0.1 multiplier. 
+@export var damage_multiplier: float = 0.005
 
 ## How many random rays to cast to check if n object in the blast is behind cover or partial cover. 
 @export var ray_count: int = 8
@@ -60,9 +62,11 @@ func explode() -> void:
 		params.exclude.append(i.get_rid())
 	
 	for a: Node3D in get_overlapping_areas():
-		params.collide_with_areas = true
-		params.collide_with_bodies = false
-		blast_obj(a, params, space_state)
+		if a is AircraftPartHitbox:
+			if a.aero_influencer:
+				params.collide_with_areas = true
+				params.collide_with_bodies = false
+				blast_obj(a, params, space_state)
 	for a: Node3D in get_overlapping_bodies():
 		params.collide_with_areas = false
 		params.collide_with_bodies = true
@@ -86,7 +90,7 @@ func blast_obj(a: Node3D, params: PhysicsRayQueryParameters3D, space_state: Phys
 					var hit_point: Vector3 = params.to - a.aero_influencer.aero_body.global_position
 					var force_scale_factor: float = 1 - (radius - hit_point.distance_to(global_position))
 					var hit_force: Vector3 = (ray_vector.normalized() * force / ray_count) * force_scale_factor
-					a.inflict_hit(hit_force.length() * damage_multiplier)
+					a.inflict_hit(hit_force.length() * damage_multiplier * BASE_DAMAGE_MULTIPLIER)
 				elif a is RigidBody3D:
 					var hit_point: Vector3 = params.to - a.global_position
 					var force_scale_factor: float = 1 - (radius - hit_point.distance_to(global_position))

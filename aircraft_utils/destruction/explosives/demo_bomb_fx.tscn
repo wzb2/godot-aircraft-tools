@@ -35,26 +35,55 @@ material = SubResource("StandardMaterial3D_j15uc")
 size = 0.1
 curve = SubResource("Curve_vpdcx")
 
+[sub_resource type="Curve" id="Curve_s7x32"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.49367085, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qq2rn"]
+curve = SubResource("Curve_s7x32")
+
+[sub_resource type="Gradient" id="Gradient_61psp"]
+offsets = PackedFloat32Array(0, 0.042462844, 0.06581741, 0.15711252)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1, 0.17761439, 0.17761436, 0.17761436, 1, 0.30588236, 0.21568628, 0.19607843, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_s7x32"]
+gradient = SubResource("Gradient_61psp")
+
+[sub_resource type="Curve" id="Curve_61psp"]
+_limits = [0.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 10), 0.0, 0.0, 0, 0, Vector2(0.052441232, 10), 0.0, 0.0, 0, 0, Vector2(0.16998193, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_s7x32"]
+curve = SubResource("Curve_61psp")
+
 [sub_resource type="Curve" id="Curve_2rdms"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.041591316, 1), 0.0, 0.0, 0, 0, Vector2(0.44303796, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_kxxxg"]
 curve = SubResource("Curve_2rdms")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0ctjq"]
+lifetime_randomness = 0.5
 emission_shape_offset = Vector3(0, 1, 0)
 emission_shape = 1
 emission_sphere_radius = 3.0
 inherit_velocity_ratio = 1.0
 direction = Vector3(0, 1, 0)
 spread = 80.0
-initial_velocity_min = 0.5
-initial_velocity_max = 3.0
+initial_velocity_min = 1.0
+initial_velocity_max = 8.0
 gravity = Vector3(0, 0, 0)
+damping_min = 0.6
+damping_max = 2.0
 scale_curve = SubResource("CurveTexture_kxxxg")
+color_ramp = SubResource("GradientTexture1D_s7x32")
+alpha_curve = SubResource("CurveTexture_qq2rn")
+emission_curve = SubResource("CurveTexture_s7x32")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2rdms"]
+transparency = 1
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.30588236, 0.21568628, 0.19607843, 1)
 
@@ -84,9 +113,10 @@ draw_pass_1 = SubResource("RibbonTrailMesh_yqi55")
 [node name="Smoke" type="GPUParticles3D" parent="." unique_id=287406601]
 emitting = false
 amount = 16
-lifetime = 8.0
+lifetime = 10.0
 one_shot = true
 explosiveness = 1.0
+randomness = 0.4
 process_material = SubResource("ParticleProcessMaterial_0ctjq")
 draw_pass_1 = SubResource("SphereMesh_iiaxr")
 
